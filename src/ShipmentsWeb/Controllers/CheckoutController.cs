@@ -26,7 +26,9 @@ namespace ShipmentsWeb.Controllers
             lane = string.IsNullOrWhiteSpace(lane) ? "DXB-AMM" : lane;
             if (weightKg <= 0) weightKg = 5;
 
-            Log.InfoFormat("Checkout start trackingId={0} lane={1} weight={2}", trackingId, lane, weightKg);
+            var tx = Elastic.Apm.Agent.Tracer?.CurrentTransaction;
+            Log.InfoFormat("Checkout start trackingId={0} lane={1} weight={2} trace.id={3} transaction.id={4}",
+                trackingId, lane, weightKg, tx?.TraceId, tx?.Id);
 
             var quote = await _shipments.CreateQuoteAsync(trackingId, lane, weightKg).ConfigureAwait(false);
             var viaHttpClient = await _tracking.GetStatusHttpClientAsync(trackingId).ConfigureAwait(false);
@@ -35,7 +37,9 @@ namespace ShipmentsWeb.Controllers
             ViewBag.Quote = quote;
             ViewBag.HttpClientStatus = viaHttpClient;
             ViewBag.WebRequestStatus = viaWebRequest;
-            Log.InfoFormat("Checkout done price={0} chain={1}", quote.Price, quote.ChainToken);
+            tx = Elastic.Apm.Agent.Tracer?.CurrentTransaction;
+            Log.InfoFormat("Checkout done price={0} chain={1} trace.id={2} transaction.id={3}",
+                quote.Price, quote.ChainToken, tx?.TraceId, tx?.Id);
             return View();
         }
     }

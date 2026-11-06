@@ -1,10 +1,8 @@
 using System;
 using System.Threading.Tasks;
-using Contoso.Observability;
 
 namespace Contoso.Shipments.Business
 {
-    [Trace]
     public class ShipmentService
     {
         private readonly ShipmentRepository _repository;

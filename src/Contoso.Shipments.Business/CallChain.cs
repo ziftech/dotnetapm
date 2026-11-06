@@ -1,11 +1,9 @@
 using System;
-using Contoso.Observability;
 
 namespace Contoso.Shipments.Business
 {
     /// <summary>Deep internal call chain (10+ frames) for stack-trace demos.
     /// Broad weave: public steps produce many short app spans (span-budget demo).</summary>
-    [Trace]
     public static class CallChain
     {
         public static string RunDeep(string trackingId)

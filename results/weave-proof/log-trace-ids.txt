@@ -1,0 +1,21 @@
+
+C:\lab\logs\tracking-api.log:12516:2026-11-06 
+14:25:02.0244|INFO|TrackingApi.Controllers.TrackingController|trace.id=|transaction.id=|GET tracking id=boom n=63 
+trace.id=f5a295eaf5984381d47154736b3e9359 transaction.id=850e20977a74c4c8 activity.trace.id=
+C:\lab\logs\tracking-api.log:12517:2026-11-06 
+14:25:02.0795|INFO|TrackingApi.Controllers.TrackingController|trace.id=|transaction.id=|GET tracking id=boom n=64 
+trace.id=a9f324dfd5539750de01a0c46a54af76 transaction.id=dbb2df9cd347ebeb activity.trace.id=
+C:\lab\logs\tracking-api.log:12518:2026-11-06 
+14:25:02.1274|INFO|TrackingApi.Controllers.TrackingController|trace.id=|transaction.id=|GET tracking id=boom n=65 
+trace.id=3dc17d9778ed630293f29e1ea89acef4 transaction.id=bf582f6b3151a566 activity.trace.id=
+C:\lab\logs\tracking-api.log:12519:2026-11-06 
+14:25:02.1899|INFO|TrackingApi.Controllers.TrackingController|trace.id=|transaction.id=|GET tracking id=boom n=66 
+trace.id=3ae26b98ba5de0870368c1832bce092f transaction.id=83fd3644254ff3a1 activity.trace.id=
+C:\lab\logs\tracking-api.log:12520:2026-11-06 
+14:25:02.2524|INFO|TrackingApi.Controllers.TrackingController|trace.id=|transaction.id=|GET tracking id=boom n=67 
+trace.id=f6dcd5b6d8a96d248377a1c8b3356c13 transaction.id=160a254646640d9c activity.trace.id=
+C:\lab\logs\tracking-api.log:12521:2026-11-06 
+14:25:02.3075|INFO|TrackingApi.Controllers.TrackingController|trace.id=|transaction.id=|GET tracking id=boom n=68 
+trace.id=46a781861753caf88994131d4d324358 transaction.id=20f07607c99dff8b activity.trace.id=
+
+

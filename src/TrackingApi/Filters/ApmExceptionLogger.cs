@@ -1,11 +1,11 @@
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.ExceptionHandling;
-using Elastic.Apm;
+using Contoso.Observability;
 
 namespace TrackingApi.Filters
 {
-    /// <summary>S1: capture Web API exceptions (including handled filter path) into APM.</summary>
+    /// <summary>Capture Web API exceptions into the active Contoso trace backend (Elastic APM when profiler is on).</summary>
     public sealed class ApmExceptionLogger : ExceptionLogger
     {
         public override void Log(ExceptionLoggerContext context)
@@ -24,8 +24,7 @@ namespace TrackingApi.Filters
             if (context?.Exception == null) return;
             try
             {
-                Agent.Tracer?.CurrentTransaction?.CaptureException(context.Exception);
-                Agent.Tracer?.CurrentSpan?.CaptureException(context.Exception);
+                TraceBackends.Current.CaptureException(context.Exception);
             }
             catch
             {

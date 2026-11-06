@@ -87,8 +87,7 @@
     </Reference>
     <Reference Include="Elastic.Apm.AspNetFullFramework">
       <HintPath>..\..\packages\Elastic.Apm.AspNetFullFramework.1.34.7\lib\net462\Elastic.Apm.AspNetFullFramework.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+    </Reference>  </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />

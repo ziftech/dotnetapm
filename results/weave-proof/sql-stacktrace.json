@@ -1,0 +1,594 @@
+{
+  "took": 2,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 33,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": [
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "gLc8saEBMViun3ketLTy",
+        "_score": null,
+        "_source": {
+          "trace": {
+            "id": "51192d9208c04c1b1f723301a8f21ea6"
+          },
+          "@timestamp": "2026-11-06T14:21:38.878834000Z",
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "span": {
+            "duration": {
+              "us": 2019011
+            },
+            "stacktrace": [
+              {
+                "exclude_from_grouping": false,
+                "abs_path": "/home/runner/work/apm-agent-dotnet/apm-agent-dotnet/src/Elastic.Apm/Model/Span.cs",
+                "filename": "/home/runner/work/apm-agent-dotnet/apm-agent-dotnet/src/Elastic.Apm/Model/Span.cs",
+                "classname": "Elastic.Apm.Model.Span",
+                "line": {
+                  "number": 511
+                },
+                "function": "End",
+                "module": "Elastic.Apm, Version=1.34.0.0, Culture=neutral, PublicKeyToken=ae7400d2c189cf22"
+              },
+              {
+                "exclude_from_grouping": false,
+                "abs_path": "/home/runner/work/apm-agent-dotnet/apm-agent-dotnet/src/Elastic.Apm/Model/DbSpanCommon.cs",
+                "filename": "/home/runner/work/apm-agent-dotnet/apm-agent-dotnet/src/Elastic.Apm/Model/DbSpanCommon.cs",
+                "classname": "Elastic.Apm.Model.DbSpanCommon",
+                "line": {
+                  "number": 79
+                },
+                "function": "EndSpan",
+                "module": "Elastic.Apm, Version=1.34.0.0, Culture=neutral, PublicKeyToken=ae7400d2c189cf22"
+              },
+              {
+                "exclude_from_grouping": false,
+                "abs_path": "D:\\a\\apm-agent-dotnet\\apm-agent-dotnet\\src\\profiler\\Elastic.Apm.Profiler.Managed\\Integrations\\AdoNet\\DbSpanFactory.cs",
+                "filename": "D:\\a\\apm-agent-dotnet\\apm-agent-dotnet\\src\\profiler\\Elastic.Apm.Profiler.Managed\\Integrations\\AdoNet\\DbSpanFactory.cs",
+                "classname": "Elastic.Apm.Profiler.Managed.Integrations.AdoNet.DbSpanFactory`1",
+                "line": {
+                  "number": 58
+                },
+                "function": "EndSpan",
+                "module": "Elastic.Apm.Profiler.Managed, Version=1.34.0.0, Culture=neutral, PublicKeyToken=ae7400d2c189cf22"
+              },
+              {
+                "exclude_from_grouping": false,
+                "abs_path": "D:\\a\\apm-agent-dotnet\\apm-agent-dotnet\\src\\profiler\\Elastic.Apm.Profiler.Managed\\Integrations\\AdoNet\\CommandExecuteNonQueryIntegration.cs",
+                "filename": "D:\\a\\apm-agent-dotnet\\apm-agent-dotnet\\src\\profiler\\Elastic.Apm.Profiler.Managed\\Integrations\\AdoNet\\CommandExecuteNonQueryIntegration.cs",
+                "classname": "Elastic.Apm.Profiler.Managed.Integrations.AdoNet.CommandExecuteNonQueryIntegration",
+                "line": {
+                  "number": 61
+                },
+                "function": "OnMethodEnd",
+                "module": "Elastic.Apm.Profiler.Managed, Version=1.34.0.0, Culture=neutral, PublicKeyToken=ae7400d2c189cf22"
+              },
+              {
+                "exclude_from_grouping": false,
+                "filename": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\mscorlib.dll",
+                "classname": "N/A",
+                "line": {
+                  "number": 0
+                },
+                "function": "CommandExecuteNonQueryIntegration.OnMethodEnd.SqlCommand.Int32"
+              },
+              {
+                "exclude_from_grouping": false,
+                "filename": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\mscorlib.dll",
+                "classname": "System.Data.SqlClient.SqlCommand",
+                "line": {
+                  "number": 0
+                },
+                "function": "ExecuteNonQuery",
+                "module": "System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+              },
+              {
+                "exclude_from_grouping": false,
+                "filename": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\mscorlib.dll",
+                "classname": "Contoso.Shipments.Business.ShipmentRepository",
+                "line": {
+                  "number": 0
+                },
+                "function": "EnsureSchema",
+                "module": "Contoso.Shipments.Business, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+              },
+              {
+                "exclude_from_grouping": false,
+                "filename": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\mscorlib.dll",
+                "classname": "Contoso.Shipments.Business.ShipmentRepository",
+                "line": {
+                  "number": 0
+                },
+                "function": "UpsertSample",
+                "module": "Contoso.Shipments.Business, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+              },
+              {
+                "exclude_from_grouping": false,
+                "filename": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\mscorlib.dll",
+                "classname": "System.Threading.ThreadPoolWorkQueue",
+                "line": {
+                  "number": 0
+                },
+                "function": "Dispatch",
+                "module": "mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+              }
+            ],
+            "name": "IF",
+            "db": {
+              "statement": "\nIF OBJECT_ID('dbo.Shipments') IS NULL\nBEGIN\n  CREATE TABLE dbo.Shipments (\n    TrackingId NVARCHAR(64) NOT NULL PRIMARY KEY,\n    Lane NVARCHAR(64) NOT NULL,\n    WeightKg INT NOT NULL,\n    Status NVARCHAR(32) NOT NULL,\n    CreatedUtc DATETIME2 NOT NULL\n  );\nEND"
+            }
+          }
+        },
+        "sort": [
+          1793974898878
+        ]
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "erc8saEBMViun3ketLTy",
+        "_score": null,
+        "_source": {
+          "trace": {
+            "id": "2cbc55de2bd1405c126fe86bd1de8685"
+          },
+          "@timestamp": "2026-11-06T14:21:34.726120000Z",
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "span": {
+            "duration": {
+              "us": 2016094
+            },
+            "stacktrace": [
+              {
+                "exclude_from_grouping": false,
+                "abs_path": "/home/runner/work/apm-agent-dotnet/apm-agent-dotnet/src/Elastic.Apm/Model/Span.cs",
+                "filename": "/home/runner/work/apm-agent-dotnet/apm-agent-dotnet/src/Elastic.Apm/Model/Span.cs",
+                "classname": "Elastic.Apm.Model.Span",
+                "line": {
+                  "number": 511
+                },
+                "function": "End",
+                "module": "Elastic.Apm, Version=1.34.0.0, Culture=neutral, PublicKeyToken=ae7400d2c189cf22"
+              },
+              {
+                "exclude_from_grouping": false,
+                "abs_path": "/home/runner/work/apm-agent-dotnet/apm-agent-dotnet/src/Elastic.Apm/Model/DbSpanCommon.cs",
+                "filename": "/home/runner/work/apm-agent-dotnet/apm-agent-dotnet/src/Elastic.Apm/Model/DbSpanCommon.cs",
+                "classname": "Elastic.Apm.Model.DbSpanCommon",
+                "line": {
+                  "number": 79
+                },
+                "function": "EndSpan",
+                "module": "Elastic.Apm, Version=1.34.0.0, Culture=neutral, PublicKeyToken=ae7400d2c189cf22"
+              },
+              {
+                "exclude_from_grouping": false,
+                "abs_path": "D:\\a\\apm-agent-dotnet\\apm-agent-dotnet\\src\\profiler\\Elastic.Apm.Profiler.Managed\\Integrations\\AdoNet\\DbSpanFactory.cs",
+                "filename": "D:\\a\\apm-agent-dotnet\\apm-agent-dotnet\\src\\profiler\\Elastic.Apm.Profiler.Managed\\Integrations\\AdoNet\\DbSpanFactory.cs",
+                "classname": "Elastic.Apm.Profiler.Managed.Integrations.AdoNet.DbSpanFactory`1",
+                "line": {
+                  "number": 58
+                },
+                "function": "EndSpan",
+                "module": "Elastic.Apm.Profiler.Managed, Version=1.34.0.0, Culture=neutral, PublicKeyToken=ae7400d2c189cf22"
+              },
+              {
+                "exclude_from_grouping": false,
+                "abs_path": "D:\\a\\apm-agent-dotnet\\apm-agent-dotnet\\src\\profiler\\Elastic.Apm.Profiler.Managed\\Integrations\\AdoNet\\CommandExecuteNonQueryIntegration.cs",
+                "filename": "D:\\a\\apm-agent-dotnet\\apm-agent-dotnet\\src\\profiler\\Elastic.Apm.Profiler.Managed\\Integrations\\AdoNet\\CommandExecuteNonQueryIntegration.cs",
+                "classname": "Elastic.Apm.Profiler.Managed.Integrations.AdoNet.CommandExecuteNonQueryIntegration",
+                "line": {
+                  "number": 61
+                },
+                "function": "OnMethodEnd",
+                "module": "Elastic.Apm.Profiler.Managed, Version=1.34.0.0, Culture=neutral, PublicKeyToken=ae7400d2c189cf22"
+              },
+              {
+                "exclude_from_grouping": false,
+                "filename": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\mscorlib.dll",
+                "classname": "N/A",
+                "line": {
+                  "number": 0
+                },
+                "function": "CommandExecuteNonQueryIntegration.OnMethodEnd.SqlCommand.Int32"
+              },
+              {
+                "exclude_from_grouping": false,
+                "filename": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\mscorlib.dll",
+                "classname": "System.Data.SqlClient.SqlCommand",
+                "line": {
+                  "number": 0
+                },
+                "function": "ExecuteNonQuery",
+                "module": "System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+              },
+              {
+                "exclude_from_grouping": false,
+                "filename": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\mscorlib.dll",
+                "classname": "Contoso.Shipments.Business.ShipmentRepository",
+                "line": {
+                  "number": 0
+                },
+                "function": "EnsureSchema",
+                "module": "Contoso.Shipments.Business, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+              },
+              {
+                "exclude_from_grouping": false,
+                "filename": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\mscorlib.dll",
+                "classname": "Contoso.Shipments.Business.ShipmentRepository",
+                "line": {
+                  "number": 0
+                },
+                "function": "UpsertSample",
+                "module": "Contoso.Shipments.Business, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+              },
+              {
+                "exclude_from_grouping": false,
+                "filename": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\mscorlib.dll",
+                "classname": "System.Threading.ThreadPoolWorkQueue",
+                "line": {
+                  "number": 0
+                },
+                "function": "Dispatch",
+                "module": "mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+              }
+            ],
+            "name": "IF",
+            "db": {
+              "statement": "\nIF OBJECT_ID('dbo.Shipments') IS NULL\nBEGIN\n  CREATE TABLE dbo.Shipments (\n    TrackingId NVARCHAR(64) NOT NULL PRIMARY KEY,\n    Lane NVARCHAR(64) NOT NULL,\n    WeightKg INT NOT NULL,\n    Status NVARCHAR(32) NOT NULL,\n    CreatedUtc DATETIME2 NOT NULL\n  );\nEND"
+            }
+          }
+        },
+        "sort": [
+          1793974894726
+        ]
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "e7c8saEBMViun3ketLTy",
+        "_score": null,
+        "_source": {
+          "trace": {
+            "id": "2cbc55de2bd1405c126fe86bd1de8685"
+          },
+          "@timestamp": "2026-11-06T14:21:34.726120000Z",
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "span": {
+            "duration": {
+              "us": 2016094
+            },
+            "stacktrace": [
+              {
+                "exclude_from_grouping": false,
+                "abs_path": "/home/runner/work/apm-agent-dotnet/apm-agent-dotnet/src/Elastic.Apm/Model/Span.cs",
+                "filename": "/home/runner/work/apm-agent-dotnet/apm-agent-dotnet/src/Elastic.Apm/Model/Span.cs",
+                "classname": "Elastic.Apm.Model.Span",
+                "line": {
+                  "number": 511
+                },
+                "function": "End",
+                "module": "Elastic.Apm, Version=1.34.0.0, Culture=neutral, PublicKeyToken=ae7400d2c189cf22"
+              },
+              {
+                "exclude_from_grouping": false,
+                "abs_path": "/home/runner/work/apm-agent-dotnet/apm-agent-dotnet/src/Elastic.Apm/Model/DbSpanCommon.cs",
+                "filename": "/home/runner/work/apm-agent-dotnet/apm-agent-dotnet/src/Elastic.Apm/Model/DbSpanCommon.cs",
+                "classname": "Elastic.Apm.Model.DbSpanCommon",
+                "line": {
+                  "number": 79
+                },
+                "function": "EndSpan",
+                "module": "Elastic.Apm, Version=1.34.0.0, Culture=neutral, PublicKeyToken=ae7400d2c189cf22"
+              },
+              {
+                "exclude_from_grouping": false,
+                "abs_path": "D:\\a\\apm-agent-dotnet\\apm-agent-dotnet\\src\\profiler\\Elastic.Apm.Profiler.Managed\\Integrations\\AdoNet\\DbSpanFactory.cs",
+                "filename": "D:\\a\\apm-agent-dotnet\\apm-agent-dotnet\\src\\profiler\\Elastic.Apm.Profiler.Managed\\Integrations\\AdoNet\\DbSpanFactory.cs",
+                "classname": "Elastic.Apm.Profiler.Managed.Integrations.AdoNet.DbSpanFactory`1",
+                "line": {
+                  "number": 58
+                },
+                "function": "EndSpan",
+                "module": "Elastic.Apm.Profiler.Managed, Version=1.34.0.0, Culture=neutral, PublicKeyToken=ae7400d2c189cf22"
+              },
+              {
+                "exclude_from_grouping": false,
+                "abs_path": "D:\\a\\apm-agent-dotnet\\apm-agent-dotnet\\src\\profiler\\Elastic.Apm.Profiler.Managed\\Integrations\\AdoNet\\CommandExecuteScalarIntegration.cs",
+                "filename": "D:\\a\\apm-agent-dotnet\\apm-agent-dotnet\\src\\profiler\\Elastic.Apm.Profiler.Managed\\Integrations\\AdoNet\\CommandExecuteScalarIntegration.cs",
+                "classname": "Elastic.Apm.Profiler.Managed.Integrations.AdoNet.CommandExecuteScalarIntegration",
+                "line": {
+                  "number": 61
+                },
+                "function": "OnMethodEnd",
+                "module": "Elastic.Apm.Profiler.Managed, Version=1.34.0.0, Culture=neutral, PublicKeyToken=ae7400d2c189cf22"
+              },
+              {
+                "exclude_from_grouping": false,
+                "filename": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\mscorlib.dll",
+                "classname": "N/A",
+                "line": {
+                  "number": 0
+                },
+                "function": "CommandExecuteScalarIntegration.OnMethodEnd.SqlCommand.Object"
+              },
+              {
+                "exclude_from_grouping": false,
+                "filename": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\mscorlib.dll",
+                "classname": "System.Data.SqlClient.SqlCommand",
+                "line": {
+                  "number": 0
+                },
+                "function": "ExecuteScalar",
+                "module": "System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+              },
+              {
+                "exclude_from_grouping": false,
+                "filename": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\mscorlib.dll",
+                "classname": "Contoso.Shipments.Business.ShipmentRepository",
+                "line": {
+                  "number": 0
+                },
+                "function": "RunSlowQuery",
+                "module": "Contoso.Shipments.Business, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+              },
+              {
+                "exclude_from_grouping": false,
+                "filename": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\mscorlib.dll",
+                "classname": "System.Threading.ThreadPoolWorkQueue",
+                "line": {
+                  "number": 0
+                },
+                "function": "Dispatch",
+                "module": "mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+              }
+            ],
+            "name": "WAITFOR",
+            "db": {
+              "statement": "WAITFOR DELAY '00:00:02'; SELECT 1 AS Ok;"
+            }
+          }
+        },
+        "sort": [
+          1793974894726
+        ]
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "frc8saEBMViun3ketLTy",
+        "_score": null,
+        "_source": {
+          "trace": {
+            "id": "2cbc55de2bd1405c126fe86bd1de8685"
+          },
+          "@timestamp": "2026-11-06T14:21:34.726120000Z",
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "span": {
+            "duration": {
+              "us": 2016094
+            },
+            "stacktrace": [
+              {
+                "exclude_from_grouping": false,
+                "abs_path": "/home/runner/work/apm-agent-dotnet/apm-agent-dotnet/src/Elastic.Apm/Model/Span.cs",
+                "filename": "/home/runner/work/apm-agent-dotnet/apm-agent-dotnet/src/Elastic.Apm/Model/Span.cs",
+                "classname": "Elastic.Apm.Model.Span",
+                "line": {
+                  "number": 511
+                },
+                "function": "End",
+                "module": "Elastic.Apm, Version=1.34.0.0, Culture=neutral, PublicKeyToken=ae7400d2c189cf22"
+              },
+              {
+                "exclude_from_grouping": false,
+                "abs_path": "/home/runner/work/apm-agent-dotnet/apm-agent-dotnet/src/Elastic.Apm/Model/DbSpanCommon.cs",
+                "filename": "/home/runner/work/apm-agent-dotnet/apm-agent-dotnet/src/Elastic.Apm/Model/DbSpanCommon.cs",
+                "classname": "Elastic.Apm.Model.DbSpanCommon",
+                "line": {
+                  "number": 79
+                },
+                "function": "EndSpan",
+                "module": "Elastic.Apm, Version=1.34.0.0, Culture=neutral, PublicKeyToken=ae7400d2c189cf22"
+              },
+              {
+                "exclude_from_grouping": false,
+                "abs_path": "D:\\a\\apm-agent-dotnet\\apm-agent-dotnet\\src\\profiler\\Elastic.Apm.Profiler.Managed\\Integrations\\AdoNet\\DbSpanFactory.cs",
+                "filename": "D:\\a\\apm-agent-dotnet\\apm-agent-dotnet\\src\\profiler\\Elastic.Apm.Profiler.Managed\\Integrations\\AdoNet\\DbSpanFactory.cs",
+                "classname": "Elastic.Apm.Profiler.Managed.Integrations.AdoNet.DbSpanFactory`1",
+                "line": {
+                  "number": 58
+                },
+                "function": "EndSpan",
+                "module": "Elastic.Apm.Profiler.Managed, Version=1.34.0.0, Culture=neutral, PublicKeyToken=ae7400d2c189cf22"
+              },
+              {
+                "exclude_from_grouping": false,
+                "abs_path": "D:\\a\\apm-agent-dotnet\\apm-agent-dotnet\\src\\profiler\\Elastic.Apm.Profiler.Managed\\Integrations\\AdoNet\\CommandExecuteScalarIntegration.cs",
+                "filename": "D:\\a\\apm-agent-dotnet\\apm-agent-dotnet\\src\\profiler\\Elastic.Apm.Profiler.Managed\\Integrations\\AdoNet\\CommandExecuteScalarIntegration.cs",
+                "classname": "Elastic.Apm.Profiler.Managed.Integrations.AdoNet.CommandExecuteScalarIntegration",
+                "line": {
+                  "number": 61
+                },
+                "function": "OnMethodEnd",
+                "module": "Elastic.Apm.Profiler.Managed, Version=1.34.0.0, Culture=neutral, PublicKeyToken=ae7400d2c189cf22"
+              },
+              {
+                "exclude_from_grouping": false,
+                "filename": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\mscorlib.dll",
+                "classname": "N/A",
+                "line": {
+                  "number": 0
+                },
+                "function": "CommandExecuteScalarIntegration.OnMethodEnd.SqlCommand.Object"
+              },
+              {
+                "exclude_from_grouping": false,
+                "filename": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\mscorlib.dll",
+                "classname": "System.Data.SqlClient.SqlCommand",
+                "line": {
+                  "number": 0
+                },
+                "function": "ExecuteScalar",
+                "module": "System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+              },
+              {
+                "exclude_from_grouping": false,
+                "filename": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\mscorlib.dll",
+                "classname": "Contoso.Shipments.Business.ShipmentRepository",
+                "line": {
+                  "number": 0
+                },
+                "function": "RunSlowQuery",
+                "module": "Contoso.Shipments.Business, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+              },
+              {
+                "exclude_from_grouping": false,
+                "filename": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\mscorlib.dll",
+                "classname": "System.Threading.ThreadPoolWorkQueue",
+                "line": {
+                  "number": 0
+                },
+                "function": "Dispatch",
+                "module": "mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+              }
+            ],
+            "name": "WAITFOR",
+            "db": {
+              "statement": "WAITFOR DELAY '00:00:02'; SELECT 1 AS Ok;"
+            }
+          }
+        },
+        "sort": [
+          1793974894726
+        ]
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "Nbc8saEBMViun3kefbQx",
+        "_score": null,
+        "_source": {
+          "trace": {
+            "id": "6509847d1c48e6fa68d0d29f862c1547"
+          },
+          "@timestamp": "2026-11-06T14:21:30.588573000Z",
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "span": {
+            "duration": {
+              "us": 2010198
+            },
+            "stacktrace": [
+              {
+                "exclude_from_grouping": false,
+                "abs_path": "/home/runner/work/apm-agent-dotnet/apm-agent-dotnet/src/Elastic.Apm/Model/Span.cs",
+                "filename": "/home/runner/work/apm-agent-dotnet/apm-agent-dotnet/src/Elastic.Apm/Model/Span.cs",
+                "classname": "Elastic.Apm.Model.Span",
+                "line": {
+                  "number": 511
+                },
+                "function": "End",
+                "module": "Elastic.Apm, Version=1.34.0.0, Culture=neutral, PublicKeyToken=ae7400d2c189cf22"
+              },
+              {
+                "exclude_from_grouping": false,
+                "abs_path": "/home/runner/work/apm-agent-dotnet/apm-agent-dotnet/src/Elastic.Apm/Model/DbSpanCommon.cs",
+                "filename": "/home/runner/work/apm-agent-dotnet/apm-agent-dotnet/src/Elastic.Apm/Model/DbSpanCommon.cs",
+                "classname": "Elastic.Apm.Model.DbSpanCommon",
+                "line": {
+                  "number": 79
+                },
+                "function": "EndSpan",
+                "module": "Elastic.Apm, Version=1.34.0.0, Culture=neutral, PublicKeyToken=ae7400d2c189cf22"
+              },
+              {
+                "exclude_from_grouping": false,
+                "abs_path": "D:\\a\\apm-agent-dotnet\\apm-agent-dotnet\\src\\profiler\\Elastic.Apm.Profiler.Managed\\Integrations\\AdoNet\\DbSpanFactory.cs",
+                "filename": "D:\\a\\apm-agent-dotnet\\apm-agent-dotnet\\src\\profiler\\Elastic.Apm.Profiler.Managed\\Integrations\\AdoNet\\DbSpanFactory.cs",
+                "classname": "Elastic.Apm.Profiler.Managed.Integrations.AdoNet.DbSpanFactory`1",
+                "line": {
+                  "number": 58
+                },
+                "function": "EndSpan",
+                "module": "Elastic.Apm.Profiler.Managed, Version=1.34.0.0, Culture=neutral, PublicKeyToken=ae7400d2c189cf22"
+              },
+              {
+                "exclude_from_grouping": false,
+                "abs_path": "D:\\a\\apm-agent-dotnet\\apm-agent-dotnet\\src\\profiler\\Elastic.Apm.Profiler.Managed\\Integrations\\AdoNet\\CommandExecuteScalarIntegration.cs",
+                "filename": "D:\\a\\apm-agent-dotnet\\apm-agent-dotnet\\src\\profiler\\Elastic.Apm.Profiler.Managed\\Integrations\\AdoNet\\CommandExecuteScalarIntegration.cs",
+                "classname": "Elastic.Apm.Profiler.Managed.Integrations.AdoNet.CommandExecuteScalarIntegration",
+                "line": {
+                  "number": 61
+                },
+                "function": "OnMethodEnd",
+                "module": "Elastic.Apm.Profiler.Managed, Version=1.34.0.0, Culture=neutral, PublicKeyToken=ae7400d2c189cf22"
+              },
+              {
+                "exclude_from_grouping": false,
+                "filename": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\mscorlib.dll",
+                "classname": "N/A",
+                "line": {
+                  "number": 0
+                },
+                "function": "CommandExecuteScalarIntegration.OnMethodEnd.SqlCommand.Object"
+              },
+              {
+                "exclude_from_grouping": false,
+                "filename": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\mscorlib.dll",
+                "classname": "System.Data.SqlClient.SqlCommand",
+                "line": {
+                  "number": 0
+                },
+                "function": "ExecuteScalar",
+                "module": "System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+              },
+              {
+                "exclude_from_grouping": false,
+                "filename": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\mscorlib.dll",
+                "classname": "Contoso.Shipments.Business.ShipmentRepository",
+                "line": {
+                  "number": 0
+                },
+                "function": "RunSlowQuery",
+                "module": "Contoso.Shipments.Business, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+              },
+              {
+                "exclude_from_grouping": false,
+                "filename": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\mscorlib.dll",
+                "classname": "System.Threading.ThreadPoolWorkQueue",
+                "line": {
+                  "number": 0
+                },
+                "function": "Dispatch",
+                "module": "mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+              }
+            ],
+            "name": "WAITFOR",
+            "db": {
+              "statement": "WAITFOR DELAY '00:00:02'; SELECT 1 AS Ok;"
+            }
+          }
+        },
+        "sort": [
+          1793974890588
+        ]
+      }
+    ]
+  }
+}

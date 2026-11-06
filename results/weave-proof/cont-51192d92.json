@@ -1,0 +1,229 @@
+{
+  "took": 1,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 12,
+      "relation": "eq"
+    },
+    "max_score": 8.069931,
+    "hits": [
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "-rc8saEBMViun3ke2LWK",
+        "_score": 8.069931,
+        "_source": {
+          "processor": {
+            "event": "span"
+          },
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "span": {
+            "subtype": "mssql",
+            "name": "SELECT FROM Shipments",
+            "type": "db"
+          }
+        }
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "-7c8saEBMViun3ke2LWK",
+        "_score": 8.069931,
+        "_source": {
+          "processor": {
+            "event": "span"
+          },
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "span": {
+            "subtype": "business",
+            "name": "ShipmentService.LookupStatus",
+            "type": "app"
+          }
+        }
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "_Lc8saEBMViun3ke2LWK",
+        "_score": 8.069931,
+        "_source": {
+          "processor": {
+            "event": "transaction"
+          },
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "transaction": {
+            "name": "GET tracking {id}"
+          }
+        }
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "-Lc8saEBMViun3ke2LWK",
+        "_score": 8.069931,
+        "_source": {
+          "processor": {
+            "event": "span"
+          },
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "span": {
+            "subtype": "http",
+            "name": "GET localhost",
+            "type": "external"
+          }
+        }
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "97c8saEBMViun3ke2LWK",
+        "_score": 8.069931,
+        "_source": {
+          "processor": {
+            "event": "span"
+          },
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "span": {
+            "subtype": "http",
+            "name": "GET localhost",
+            "type": "external"
+          }
+        }
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "9Lc8saEBMViun3ke2LWK",
+        "_score": 8.069931,
+        "_source": {
+          "processor": {
+            "event": "span"
+          },
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "span": {
+            "subtype": "mssql",
+            "name": "WAITFOR",
+            "type": "db"
+          }
+        }
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "9rc8saEBMViun3ke2LWK",
+        "_score": 8.069931,
+        "_source": {
+          "processor": {
+            "event": "span"
+          },
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "span": {
+            "subtype": "mssql",
+            "name": "WAITFOR",
+            "type": "db"
+          }
+        }
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "9bc8saEBMViun3ke2LWK",
+        "_score": 8.069931,
+        "_source": {
+          "processor": {
+            "event": "span"
+          },
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "span": {
+            "subtype": "business",
+            "name": "ShipmentService.CreateQuoteAsync",
+            "type": "app"
+          }
+        }
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "-bc8saEBMViun3ke2LWK",
+        "_score": 8.069931,
+        "_source": {
+          "processor": {
+            "event": "transaction"
+          },
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "transaction": {
+            "name": "POST Checkout/Index"
+          }
+        }
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "iLc8saEBMViun3ketLTy",
+        "_score": 8.069931,
+        "_source": {
+          "processor": {
+            "event": "span"
+          },
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "span": {
+            "subtype": "mssql",
+            "name": "IF",
+            "type": "db"
+          }
+        }
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "i7c8saEBMViun3ketLTy",
+        "_score": 8.069931,
+        "_source": {
+          "processor": {
+            "event": "transaction"
+          },
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "transaction": {
+            "name": "GET tracking {id}"
+          }
+        }
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "gLc8saEBMViun3ketLTy",
+        "_score": 8.069931,
+        "_source": {
+          "processor": {
+            "event": "span"
+          },
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "span": {
+            "subtype": "mssql",
+            "name": "IF",
+            "type": "db"
+          }
+        }
+      }
+    ]
+  }
+}

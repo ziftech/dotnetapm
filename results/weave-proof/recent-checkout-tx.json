@@ -1,0 +1,119 @@
+{
+  "took": 3,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 12,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": [
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "-bc8saEBMViun3ke2LWK",
+        "_score": null,
+        "_source": {
+          "trace": {
+            "id": "51192d9208c04c1b1f723301a8f21ea6"
+          },
+          "@timestamp": "2026-11-06T14:21:38.848575000Z",
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "transaction": {
+            "name": "POST Checkout/Index"
+          }
+        },
+        "sort": [
+          1793974898848
+        ]
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "grc8saEBMViun3ketLTy",
+        "_score": null,
+        "_source": {
+          "trace": {
+            "id": "2cbc55de2bd1405c126fe86bd1de8685"
+          },
+          "@timestamp": "2026-11-06T14:21:34.694423000Z",
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "transaction": {
+            "name": "POST Checkout/Index"
+          }
+        },
+        "sort": [
+          1793974894694
+        ]
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "gbc8saEBMViun3ketLTy",
+        "_score": null,
+        "_source": {
+          "trace": {
+            "id": "6509847d1c48e6fa68d0d29f862c1547"
+          },
+          "@timestamp": "2026-11-06T14:21:30.554905000Z",
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "transaction": {
+            "name": "POST Checkout/Index"
+          }
+        },
+        "sort": [
+          1793974890554
+        ]
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "Obc8saEBMViun3kefbQx",
+        "_score": null,
+        "_source": {
+          "trace": {
+            "id": "cb3b2a980b2d6f3aee0692138fbbcc21"
+          },
+          "@timestamp": "2026-11-06T14:21:26.415442000Z",
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "transaction": {
+            "name": "POST Checkout/Index"
+          }
+        },
+        "sort": [
+          1793974886415
+        ]
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "Erc8saEBMViun3kefbQx",
+        "_score": null,
+        "_source": {
+          "trace": {
+            "id": "8dc79b07d538b9398d4076bef3f960cb"
+          },
+          "@timestamp": "2026-11-06T14:21:22.250476000Z",
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "transaction": {
+            "name": "POST Checkout/Index"
+          }
+        },
+        "sort": [
+          1793974882250
+        ]
+      }
+    ]
+  }
+}

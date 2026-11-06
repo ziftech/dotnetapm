@@ -54,7 +54,6 @@
     <Compile Include="ElasticApmTraceBackend.cs" />
     <Compile Include="ActivitySourceTraceBackend.cs" />
     <Compile Include="TraceAspect.cs" />
-    <Compile Include="DisableWeavingAttribute.cs" />
     <Compile Include="TraceScope.cs" />
   </ItemGroup>
   <ItemGroup>

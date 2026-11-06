@@ -1,0 +1,42 @@
+{
+  "took": 2,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": [
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "87czsaEBMViun3ke7WJo",
+        "_score": null,
+        "_source": {
+          "trace": {
+            "id": "e5a2f739115d3567d5887a6560c2d7a0"
+          },
+          "@timestamp": "2026-11-06T14:12:02.363845000Z",
+          "service": {
+            "name": "ShipmentsWeb"
+          },
+          "span": {
+            "duration": {
+              "us": 2753769
+            },
+            "name": "ShipmentService.CreateQuoteAsync"
+          }
+        },
+        "sort": [
+          1793974322363
+        ]
+      }
+    ]
+  }
+}

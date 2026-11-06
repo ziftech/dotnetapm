@@ -1,0 +1,265 @@
+{
+  "took": 1,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 14,
+      "relation": "eq"
+    },
+    "max_score": 7.9215107,
+    "hits": [
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "hrc8saEBMViun3ketLTy",
+        "_score": 7.9215107,
+        "_source": {
+          "processor": {
+            "event": "span"
+          },
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "span": {
+            "subtype": "mssql",
+            "name": "SELECT FROM Shipments",
+            "type": "db"
+          }
+        }
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "hbc8saEBMViun3ketLTy",
+        "_score": 7.9215107,
+        "_source": {
+          "processor": {
+            "event": "span"
+          },
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "span": {
+            "subtype": "mssql",
+            "name": "IF",
+            "type": "db"
+          }
+        }
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "h7c8saEBMViun3ketLTy",
+        "_score": 7.9215107,
+        "_source": {
+          "processor": {
+            "event": "span"
+          },
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "span": {
+            "subtype": "business",
+            "name": "ShipmentService.LookupStatus",
+            "type": "app"
+          }
+        }
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "irc8saEBMViun3ketLTy",
+        "_score": 7.9215107,
+        "_source": {
+          "processor": {
+            "event": "transaction"
+          },
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "transaction": {
+            "name": "GET tracking {id}"
+          }
+        }
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "f7c8saEBMViun3ketLTy",
+        "_score": 7.9215107,
+        "_source": {
+          "processor": {
+            "event": "span"
+          },
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "span": {
+            "subtype": "http",
+            "name": "GET localhost",
+            "type": "external"
+          }
+        }
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "g7c8saEBMViun3ketLTy",
+        "_score": 7.9215107,
+        "_source": {
+          "processor": {
+            "event": "span"
+          },
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "span": {
+            "subtype": "business",
+            "name": "ShipmentService.LookupStatus",
+            "type": "app"
+          }
+        }
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "hLc8saEBMViun3ketLTy",
+        "_score": 7.9215107,
+        "_source": {
+          "processor": {
+            "event": "span"
+          },
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "span": {
+            "subtype": "mssql",
+            "name": "IF",
+            "type": "db"
+          }
+        }
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "fbc8saEBMViun3ketLTy",
+        "_score": 7.9215107,
+        "_source": {
+          "processor": {
+            "event": "span"
+          },
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "span": {
+            "subtype": "http",
+            "name": "GET localhost",
+            "type": "external"
+          }
+        }
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "ibc8saEBMViun3ketLTy",
+        "_score": 7.9215107,
+        "_source": {
+          "processor": {
+            "event": "transaction"
+          },
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "transaction": {
+            "name": "GET tracking {id}"
+          }
+        }
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "erc8saEBMViun3ketLTy",
+        "_score": 7.9215107,
+        "_source": {
+          "processor": {
+            "event": "span"
+          },
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "span": {
+            "subtype": "mssql",
+            "name": "IF",
+            "type": "db"
+          }
+        }
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "e7c8saEBMViun3ketLTy",
+        "_score": 7.9215107,
+        "_source": {
+          "processor": {
+            "event": "span"
+          },
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "span": {
+            "subtype": "mssql",
+            "name": "WAITFOR",
+            "type": "db"
+          }
+        }
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "frc8saEBMViun3ketLTy",
+        "_score": 7.9215107,
+        "_source": {
+          "processor": {
+            "event": "span"
+          },
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "span": {
+            "subtype": "mssql",
+            "name": "WAITFOR",
+            "type": "db"
+          }
+        }
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "fLc8saEBMViun3ketLTy",
+        "_score": 7.9215107,
+        "_source": {
+          "processor": {
+            "event": "span"
+          },
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "span": {
+            "subtype": "business",
+            "name": "ShipmentService.CreateQuoteAsync",
+            "type": "app"
+          }
+        }
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "grc8saEBMViun3ketLTy",
+        "_score": 7.9215107,
+        "_source": {
+          "processor": {
+            "event": "transaction"
+          },
+          "service": {
+            "name": "Shipments_SharedPool"
+          },
+          "transaction": {
+            "name": "POST Checkout/Index"
+          }
+        }
+      }
+    ]
+  }
+}

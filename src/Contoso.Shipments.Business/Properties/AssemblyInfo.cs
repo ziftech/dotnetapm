@@ -1,4 +1,6 @@
 using System.Reflection;
+using Contoso.Observability;
+using MethodBoundaryAspect.Fody.Attributes;
 
 [assembly: AssemblyTitle("Contoso.Shipments.Business")]
 [assembly: AssemblyDescription("Synthetic Contoso shipments business library for APM lab")]
@@ -11,5 +13,15 @@ using System.Reflection;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
-// S2 narrow: weave public methods on *Service types in Contoso.Shipments.* (class-level Trace below is the reliable Fody path).
-// Broad variant additionally applies [Trace] on PricingCalculator / CallChain / ShipmentRepository.
+// WEAVE_MODE markers — scripts/Set-WeaveMode.ps1 rewrites the Trace lines below.
+// NARROW (default): public methods on *Service types only.
+// BROAD: also PricingCalculator / CallChain / ShipmentRepository.
+// NONE: no Trace attribute (plus optional [assembly: DisableWeaving] for B0).
+
+// BEGIN_WEAVE
+[assembly: Trace(
+    NamespaceFilter = @"^Contoso\.Shipments",
+    TypeNameFilter = @"Service$",
+    MethodNameFilter = @"^(?!MoveNext$|SetStateMachine$).+",
+    AttributeTargetMemberAttributes = MulticastAttributes.Public)]
+// END_WEAVE

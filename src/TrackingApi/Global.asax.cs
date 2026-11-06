@@ -18,24 +18,32 @@ namespace TrackingApi
 
         protected void Application_Start()
         {
-            // Fody aspects emit ActivitySource spans for Contoso business methods.
-            TraceBackends.Current = new ActivitySourceTraceBackend();
-
-            // Explicit AspNet + SqlClient registration: assembly scanning alone did not
-            // produce SERVER spans for this ASP.NET Framework Web API on first deploy.
-            _sdk = OpenTelemetrySdk.Create(builder => builder
-                .WithElasticDefaults()
-                .ConfigureResource(r => r.AddService(
-                    serviceName: Environment.GetEnvironmentVariable("OTEL_SERVICE_NAME") ?? "TrackingApi-EDOT",
-                    serviceVersion: "s5-edot"))
-                .WithTracing(t => t
-                    .AddAspNetInstrumentation()
-                    .AddSqlClientInstrumentation()
-                    .AddSource("Contoso.Observability")));
-
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            GlobalConfiguration.Configuration.Services.Add(typeof(IExceptionLogger), new OtelExceptionLogger());
-            Log.Info("TrackingApi started with EDOT OpenTelemetry SDK (explicit AspNet+SqlClient)");
+
+            var otlp = Environment.GetEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT");
+            if (!string.IsNullOrWhiteSpace(otlp))
+            {
+                // S5 EDOT path (TrackingEdotPool). Aspects emit via ActivitySource.
+                TraceBackends.Current = new ActivitySourceTraceBackend();
+                _sdk = OpenTelemetrySdk.Create(builder => builder
+                    .WithElasticDefaults()
+                    .ConfigureResource(r => r.AddService(
+                        serviceName: Environment.GetEnvironmentVariable("OTEL_SERVICE_NAME") ?? "TrackingApi-EDOT",
+                        serviceVersion: "s5-edot"))
+                    .WithTracing(t => t
+                        .AddAspNetInstrumentation()
+                        .AddSqlClientInstrumentation()
+                        .AddSource("Contoso.Observability")));
+                GlobalConfiguration.Configuration.Services.Add(typeof(IExceptionLogger), new OtelExceptionLogger());
+                Log.Info("TrackingApi started with EDOT OpenTelemetry SDK (explicit AspNet+SqlClient)");
+            }
+            else
+            {
+                // Default lab path: Elastic APM profiler / agent on SharedPool.
+                TraceBackends.Current = new ElasticApmTraceBackend();
+                GlobalConfiguration.Configuration.Services.Add(typeof(IExceptionLogger), new ApmExceptionLogger());
+                Log.Info("TrackingApi started with Elastic APM backend (profiler/NuGet)");
+            }
         }
 
         protected void Application_End()
@@ -49,6 +57,7 @@ namespace TrackingApi
             if (ex == null) return;
             try
             {
+                TraceBackends.Current.CaptureException(ex);
                 var activity = System.Diagnostics.Activity.Current;
                 if (activity != null)
                 {
