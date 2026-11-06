@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - Contoso Shipments</title>
+</head>
+<body>
+    <header>
+        <h1>Contoso Shipments</h1>
+        <nav>
+            <a href="@Url.Action("Index", "Home")">Home</a> |
+            <a href="@Url.Action("Index", "Checkout")">Checkout</a>
+        </nav>
+    </header>
+    <main>
+        @RenderBody()
+    </main>
+</body>
+</html>

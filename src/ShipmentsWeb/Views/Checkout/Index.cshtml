@@ -1,0 +1,23 @@
+@{
+    ViewBag.Title = "Checkout";
+    var quote = ViewBag.Quote as Contoso.Shipments.Business.ShipmentQuote;
+}
+<h2>Checkout</h2>
+<form method="post">
+    <label>TrackingId <input name="trackingId" value="CTR-DEMO01" /></label><br />
+    <label>Lane <input name="lane" value="DXB-AMM" /></label><br />
+    <label>WeightKg <input name="weightKg" type="number" value="8" /></label><br />
+    <button type="submit">Create quote</button>
+</form>
+@if (quote != null)
+{
+    <h3>Result</h3>
+    <ul>
+        <li>TrackingId: @quote.TrackingId</li>
+        <li>Price: @quote.Price</li>
+        <li>Chain: @quote.ChainToken</li>
+        <li>HttpClient: @ViewBag.HttpClientStatus</li>
+        <li>HttpWebRequest: @ViewBag.WebRequestStatus</li>
+    </ul>
+}
+<p>Tips: lane=<code>SLOW</code> triggers WAITFOR DELAY; trackingId containing <code>THROW</code> swallows a handled exception.</p>
