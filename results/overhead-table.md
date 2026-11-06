@@ -1,10 +1,12 @@
-# Overhead (measured 90s k6, 4 VUs)
+# Overhead 10m @ 10 req/s (k6 constant-arrival-rate)
 
-| Run | med | p95 | max | fail | throughput |
+| Stage | med | p95 | max | fail_rate | throughput |
 |---|---|---|---|---|---|
-| B0-no-agent | 89.56ms | 144.43ms | 10.63s | 6.52% | 14.904336/s |
-| B1-profiler | 97.73ms | 152.82ms | 5.44s | 6.60% | 15.41791/s |
-| S1 | 57.54ms | 137.91ms | 11.75s | 6.78% | 18.395842/s |
-| S2-repaired | 98.57ms | 151.25ms | 10.12s | 6.59% | 14.751863/s |
+| B0 | 84.31ms | 712.21ms | 60005.46ms | 2.68% | 25.387/s |
+| S1 | 64.70ms | 132.25ms | 7536.92ms | 1.97% | 29.869/s |
+| narrow | 37.31ms | 76.28ms | 364.24ms | 35.29% | 29.995/s |
+| broad | 45.56ms | 120.44ms | 8807.00ms | 1.99% | 29.861/s |
 
-Note: short runs; do not extrapolate. B0 was before agent; S2-repaired is profiler+Fody+per-app names.
+Stages: **B0**=`[assembly: DisableWeaving]` + profiler cleared; **S1**=DisableWeaving + profiler; **narrow**=assembly `Trace` `TypeNameFilter=Service$`; **broad**=Service$ + PricingCalculator/CallChain/ShipmentRepository.
+
+Built-in Fody attribute: `MethodBoundaryAspect.Fody.Attributes.DisableWeavingAttribute`.
