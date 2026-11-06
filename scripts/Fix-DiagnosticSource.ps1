@@ -56,7 +56,8 @@ foreach ($cfg in @('C:\lab\app\ShipmentsWeb\Web.config', 'C:\lab\app\TrackingApi
 }
 
 Import-Module WebAdministration
-Restart-WebAppPool SharedPool
+$state = (Get-WebAppPoolState -Name SharedPool).Value
+if ($state -eq 'Stopped') { Start-WebAppPool SharedPool } else { Restart-WebAppPool SharedPool }
 Start-Sleep 6
 $code = cmd /c "curl -sS -o C:\lab\logs\dsfix.html -w %{http_code} -X POST --data-urlencode trackingId=DSFIX1 --data-urlencode lane=DXB-AMM --data-urlencode weightKg=5 http://127.0.0.1/web/Checkout"
 Write-Output "checkout=$code"

@@ -100,7 +100,7 @@ update_rule "$SLO_RULE_ID" "$(cat <<JSON
   "params": {
     "sloId": "$SLO_ID",
     "windows": [
-      {"id": "1", "burnRateThreshold": 1.0, "maxBurnRateThreshold": 100, "longWindow": {"value": 1, "unit": "h"}, "shortWindow": {"value": 5, "unit": "m"}, "actionGroup": "slo.burnRate.alert"}
+      {"id": "1", "burnRateThreshold": 0.1, "maxBurnRateThreshold": 100, "longWindow": {"value": 5, "unit": "m"}, "shortWindow": {"value": 1, "unit": "m"}, "actionGroup": "slo.burnRate.alert"}
     ]
   },
   "actions": [],

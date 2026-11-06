@@ -1,12 +1,12 @@
 # Overhead 10m @ 10 req/s (k6 constant-arrival-rate)
 
-| Stage | med | p95 | max | fail_rate | throughput |
-|---|---|---|---|---|---|
-| B0 | 84.31ms | 712.21ms | 60005.46ms | 2.68% | 25.387/s |
-| S1 | 64.70ms | 132.25ms | 7536.92ms | 1.97% | 29.869/s |
-| narrow | 37.31ms | 76.28ms | 364.24ms | 35.29% | 29.995/s |
-| broad | 45.56ms | 120.44ms | 8807.00ms | 1.99% | 29.861/s |
+| Stage | med | p95 | max | fail_rate | throughput | checks |
+|---|---|---|---|---|---|---|
+| B0 | 43.26ms | 101.11ms | 8422.42ms | 1.99% | 29.881/s | 100.00% |
+| S1 | 39.99ms | 101.46ms | 5305.93ms | 1.96% | 29.980/s | 100.00% |
+| narrow | 46.84ms | 110.96ms | 4079.65ms | 1.97% | 29.971/s | 100.00% |
+| broad | 40.64ms | 111.15ms | 3224.40ms | 2.01% | 29.995/s | 100.00% |
 
-Stages: **B0**=`[assembly: DisableWeaving]` + profiler cleared; **S1**=DisableWeaving + profiler; **narrow**=assembly `Trace` `TypeNameFilter=Service$`; **broad**=Service$ + PricingCalculator/CallChain/ShipmentRepository.
-
-Built-in Fody attribute: `MethodBoundaryAspect.Fody.Attributes.DisableWeavingAttribute`.
+Stages: B0=DisableWeaving+no profiler; S1=DisableWeaving+profiler; narrow=assembly Trace Service$; broad=Service$+Pricing/CallChain/Repository.
+Gate: checks rate must be >95% for the stage numbers to count.
+Warm-up: Prepare-OverheadStage warms home/tracking/checkout and gates checkout ≥9/10 before k6.
