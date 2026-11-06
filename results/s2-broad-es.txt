@@ -1,0 +1,10 @@
+LABEL=S2-broad QUERY=service_names TOTAL_HITS=7217
+  AGG tx: span:5795, metric:1958, transaction:1259, error:61
+  AGG span_types: app:5629, external:190
+  AGG services: TrackingApi:4730, ShipmentsWeb:4343
+LABEL=S2-broad QUERY=spans_sample TOTAL_HITS=5795
+  SPAN service=TrackingApi name=ShipmentRepository.EnsureSchema type=app
+  SPAN service=ShipmentsWeb name=GET localhost type=external
+  SPAN service=ShipmentsWeb name=GET localhost type=external
+  SPAN service=TrackingApi name=ShipmentRepository.EnsureSchema type=app
+  SPAN service=TrackingApi name=ShipmentRepository.GetShipment type=app

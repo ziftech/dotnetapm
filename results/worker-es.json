@@ -1,0 +1,138 @@
+{
+  "total": {
+    "value": 167,
+    "relation": "eq"
+  },
+  "hits": [
+    {
+      "processor": {
+        "event": "span"
+      },
+      "@timestamp": "2026-11-06T13:01:34.761698000Z",
+      "service": {
+        "environment": "lab"
+      },
+      "span": {
+        "name": "PricingCalculator.InternalSurcharge",
+        "type": "app"
+      }
+    },
+    {
+      "processor": {
+        "event": "span"
+      },
+      "@timestamp": "2026-11-06T13:01:34.761698000Z",
+      "service": {
+        "environment": "lab"
+      },
+      "span": {
+        "name": "PricingCalculator.ApplySurcharge",
+        "type": "app"
+      }
+    },
+    {
+      "processor": {
+        "event": "span"
+      },
+      "@timestamp": "2026-11-06T13:01:34.761698000Z",
+      "service": {
+        "environment": "lab"
+      },
+      "span": {
+        "name": "ShipmentRepository.EnsureSchema",
+        "type": "app"
+      }
+    },
+    {
+      "processor": {
+        "event": "span"
+      },
+      "@timestamp": "2026-11-06T13:01:34.761698000Z",
+      "service": {
+        "environment": "lab"
+      },
+      "span": {
+        "name": "ShipmentRepository.UpsertSample",
+        "type": "app"
+      }
+    },
+    {
+      "processor": {
+        "event": "span"
+      },
+      "@timestamp": "2026-11-06T13:01:34.744023000Z",
+      "service": {
+        "environment": "lab"
+      },
+      "span": {
+        "name": "ShipmentService.MaybeSwallowHandledException",
+        "type": "app"
+      }
+    },
+    {
+      "processor": {
+        "event": "span"
+      },
+      "@timestamp": "2026-11-06T13:01:34.744023000Z",
+      "service": {
+        "environment": "lab"
+      },
+      "span": {
+        "name": "CallChain.Step12",
+        "type": "app"
+      }
+    },
+    {
+      "processor": {
+        "event": "span"
+      },
+      "@timestamp": "2026-11-06T13:01:34.744023000Z",
+      "service": {
+        "environment": "lab"
+      },
+      "span": {
+        "name": "CallChain.Step11",
+        "type": "app"
+      }
+    },
+    {
+      "processor": {
+        "event": "span"
+      },
+      "@timestamp": "2026-11-06T13:01:34.744023000Z",
+      "service": {
+        "environment": "lab"
+      },
+      "span": {
+        "name": "CallChain.Step10",
+        "type": "app"
+      }
+    },
+    {
+      "processor": {
+        "event": "span"
+      },
+      "@timestamp": "2026-11-06T13:01:34.744023000Z",
+      "service": {
+        "environment": "lab"
+      },
+      "span": {
+        "name": "CallChain.Step09",
+        "type": "app"
+      }
+    },
+    {
+      "processor": {
+        "event": "span"
+      },
+      "@timestamp": "2026-11-06T13:01:34.744023000Z",
+      "service": {
+        "environment": "lab"
+      },
+      "span": {
+        "name": "CallChain.Step08",
+        "type": "app"
+      }
+    }
+  ]
+}

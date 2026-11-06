@@ -3,9 +3,11 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
+using Contoso.Observability;
 
 namespace Contoso.Shipments.Business
 {
+    [Trace]
     public class ShipmentRepository
     {
         private readonly string _connectionString;
@@ -50,11 +52,12 @@ namespace Contoso.Shipments.Business
         public void RunSlowQuery(int delaySeconds = 2)
         {
             EnsureSchema();
+            // Use a string literal for WAITFOR DELAY — SqlDbType.Time params are unreliable here.
+            var seconds = Math.Max(1, Math.Min(delaySeconds, 10));
+            var sql = string.Format("WAITFOR DELAY '00:00:{0:D2}'; SELECT 1 AS Ok;", seconds);
             using (var conn = new SqlConnection(_connectionString))
-            using (var cmd = new SqlCommand("WAITFOR DELAY @d; SELECT 1 AS Ok;", conn))
+            using (var cmd = new SqlCommand(sql, conn))
             {
-                var ts = TimeSpan.FromSeconds(Math.Max(1, Math.Min(delaySeconds, 10)));
-                cmd.Parameters.Add("@d", SqlDbType.Time).Value = ts;
                 try
                 {
                     conn.Open();

@@ -1,0 +1,165 @@
+{
+  "span_names": [
+    {
+      "key": "ShipmentRepository.EnsureSchema",
+      "doc_count": 945
+    },
+    {
+      "key": "ShipmentRepository.GetShipment",
+      "doc_count": 820
+    },
+    {
+      "key": "ShipmentService.LookupStatus",
+      "doc_count": 786
+    },
+    {
+      "key": "<CreateQuoteAsync>d__4.MoveNext",
+      "doc_count": 272
+    },
+    {
+      "key": "CallChain.Step12",
+      "doc_count": 227
+    },
+    {
+      "key": "CallChain.Step11",
+      "doc_count": 211
+    },
+    {
+      "key": "GET localhost",
+      "doc_count": 186
+    },
+    {
+      "key": "<CalculateHeavyAsync>d__1.MoveNext",
+      "doc_count": 182
+    },
+    {
+      "key": "CallChain.Step10",
+      "doc_count": 177
+    },
+    {
+      "key": "CallChain.Step09",
+      "doc_count": 160
+    },
+    {
+      "key": "CallChain.Step08",
+      "doc_count": 154
+    },
+    {
+      "key": "CallChain.Step07",
+      "doc_count": 149
+    },
+    {
+      "key": "CallChain.Step06",
+      "doc_count": 140
+    },
+    {
+      "key": "CallChain.Step05",
+      "doc_count": 122
+    },
+    {
+      "key": "CallChain.Step04",
+      "doc_count": 110
+    },
+    {
+      "key": "CallChain.Step03",
+      "doc_count": 98
+    },
+    {
+      "key": "PricingCalculator.CalculateHeavy",
+      "doc_count": 96
+    },
+    {
+      "key": "PricingCalculator.CalculateHeavyAsync",
+      "doc_count": 96
+    },
+    {
+      "key": "PricingCalculator.InternalSurcharge",
+      "doc_count": 95
+    },
+    {
+      "key": "ShipmentRepository.UpsertSample",
+      "doc_count": 95
+    },
+    {
+      "key": "PricingCalculator.ApplySurcharge",
+      "doc_count": 93
+    },
+    {
+      "key": "CallChain.Step02",
+      "doc_count": 91
+    },
+    {
+      "key": "<CalculateHeavyAsync>d__1.SetStateMachine",
+      "doc_count": 90
+    },
+    {
+      "key": "CallChain.RunDeep",
+      "doc_count": 89
+    },
+    {
+      "key": "CallChain.Step01",
+      "doc_count": 89
+    },
+    {
+      "key": "ShipmentService.CreateQuoteAsync",
+      "doc_count": 88
+    },
+    {
+      "key": "<CreateQuoteAsync>d__4.SetStateMachine",
+      "doc_count": 87
+    },
+    {
+      "key": "<RunSlowQueryAsync>d__5.MoveNext",
+      "doc_count": 18
+    },
+    {
+      "key": "<RunSlowQueryAsync>d__5.SetStateMachine",
+      "doc_count": 12
+    },
+    {
+      "key": "ShipmentRepository.RunSlowQuery",
+      "doc_count": 9
+    },
+    {
+      "key": "ShipmentRepository.RunSlowQueryAsync",
+      "doc_count": 8
+    }
+  ],
+  "tx_span_counts": {
+    "avg": {
+      "value": 4.176330420969023
+    },
+    "max": {
+      "value": 36.0
+    },
+    "dropped": {
+      "value": 0.0
+    },
+    "by_svc": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": "TrackingApi",
+          "doc_count": 854,
+          "avg_spans": {
+            "value": 2.6978922716627634
+          },
+          "max_spans": {
+            "value": 3.0
+          }
+        },
+        {
+          "key": "ShipmentsWeb",
+          "doc_count": 405,
+          "avg_spans": {
+            "value": 7.293827160493827
+          },
+          "max_spans": {
+            "value": 36.0
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "services": [
+    {
+      "key": "ShipmentsWeb",
+      "doc_count": 5551
+    },
+    {
+      "key": "TrackingApi",
+      "doc_count": 5548
+    },
+    {
+      "key": "ShipmentsWorker",
+      "doc_count": 289
+    }
+  ],
+  "span_types": [
+    {
+      "key": "app",
+      "doc_count": 6595
+    },
+    {
+      "key": "external",
+      "doc_count": 230
+    },
+    {
+      "key": "db",
+      "doc_count": 135
+    }
+  ],
+  "top_span_names": [
+    {
+      "key": "ShipmentRepository.EnsureSchema",
+      "doc_count": 1027
+    },
+    {
+      "key": "ShipmentRepository.GetShipment",
+      "doc_count": 861
+    },
+    {
+      "key": "ShipmentService.LookupStatus",
+      "doc_count": 830
+    },
+    {
+      "key": "<CreateQuoteAsync>d__4.MoveNext",
+      "doc_count": 336
+    },
+    {
+      "key": "CallChain.Step12",
+      "doc_count": 256
+    },
+    {
+      "key": "CallChain.Step11",
+      "doc_count": 240
+    },
+    {
+      "key": "GET localhost",
+      "doc_count": 233
+    },
+    {
+      "key": "<CalculateHeavyAsync>d__1.MoveNext",
+      "doc_count": 216
+    },
+    {
+      "key": "CallChain.Step10",
+      "doc_count": 206
+    },
+    {
+      "key": "CallChain.Step09",
+      "doc_count": 189
+    },
+    {
+      "key": "CallChain.Step08",
+      "doc_count": 183
+    },
+    {
+      "key": "CallChain.Step07",
+      "doc_count": 178
+    },
+    {
+      "key": "CallChain.Step06",
+      "doc_count": 169
+    },
+    {
+      "key": "CallChain.Step05",
+      "doc_count": 151
+    },
+    {
+      "key": "CallChain.Step04",
+      "doc_count": 139
+    },
+    {
+      "key": "CallChain.Step03",
+      "doc_count": 127
+    },
+    {
+      "key": "PricingCalculator.CalculateHeavy",
+      "doc_count": 125
+    },
+    {
+      "key": "PricingCalculator.InternalSurcharge",
+      "doc_count": 124
+    },
+    {
+      "key": "ShipmentRepository.UpsertSample",
+      "doc_count": 124
+    },
+    {
+      "key": "PricingCalculator.ApplySurcharge",
+      "doc_count": 122
+    },
+    {
+      "key": "CallChain.Step02",
+      "doc_count": 120
+    },
+    {
+      "key": "CallChain.RunDeep",
+      "doc_count": 118
+    },
+    {
+      "key": "CallChain.Step01",
+      "doc_count": 118
+    },
+    {
+      "key": "PricingCalculator.CalculateHeavyAsync",
+      "doc_count": 113
+    },
+    {
+      "key": "<CalculateHeavyAsync>d__1.SetStateMachine",
+      "doc_count": 107
+    }
+  ],
+  "transactions": [
+    {
+      "key": "GET tracking {id}",
+      "doc_count": 1820
+    },
+    {
+      "key": "GET Home/Index",
+      "doc_count": 652
+    },
+    {
+      "key": "POST Checkout/Index",
+      "doc_count": 266
+    },
+    {
+      "key": "ShipmentsWorker.Tick",
+      "doc_count": 28
+    },
+    {
+      "key": "GET Tracking {id}",
+      "doc_count": 17
+    },
+    {
+      "key": "GET Checkout/Index",
+      "doc_count": 12
+    },
+    {
+      "key": "GET track {id}",
+      "doc_count": 11
+    }
+  ],
+  "avg_spans_per_tx": 4.745213549337261,
+  "max_spans_per_tx": 44.0,
+  "waitfor": {
+    "total": {
+      "value": 13,
+      "relation": "eq"
+    },
+    "top": [
+      {
+        "@timestamp": "2026-11-06T12:55:19.696715000Z",
+        "service": {
+          "name": "ShipmentsWeb"
+        },
+        "span": {
+          "duration": {
+            "us": 2054983
+          },
+          "subtype": "mssql",
+          "type": "db",
+          "db": {
+            "statement": "WAITFOR DELAY '00:00:02'; SELECT 1 AS Ok;"
+          }
+        }
+      },
+      {
+        "@timestamp": "2026-11-06T12:55:38.452321000Z",
+        "service": {
+          "name": "ShipmentsWeb"
+        },
+        "span": {
+          "duration": {
+            "us": 2030018
+          },
+          "subtype": "mssql",
+          "type": "db",
+          "db": {
+            "statement": "WAITFOR DELAY '00:00:02'; SELECT 1 AS Ok;"
+          }
+        }
+      },
+      {
+        "@timestamp": "2026-11-06T12:55:36.220626000Z",
+        "service": {
+          "name": "ShipmentsWeb"
+        },
+        "span": {
+          "duration": {
+            "us": 2024744
+          },
+          "subtype": "mssql",
+          "type": "db",
+          "db": {
+            "statement": "WAITFOR DELAY '00:00:02'; SELECT 1 AS Ok;"
+          }
+        }
+      },
+      {
+        "@timestamp": "2026-11-06T12:55:40.718152000Z",
+        "service": {
+          "name": "ShipmentsWeb"
+        },
+        "span": {
+          "duration": {
+            "us": 2017293
+          },
+          "subtype": "mssql",
+          "type": "db",
+          "db": {
+            "statement": "WAITFOR DELAY '00:00:02'; SELECT 1 AS Ok;"
+          }
+        }
+      },
+      {
+        "@timestamp": "2026-11-06T12:55:34.004305000Z",
+        "service": {
+          "name": "ShipmentsWeb"
+        },
+        "span": {
+          "duration": {
+            "us": 2010819
+          },
+          "subtype": "mssql",
+          "type": "db",
+          "db": {
+            "statement": "WAITFOR DELAY '00:00:02'; SELECT 1 AS Ok;"
+          }
+        }
+      }
+    ]
+  },
+  "worker_transactions": {
+    "total": {
+      "value": 12,
+      "relation": "eq"
+    },
+    "sample": [
+      {
+        "@timestamp": "2026-11-06T13:01:54.776851000Z",
+        "service": {
+          "environment": "lab"
+        },
+        "transaction": {
+          "name": "ShipmentsWorker.Tick",
+          "type": "request"
+        }
+      },
+      {
+        "@timestamp": "2026-11-06T13:01:49.776134000Z",
+        "service": {
+          "environment": "lab"
+        },
+        "transaction": {
+          "name": "ShipmentsWorker.Tick",
+          "type": "request"
+        }
+      },
+      {
+        "@timestamp": "2026-11-06T13:01:44.760181000Z",
+        "service": {
+          "environment": "lab"
+        },
+        "transaction": {
+          "name": "ShipmentsWorker.Tick",
+          "type": "request"
+        }
+      },
+      {
+        "@timestamp": "2026-11-06T13:01:39.749810000Z",
+        "service": {
+          "environment": "lab"
+        },
+        "transaction": {
+          "name": "ShipmentsWorker.Tick",
+          "type": "request"
+        }
+      },
+      {
+        "@timestamp": "2026-11-06T13:01:34.744023000Z",
+        "service": {
+          "environment": "lab"
+        },
+        "transaction": {
+          "name": "ShipmentsWorker.Tick",
+          "type": "request"
+        }
+      }
+    ]
+  },
+  "system.cpu": {
+    "value": 206,
+    "relation": "eq"
+  },
+  "windows": {
+    "value": 16817,
+    "relation": "eq"
+  },
+  "iis": {
+    "value": 191,
+    "relation": "eq"
+  },
+  "contoso_app": {
+    "value": 31677,
+    "relation": "eq"
+  },
+  "captured_at_utc": "2026-11-06T13:02:12.103690+00:00"
+}

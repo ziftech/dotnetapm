@@ -1,0 +1,68 @@
+{
+  "total": {
+    "value": 3,
+    "relation": "eq"
+  },
+  "hits": [
+    {
+      "@timestamp": "2026-11-06T12:52:19.359420000Z",
+      "service": {
+        "name": "ShipmentsWeb"
+      },
+      "transaction": {
+        "id": "a8c8365527bbbb49"
+      },
+      "span": {
+        "duration": {
+          "us": 0
+        },
+        "subtype": "mssql",
+        "name": "WAITFOR",
+        "type": "db",
+        "db": {
+          "statement": "WAITFOR DELAY @d; SELECT 1 AS Ok;"
+        }
+      }
+    },
+    {
+      "@timestamp": "2026-11-06T12:52:19.218819000Z",
+      "service": {
+        "name": "ShipmentsWeb"
+      },
+      "transaction": {
+        "id": "4cb045221fd7ef16"
+      },
+      "span": {
+        "duration": {
+          "us": 0
+        },
+        "subtype": "mssql",
+        "name": "WAITFOR",
+        "type": "db",
+        "db": {
+          "statement": "WAITFOR DELAY @d; SELECT 1 AS Ok;"
+        }
+      }
+    },
+    {
+      "@timestamp": "2026-11-06T12:52:13.184632000Z",
+      "service": {
+        "name": "ShipmentsWeb"
+      },
+      "transaction": {
+        "id": "874734b252672ae2"
+      },
+      "span": {
+        "duration": {
+          "us": 46904
+        },
+        "subtype": "mssql",
+        "name": "WAITFOR",
+        "type": "db",
+        "db": {
+          "statement": "WAITFOR DELAY @d; SELECT 1 AS Ok;"
+        }
+      }
+    }
+  ]
+}

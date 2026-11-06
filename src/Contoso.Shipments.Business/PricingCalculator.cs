@@ -1,9 +1,12 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Contoso.Observability;
 
 namespace Contoso.Shipments.Business
 {
+    // S2-broad: weave public pricing helpers (demonstrates span volume vs narrow Service-only)
+    [Trace]
     public static class PricingCalculator
     {
         /// <summary>CPU-heavy pricing path used to create visible span/CPU load.</summary>
