@@ -1,10 +1,8 @@
 using System;
-using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Contoso.Shipments.Business;
-using Elastic.Apm;
 using NLog;
 
 namespace TrackingApi.Controllers
@@ -19,11 +17,7 @@ namespace TrackingApi.Controllers
         public HttpResponseMessage Get(string id)
         {
             var n = System.Threading.Interlocked.Increment(ref _requestCount);
-            var tx = Agent.Tracer?.CurrentTransaction;
-            var activity = Activity.Current;
-            Log.Info("GET tracking id={0} n={1} trace.id={2} transaction.id={3} activity.trace.id={4}",
-                id, n, tx?.TraceId ?? activity?.TraceId.ToString(), tx?.Id ?? activity?.SpanId.ToString(),
-                activity?.TraceId.ToString());
+            Log.Info("GET tracking id={0} n={1}", id, n);
 
             if (string.IsNullOrWhiteSpace(id))
             {
