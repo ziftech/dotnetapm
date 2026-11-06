@@ -32,7 +32,7 @@
       "agent.version": "1.7.0",
       "deployment.environment": "lab",
       "host.id": "8d6fd606-1f5b-4a48-8b0d-70d48bc76895",
-      "host.name": "ARAMEX-APM-LAB",
+      "host.name": "DOTNET-APM-LAB",
       "process.runtime.description": ".NET Framework 4.8.4811.0",
       "process.runtime.name": ".NET Framework",
       "process.runtime.version": "4.8",

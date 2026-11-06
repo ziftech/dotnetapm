@@ -29,7 +29,7 @@ CREATE TABLE dbo.Shipments (
 "@ | Write-Output
 
 # Grant IIS pool + interactive lab user
-$users = @('IIS APPPOOL\SharedPool', 'ARAMEX-APM-LAB\yakov_keranchuk')
+$users = @('IIS APPPOOL\SharedPool', ("{0}\{1}" -f $env:COMPUTERNAME, $env:USERNAME))
 foreach ($u in $users) {
   & sqlcmd -S $sql -E -Q "IF NOT EXISTS (SELECT 1 FROM sys.server_principals WHERE name = N'$u') CREATE LOGIN [$u] FROM WINDOWS;" | Write-Output
   & sqlcmd -S $sql -E -d ContosoShipments -Q "IF NOT EXISTS (SELECT 1 FROM sys.database_principals WHERE name = N'$u') BEGIN CREATE USER [$u] FOR LOGIN [$u]; ALTER ROLE db_owner ADD MEMBER [$u]; END" | Write-Output

@@ -89,7 +89,8 @@ if (Test-Path "C:\lab-phase2.done") {
 Write-Output "Downloading Contoso sources..."
 $token = (Invoke-RestMethod -Headers @{ "Metadata-Flavor" = "Google" } -Uri "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token").access_token
 $zip = "C:\lab\contoso-shipments.zip"
-Invoke-WebRequest -Uri "https://storage.googleapis.com/storage/v1/b/elastic-sa-contoso-apm-lab-yakovkeranchuk/o/contoso-shipments.zip?alt=media" -Headers @{ Authorization = "Bearer $token" } -OutFile $zip
+$bucket = if ($env:LAB_BUCKET) { $env:LAB_BUCKET } else { 'dotnet-apm-lab-artifacts' }
+Invoke-WebRequest -Uri "https://storage.googleapis.com/storage/v1/b/$bucket/o/contoso-shipments.zip?alt=media" -Headers @{ Authorization = "Bearer $token" } -OutFile $zip
 Remove-Item "C:\lab\src" -Recurse -Force -ErrorAction SilentlyContinue
 New-Item -ItemType Directory -Force -Path "C:\lab\src" | Out-Null
 Expand-Archive -Path $zip -DestinationPath "C:\lab\src" -Force

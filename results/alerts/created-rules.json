@@ -8,7 +8,7 @@
       "enabled": true,
       "name": "lab-shipmentsweb-latency",
       "tags": [
-        "contoso-lab"
+        "apm-lab"
       ],
       "rule_type_id": "apm.transaction_duration",
       "consumer": "apm",
@@ -48,7 +48,7 @@
       "enabled": true,
       "name": "lab-trackingapi-error-rate",
       "tags": [
-        "contoso-lab"
+        "apm-lab"
       ],
       "rule_type_id": "apm.transaction_error_rate",
       "consumer": "apm",
@@ -86,7 +86,7 @@
       "enabled": true,
       "name": "lab-shipmentsweb-failed-transaction-rate",
       "tags": [
-        "contoso-lab",
+        "apm-lab",
         "Missing Elastic Cloud API Key"
       ],
       "rule_type_id": "apm.transaction_error_rate",
@@ -139,7 +139,7 @@
       "enabled": true,
       "name": "lab-shipmentsweb-failed-transaction-rate",
       "tags": [
-        "contoso-lab",
+        "apm-lab",
         "Missing Elastic Cloud API Key"
       ],
       "rule_type_id": "apm.transaction_error_rate",

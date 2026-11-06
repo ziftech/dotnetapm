@@ -1,4 +1,4 @@
-# Contoso Shipments — Contoso .NET APM lab (synthetic)
+# Contoso Shipments — .NET APM lab (synthetic)
 
 .NET Framework 4.8 estate with old-style `.csproj` + `packages.config`:
 
@@ -22,4 +22,4 @@ cd C:\lab\src
 powershell -ExecutionPolicy Bypass -File .\scripts\Build-And-Deploy.ps1
 ```
 
-Secrets stay in Mac `~/dev/dotnetapm/.env` only — never in this tree.
+Secrets stay in Mac `~/dev/dotnetapm/.env` only — never in this tree. Optional lab overrides in `.env`: `VM_NAME`, `LAB_BUCKET`, `LAB_HOST_KUERY`, `LAB_ALERT_TAG`.

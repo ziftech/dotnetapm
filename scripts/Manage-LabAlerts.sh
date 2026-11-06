@@ -11,9 +11,12 @@ AUTH_HDR=(-H "Authorization: ApiKey ${ES_API_KEY}" -H "kbn-xsrf: true" -H "Conte
 OUT="$ROOT/results/alerts"
 mkdir -p "$OUT"
 
-echo "== List find rules tagged contoso-lab =="
+LAB_ALERT_TAG="${LAB_ALERT_TAG:-apm-lab}"
+LAB_HOST_KUERY="${LAB_HOST_KUERY:-host.name: *apm-lab*}"
+
+echo "== List find rules tagged $LAB_ALERT_TAG =="
 curl -sS "${AUTH_HDR[@]}" \
-  "$KIBANA_URL/api/alerting/rules/_find?per_page=100&filter=alert.attributes.tags:%22contoso-lab%22" \
+  "$KIBANA_URL/api/alerting/rules/_find?per_page=100&filter=alert.attributes.tags:%22${LAB_ALERT_TAG}%22" \
   | tee "$OUT/rules-before.json" | python3 -c '
 import json,sys
 d=json.load(sys.stdin)
@@ -22,8 +25,6 @@ for r in d.get("data",[]):
 print("TOTAL", d.get("total"))
 '
 
-# Custom threshold needs an existing data-view id (not a raw multi-index string).
-# metrics-* and logs-* are the default Serverless data views.
 update_rule() {
   local id="$1" body="$2" file="$3"
   echo "== PUT rule $id =="
@@ -36,11 +37,10 @@ IIS_ID="245f7c57-0913-43d9-92ed-6926b84a20f6"
 SLO_RULE_ID="10c42262-cd2d-493e-a14b-0fb92dec165a"
 SLO_ID="${SLO_ID:-95d3b213-1961-42d9-a777-da7d4af806b6}"
 
-# system.cpu.total.norm.pct is 0..1. Use 0.01 (1%) so lab load can trip it.
-update_rule "$HOST_CPU_ID" "$(cat <<'JSON'
+update_rule "$HOST_CPU_ID" "$(cat <<JSON
 {
   "name": "lab-host-cpu-high",
-  "tags": ["contoso-lab", "infrastructure"],
+  "tags": ["$LAB_ALERT_TAG", "infrastructure"],
   "schedule": {"interval": "1m"},
   "params": {
     "criteria": [{
@@ -53,7 +53,7 @@ update_rule "$HOST_CPU_ID" "$(cat <<'JSON'
     "alertOnNoData": false,
     "alertOnGroupDisappear": false,
     "searchConfiguration": {
-      "query": {"query": "host.name: contoso-apm-lab*", "language": "kuery"},
+      "query": {"query": "$LAB_HOST_KUERY", "language": "kuery"},
       "index": "metrics-*"
     }
   },
@@ -64,10 +64,10 @@ update_rule "$HOST_CPU_ID" "$(cat <<'JSON'
 JSON
 )" "$OUT/updated-host-cpu.json"
 
-update_rule "$IIS_ID" "$(cat <<'JSON'
+update_rule "$IIS_ID" "$(cat <<JSON
 {
   "name": "lab-iis-apppool-recycle-proxy",
-  "tags": ["contoso-lab", "infrastructure"],
+  "tags": ["$LAB_ALERT_TAG", "infrastructure"],
   "schedule": {"interval": "1m"},
   "params": {
     "criteria": [{
@@ -80,7 +80,7 @@ update_rule "$IIS_ID" "$(cat <<'JSON'
     "alertOnNoData": false,
     "alertOnGroupDisappear": false,
     "searchConfiguration": {
-      "query": {"query": "host.name: contoso-apm-lab* and data_stream.dataset: iis.access", "language": "kuery"},
+      "query": {"query": "$LAB_HOST_KUERY and data_stream.dataset: iis.access", "language": "kuery"},
       "index": "logs-*"
     }
   },
@@ -91,11 +91,10 @@ update_rule "$IIS_ID" "$(cat <<'JSON'
 JSON
 )" "$OUT/updated-iis-proxy.json"
 
-# Ensure SLO burn rule stays enabled with a sensitive window so errors trip it.
 update_rule "$SLO_RULE_ID" "$(cat <<JSON
 {
   "name": "lab-shipmentsweb-slo-burn-rate",
-  "tags": ["contoso-lab", "slo"],
+  "tags": ["$LAB_ALERT_TAG", "slo"],
   "schedule": {"interval": "1m"},
   "params": {
     "sloId": "$SLO_ID",
@@ -110,7 +109,6 @@ update_rule "$SLO_RULE_ID" "$(cat <<JSON
 JSON
 )" "$OUT/updated-slo-burn.json"
 
-# Force immediate run
 for id in "$HOST_CPU_ID" "$IIS_ID" "$SLO_RULE_ID"; do
   echo "== Force run $id =="
   curl -sS "${AUTH_HDR[@]}" -X POST "$KIBANA_URL/api/alerting/rule/$id/_run_soon" | tee "$OUT/run-soon-$id.json" || true
@@ -120,7 +118,7 @@ done
 sleep 5
 echo "== Refresh rule list =="
 curl -sS "${AUTH_HDR[@]}" \
-  "$KIBANA_URL/api/alerting/rules/_find?per_page=100&filter=alert.attributes.tags:%22contoso-lab%22" \
+  "$KIBANA_URL/api/alerting/rules/_find?per_page=100&filter=alert.attributes.tags:%22${LAB_ALERT_TAG}%22" \
   | tee "$OUT/rules-after.json" | python3 -c '
 import json,sys
 d=json.load(sys.stdin)
@@ -136,14 +134,14 @@ if [[ "$ES_QUERY_URL" == *ingest* ]]; then
   ES_QUERY_URL="${ES_QUERY_URL%/_es}"
 fi
 curl -sS -H "Authorization: ApiKey ${ES_API_KEY}" -H "Content-Type: application/json" \
-  "$ES_QUERY_URL/.alerts-observability.*/_search" -d '{
-    "size": 50,
-    "sort": [{"@timestamp":"desc"}],
-    "query": {"bool": {"should": [
-      {"term": {"kibana.alert.rule.tags": "contoso-lab"}},
-      {"wildcard": {"kibana.alert.rule.name": "lab-*"}}
-    ], "minimum_should_match": 1}}
-  }' | tee "$OUT/fired-alerts-es.json" | python3 -c '
+  "$ES_QUERY_URL/.alerts-observability.*/_search" -d "{
+    \"size\": 50,
+    \"sort\": [{\"@timestamp\":\"desc\"}],
+    \"query\": {\"bool\": {\"should\": [
+      {\"term\": {\"kibana.alert.rule.tags\": \"$LAB_ALERT_TAG\"}},
+      {\"wildcard\": {\"kibana.alert.rule.name\": \"lab-*\"}}
+    ], \"minimum_should_match\": 1}}
+  }" | tee "$OUT/fired-alerts-es.json" | python3 -c '
 import json,sys
 d=json.load(sys.stdin)
 hits=d.get("hits",{}).get("hits",[])

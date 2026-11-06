@@ -7,7 +7,7 @@ source "$ROOT/scripts/load_env.sh"
 export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/homebrew/bin:/Users/darklord/Downloads/google-cloud-sdk/bin:${PATH:-}"
 
 ZONE=me-central1-a
-VM=contoso-apm-lab
+VM="${VM_NAME:-dotnet-apm-lab}"
 BASE_URL="${BASE_URL:-http://34.18.109.143}"
 OUT="$ROOT/results/overhead-10m"
 mkdir -p "$OUT" "$ROOT/k6"

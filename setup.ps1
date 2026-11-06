@@ -1,5 +1,5 @@
-# Contoso APM lab - Windows Server 2022 first-boot setup (GCE windows-startup-script-ps1)
-# Extended from vault clients/contoso/lab/setup.ps1: adds Git + SQL Server 2022 Express.
+# Contoso .NET APM lab - Windows Server 2022 first-boot setup (GCE windows-startup-script-ps1)
+# Adds Git + SQL Server 2022 Express on top of IIS / Build Tools bootstrap.
 # Idempotent: exits if C:\lab-setup.done exists. Log: C:\lab-setup.log
 
 $ErrorActionPreference = "Stop"

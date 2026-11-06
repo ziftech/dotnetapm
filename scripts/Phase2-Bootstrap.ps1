@@ -54,7 +54,8 @@ if (-not $gsutil) {
 
 # Fetch with instance service account via GCS JSON API using metadata token
 $token = (Invoke-RestMethod -Headers @{ "Metadata-Flavor" = "Google" } -Uri "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token").access_token
-$uri = "https://storage.googleapis.com/storage/v1/b/elastic-sa-contoso-apm-lab-yakovkeranchuk/o/contoso-shipments.zip?alt=media"
+$bucket = if ($env:LAB_BUCKET) { $env:LAB_BUCKET } else { 'dotnet-apm-lab-artifacts' }
+$uri = "https://storage.googleapis.com/storage/v1/b/$bucket/o/contoso-shipments.zip?alt=media"
 Invoke-WebRequest -Uri $uri -Headers @{ Authorization = "Bearer $token" } -OutFile $zip
 if (-not (Test-Path $zip)) { throw "Failed to download contoso-shipments.zip" }
 

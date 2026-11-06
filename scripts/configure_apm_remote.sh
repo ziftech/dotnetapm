@@ -8,7 +8,7 @@ MODE="${1:-profiler}"
 SERVICE_NAME="${2:-}"
 PROJECT="${GCP_PROJECT:-elastic-sa}"
 ZONE="${GCP_ZONE:-me-central1-a}"
-VM="${VM_NAME:-contoso-apm-lab}"
+VM="${VM_NAME:-dotnet-apm-lab}"
 USER_NAME="${GCP_SSH_USER:-yakov_keranchuk}"
 
 TMP="$(mktemp)"
