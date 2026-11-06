@@ -1,0 +1,348 @@
+{
+  "captured_at_utc": "2026-11-06T13:27:18.579910+00:00",
+  "question": "Profiler APM (.NET agent) vs EDOT .NET on Contoso TrackingApi",
+  "setup": {
+    "ShipmentsWeb": "SharedPool + Elastic APM profiler 1.34.7 + Fody ElasticApmTraceBackend \u2192 APM intake",
+    "TrackingApi-EDOT": "TrackingEdotPool (COR profiling disabled) + Elastic.OpenTelemetry 1.7.0 + AspNet TelemetryHttpModule + ActivitySourceTraceBackend \u2192 Managed OTLP ingest",
+    "otlp_endpoint": "https://apm-yk-f7bd37.ingest.europe-west4.gcp.elastic.cloud",
+    "apm_endpoint": "https://apm-yk-f7bd37.apm.europe-west4.gcp.elastic.cloud:443"
+  },
+  "sides": {
+    "ShipmentsWeb": {
+      "index_pattern": "traces-apm*",
+      "hits": {
+        "value": 4633,
+        "relation": "eq"
+      },
+      "agents": [
+        [
+          "dotnet",
+          4633
+        ]
+      ],
+      "agent_version": [
+        [
+          "1.34.7+f3040d81eb5aecfcc181b9de24e781c6a781811b-p",
+          4633
+        ]
+      ],
+      "span_types": [
+        [
+          "app",
+          3878
+        ],
+        [
+          "external",
+          230
+        ],
+        [
+          "db",
+          80
+        ]
+      ],
+      "top_span_names": [
+        [
+          "<CreateQuoteAsync>d__4.MoveNext",
+          355
+        ],
+        [
+          "CallChain.Step12",
+          249
+        ],
+        [
+          "CallChain.Step11",
+          233
+        ],
+        [
+          "GET localhost",
+          230
+        ],
+        [
+          "<CalculateHeavyAsync>d__1.MoveNext",
+          226
+        ],
+        [
+          "CallChain.Step10",
+          199
+        ],
+        [
+          "CallChain.Step09",
+          182
+        ],
+        [
+          "CallChain.Step08",
+          176
+        ],
+        [
+          "CallChain.Step07",
+          171
+        ],
+        [
+          "CallChain.Step06",
+          162
+        ],
+        [
+          "ShipmentRepository.EnsureSchema",
+          146
+        ],
+        [
+          "CallChain.Step05",
+          144
+        ],
+        [
+          "CallChain.Step04",
+          132
+        ],
+        [
+          "CallChain.Step03",
+          120
+        ],
+        [
+          "PricingCalculator.CalculateHeavy",
+          118
+        ],
+        [
+          "PricingCalculator.CalculateHeavyAsync",
+          118
+        ],
+        [
+          "PricingCalculator.InternalSurcharge",
+          117
+        ],
+        [
+          "ShipmentRepository.UpsertSample",
+          117
+        ],
+        [
+          "PricingCalculator.ApplySurcharge",
+          115
+        ],
+        [
+          "CallChain.Step02",
+          113
+        ]
+      ],
+      "transactions": [
+        [
+          "GET Home/Index",
+          320
+        ],
+        [
+          "POST Checkout/Index",
+          121
+        ],
+        [
+          "GET Checkout/Index",
+          4
+        ]
+      ],
+      "datasets": [
+        [
+          "apm",
+          4633
+        ]
+      ],
+      "avg_spans_per_tx": 8.662921348314606,
+      "max_spans_per_tx": 44.0
+    },
+    "TrackingApi": {
+      "index_pattern": "traces-apm*",
+      "hits": {
+        "value": 3557,
+        "relation": "eq"
+      },
+      "agents": [
+        [
+          "dotnet",
+          3557
+        ]
+      ],
+      "agent_version": [
+        [
+          "1.34.7+f3040d81eb5aecfcc181b9de24e781c6a781811b-p",
+          3557
+        ]
+      ],
+      "span_types": [
+        [
+          "app",
+          2578
+        ],
+        [
+          "db",
+          70
+        ]
+      ],
+      "top_span_names": [
+        [
+          "ShipmentRepository.EnsureSchema",
+          881
+        ],
+        [
+          "ShipmentRepository.GetShipment",
+          864
+        ],
+        [
+          "ShipmentService.LookupStatus",
+          833
+        ],
+        [
+          "IF",
+          35
+        ],
+        [
+          "SELECT FROM Shipments",
+          35
+        ]
+      ],
+      "transactions": [
+        [
+          "GET tracking {id}",
+          897
+        ],
+        [
+          "GET Tracking {id}",
+          7
+        ],
+        [
+          "GET track {id}",
+          5
+        ]
+      ],
+      "datasets": [
+        [
+          "apm",
+          3557
+        ]
+      ],
+      "avg_spans_per_tx": 2.837183718371837,
+      "max_spans_per_tx": 7.0
+    },
+    "TrackingApi-EDOT": {
+      "index_pattern": "traces-*.otel*",
+      "hits": {
+        "value": 175,
+        "relation": "eq"
+      },
+      "agents": [
+        [
+          "opentelemetry/dotnet/elastic",
+          175
+        ]
+      ],
+      "kinds": [
+        [
+          "Internal",
+          99
+        ],
+        [
+          "Client",
+          66
+        ],
+        [
+          "Server",
+          10
+        ]
+      ],
+      "top_names": [
+        [
+          "SQLEXPRESS.ContosoShipments",
+          66
+        ],
+        [
+          "ShipmentRepository.EnsureSchema",
+          33
+        ],
+        [
+          "ShipmentRepository.GetShipment",
+          33
+        ],
+        [
+          "ShipmentService.LookupStatus",
+          33
+        ],
+        [
+          "GET api/Tracking/{id}",
+          10
+        ]
+      ],
+      "scopes": [
+        [
+          "Contoso.Observability",
+          99
+        ],
+        [
+          "OpenTelemetry.Instrumentation.SqlClient",
+          66
+        ],
+        [
+          "OpenTelemetry.Instrumentation.AspNet",
+          10
+        ]
+      ],
+      "datasets": [
+        [
+          "generic.otel",
+          175
+        ]
+      ]
+    }
+  },
+  "comparison_matrix": [
+    {
+      "dimension": "Intake path",
+      "profiler": "APM server URL (.apm)",
+      "edot": "Managed OTLP (.ingest)"
+    },
+    {
+      "dimension": "Data stream / dataset",
+      "profiler": "traces-apm* / dataset=apm (ECS-translated)",
+      "edot": "traces-*.otel* / dataset=generic.otel (OTel-native)"
+    },
+    {
+      "dimension": "agent.name",
+      "profiler": "dotnet",
+      "edot": "opentelemetry/dotnet/elastic"
+    },
+    {
+      "dimension": "HTTP server spans",
+      "profiler": "transaction.name e.g. GET tracking {id}",
+      "edot": "kind=Server name=GET api/Tracking/{id} (requires explicit AddAspNetInstrumentation)"
+    },
+    {
+      "dimension": "SQL spans",
+      "profiler": "span.type=db subtype=mssql (WAITFOR ~2s on ShipmentsWeb)",
+      "edot": "kind=Client name=SQLEXPRESS.ContosoShipments scope=OpenTelemetry.Instrumentation.SqlClient"
+    },
+    {
+      "dimension": "Business/Fody spans",
+      "profiler": "span.type=app subtype=business via ElasticApmTraceBackend",
+      "edot": "kind=Internal via ActivitySource Contoso.Observability"
+    },
+    {
+      "dimension": "Stacktrace capture",
+      "profiler": "supported (SpanStackTraceMinDuration)",
+      "edot": "not available (EDOT limitation)"
+    },
+    {
+      "dimension": "Central/dynamic config",
+      "profiler": "supported",
+      "edot": "not available"
+    },
+    {
+      "dimension": "Span compression",
+      "profiler": "supported",
+      "edot": "not implemented"
+    },
+    {
+      "dimension": "IIS install model",
+      "profiler": "COR_* profiler on app pool (zero-code for framework)",
+      "edot": "NuGet SDK + TelemetryHttpModule + dedicated pool without Elastic profiler"
+    },
+    {
+      "dimension": "Coexistence note",
+      "profiler": "Do not stack ElasticApmModule with profiler",
+      "edot": "Must not share app pool with Elastic APM profiler (lab used TrackingEdotPool)"
+    }
+  ]
+}

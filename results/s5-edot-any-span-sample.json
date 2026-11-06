@@ -1,0 +1,61 @@
+{
+  "@timestamp": "2026-11-06T13:23:16.356Z",
+  "attributes": {
+    "db.namespace": "SQLEXPRESS.ContosoShipments",
+    "db.system.name": "microsoft.sql_server",
+    "event.outcome": "success",
+    "event.success_count": 1,
+    "processor.event": "span",
+    "server.address": ".",
+    "service.target.name": "SQLEXPRESS.ContosoShipments",
+    "service.target.type": "microsoft.sql_server",
+    "span.destination.service.resource": "microsoft.sql_server",
+    "span.duration.us": 445,
+    "span.representative_count": 1.0,
+    "span.subtype": "microsoft.sql_server",
+    "span.type": "db",
+    "timestamp.us": 1793971396356548
+  },
+  "data_stream": {
+    "dataset": "generic.otel",
+    "namespace": "default",
+    "type": "traces"
+  },
+  "duration": 445000,
+  "kind": "Client",
+  "links": [],
+  "name": "SQLEXPRESS.ContosoShipments",
+  "parent_span_id": "ac5aa13e6aedfde3",
+  "resource": {
+    "attributes": {
+      "agent.name": "opentelemetry/dotnet/elastic",
+      "agent.version": "1.7.0",
+      "deployment.environment": "lab",
+      "host.id": "8d6fd606-1f5b-4a48-8b0d-70d48bc76895",
+      "host.name": "ARAMEX-APM-LAB",
+      "process.runtime.description": ".NET Framework 4.8.4811.0",
+      "process.runtime.name": ".NET Framework",
+      "process.runtime.version": "4.8",
+      "service.instance.id": "938b518d-3722-4530-af79-508e21b677ba",
+      "service.name": "TrackingApi-EDOT",
+      "service.version": "s5-edot",
+      "telemetry.distro.name": "elastic",
+      "telemetry.distro.version": "1.7.0",
+      "telemetry.sdk.language": "dotnet",
+      "telemetry.sdk.name": "opentelemetry",
+      "telemetry.sdk.version": "1.20.1"
+    },
+    "schema_url": "https://opentelemetry.io/schemas/1.44.0"
+  },
+  "scope": {
+    "attributes": {
+      "service.framework.name": "OpenTelemetry.Instrumentation.SqlClient",
+      "service.framework.version": "1.20.1"
+    },
+    "name": "OpenTelemetry.Instrumentation.SqlClient",
+    "schema_url": "https://opentelemetry.io/schemas/1.44.0",
+    "version": "1.20.1"
+  },
+  "span_id": "f305ff90883f4218",
+  "trace_id": "963420223507fd13b20214b44fb9b911"
+}

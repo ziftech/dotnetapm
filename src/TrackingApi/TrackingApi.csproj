@@ -4,9 +4,6 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>
-    </ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{A3333333-3333-3333-3333-333333333333}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
@@ -40,10 +37,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.9\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web" />
     <Reference Include="System.Web.Http, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.9\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
@@ -56,23 +53,36 @@
     <Reference Include="NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NLog.5.3.4\lib\net46\NLog.dll</HintPath>
     </Reference>
-    <Reference Include="Elastic.Apm">
-      <HintPath>..\..\packages\Elastic.Apm.1.34.7\lib\net462\Elastic.Apm.dll</HintPath>
+    <Reference Include="Elastic.OpenTelemetry">
+      <HintPath>..\..\packages\Elastic.OpenTelemetry.1.7.0\lib\net462\Elastic.OpenTelemetry.dll</HintPath>
     </Reference>
-    <Reference Include="Elastic.Apm.AspNetFullFramework">
-      <HintPath>..\..\packages\Elastic.Apm.AspNetFullFramework.1.34.7\lib\net462\Elastic.Apm.AspNetFullFramework.dll</HintPath>
+    <Reference Include="OpenTelemetry">
+      <HintPath>..\..\packages\OpenTelemetry.1.20.1\lib\net462\OpenTelemetry.dll</HintPath>
     </Reference>
-    <Reference Include="Elastic.Apm.NLog">
-      <HintPath>..\..\packages\Elastic.Apm.NLog.8.18.2\lib\net462\Elastic.Apm.NLog.dll</HintPath>
+    <Reference Include="OpenTelemetry.Api">
+      <HintPath>..\..\packages\OpenTelemetry.Api.1.20.1\lib\net462\OpenTelemetry.Api.dll</HintPath>
     </Reference>
-    <Reference Include="Elastic.CommonSchema.NLog">
-      <HintPath>..\..\packages\Elastic.CommonSchema.NLog.8.18.2\lib\net462\Elastic.CommonSchema.NLog.dll</HintPath>
+    <Reference Include="OpenTelemetry.Api.ProviderBuilderExtensions">
+      <HintPath>..\..\packages\OpenTelemetry.Api.ProviderBuilderExtensions.1.20.1\lib\net462\OpenTelemetry.Api.ProviderBuilderExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTelemetry.Instrumentation.AspNet">
+      <HintPath>..\..\packages\OpenTelemetry.Instrumentation.AspNet.1.20.3\lib\net462\OpenTelemetry.Instrumentation.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTelemetry.Instrumentation.AspNet.TelemetryHttpModule">
+      <HintPath>..\..\packages\OpenTelemetry.Instrumentation.AspNet.TelemetryHttpModule.1.20.3\lib\net462\OpenTelemetry.Instrumentation.AspNet.TelemetryHttpModule.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTelemetry.Instrumentation.SqlClient">
+      <HintPath>..\..\packages\OpenTelemetry.Instrumentation.SqlClient.1.20.1\lib\net462\OpenTelemetry.Instrumentation.SqlClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.DiagnosticSource">
+      <HintPath>..\..\packages\System.Diagnostics.DiagnosticSource.10.0.0\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\TrackingController.cs" />
-    <Compile Include="Filters\ApmExceptionLogger.cs" />
+    <Compile Include="Filters\OtelExceptionLogger.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -87,6 +97,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Contoso.Observability\Contoso.Observability.csproj">
+      <Project>{A5555555-5555-5555-5555-555555555555}</Project>
+      <Name>Contoso.Observability</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Contoso.Shipments.Business\Contoso.Shipments.Business.csproj">
       <Project>{A1111111-1111-1111-1111-111111111111}</Project>
       <Name>Contoso.Shipments.Business</Name>

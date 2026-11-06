@@ -1,0 +1,202 @@
+{
+  "captured_at_utc": "2026-11-06T13:23:41.406147+00:00",
+  "indices": {
+    "traces-apm*": {
+      "hits": {
+        "value": 6240,
+        "relation": "eq"
+      },
+      "services": [
+        [
+          "ShipmentsWorker",
+          5691
+        ],
+        [
+          "ShipmentsWeb",
+          434
+        ],
+        [
+          "TrackingApi",
+          115
+        ]
+      ],
+      "agents": [
+        [
+          "dotnet",
+          6240
+        ]
+      ],
+      "datasets": [
+        [
+          "apm",
+          6240
+        ]
+      ]
+    },
+    "metrics-apm*": {
+      "hits": {
+        "value": 477,
+        "relation": "eq"
+      },
+      "services": [
+        [
+          "ShipmentsWorker",
+          700
+        ],
+        [
+          "ShipmentsWeb",
+          156
+        ],
+        [
+          "TrackingApi",
+          141
+        ]
+      ],
+      "agents": [
+        [
+          "dotnet",
+          997
+        ]
+      ],
+      "datasets": [
+        [
+          "apm.internal",
+          318
+        ],
+        [
+          "apm.service_transaction.1m",
+          292
+        ],
+        [
+          "apm.transaction.1m",
+          292
+        ],
+        [
+          "apm.service_summary.1m",
+          76
+        ],
+        [
+          "apm.service_destination.1m",
+          19
+        ]
+      ]
+    },
+    "traces-*.otel*": {
+      "hits": {
+        "value": 115,
+        "relation": "eq"
+      },
+      "services": [
+        [
+          "TrackingApi-EDOT",
+          115
+        ]
+      ],
+      "agents": [
+        [
+          "opentelemetry/dotnet/elastic",
+          115
+        ]
+      ],
+      "datasets": [
+        [
+          "generic.otel",
+          115
+        ]
+      ]
+    },
+    "logs-*.otel*": {
+      "hits": {
+        "value": 0,
+        "relation": "eq"
+      },
+      "services": [],
+      "agents": [],
+      "datasets": []
+    },
+    "*otel*": {
+      "hits": {
+        "value": 120,
+        "relation": "eq"
+      },
+      "services": [
+        [
+          "TrackingApi-EDOT",
+          124
+        ]
+      ],
+      "agents": [
+        [
+          "opentelemetry/dotnet/elastic",
+          124
+        ]
+      ],
+      "datasets": [
+        [
+          "generic.otel",
+          115
+        ],
+        [
+          "service_transaction.1m.otel",
+          3
+        ],
+        [
+          "transaction.1m.otel",
+          3
+        ],
+        [
+          "service_destination.1m.otel",
+          2
+        ],
+        [
+          "service_summary.1m.otel",
+          1
+        ]
+      ]
+    },
+    "traces-*": {
+      "hits": {
+        "value": 6355,
+        "relation": "eq"
+      },
+      "services": [
+        [
+          "ShipmentsWorker",
+          5691
+        ],
+        [
+          "ShipmentsWeb",
+          434
+        ],
+        [
+          "TrackingApi",
+          115
+        ],
+        [
+          "TrackingApi-EDOT",
+          115
+        ]
+      ],
+      "agents": [
+        [
+          "dotnet",
+          6240
+        ],
+        [
+          "opentelemetry/dotnet/elastic",
+          115
+        ]
+      ],
+      "datasets": [
+        [
+          "apm",
+          6240
+        ],
+        [
+          "generic.otel",
+          115
+        ]
+      ]
+    }
+  }
+}
