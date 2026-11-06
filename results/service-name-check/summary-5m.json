@@ -1,0 +1,148 @@
+{
+    "root_group": {
+        "checks": {
+            "home 200": {
+                "passes": 2997,
+                "fails": 2,
+                "name": "home 200",
+                "path": "::home 200",
+                "id": "d5a546618676c7c5737c4af152946908"
+            },
+            "checkout 200": {
+                "fails": 2,
+                "name": "checkout 200",
+                "path": "::checkout 200",
+                "id": "acab75c6e41819050be5685e71d4a1fb",
+                "passes": 2997
+            },
+            "tracking okish": {
+                "name": "tracking okish",
+                "path": "::tracking okish",
+                "id": "0a475d2c154929709b3b86963463f74a",
+                "passes": 2998,
+                "fails": 1
+            }
+        },
+        "name": "",
+        "path": "",
+        "id": "d41d8cd98f00b204e9800998ecf8427e",
+        "groups": {}
+    },
+    "metrics": {
+        "http_req_receiving": {
+            "p(95)": 2.8637999999999986,
+            "avg": 0.811788929643217,
+            "min": 0,
+            "med": 0.081,
+            "max": 206.913,
+            "p(90)": 2.148
+        },
+        "http_req_connecting": {
+            "avg": 0.2619708791819494,
+            "min": 0,
+            "med": 0,
+            "max": 109.237,
+            "p(90)": 0,
+            "p(95)": 0
+        },
+        "http_req_blocked": {
+            "avg": 0.2729385350672449,
+            "min": 0,
+            "med": 0.005,
+            "max": 109.329,
+            "p(90)": 0.009,
+            "p(95)": 0.011
+        },
+        "data_sent": {
+            "count": 1095190,
+            "rate": 3645.468894762627
+        },
+        "iterations": {
+            "count": 2999,
+            "rate": 9.982524690138805
+        },
+        "http_req_duration{expected_response:true}": {
+            "p(95)": 197.43099999999998,
+            "avg": 111.09023976409216,
+            "min": 37.779,
+            "med": 73.61,
+            "max": 3857.151,
+            "p(90)": 144.281
+        },
+        "http_req_failed": {
+            "passes": 180,
+            "fails": 8817,
+            "thresholds": {
+                "rate<0.6": false
+            },
+            "value": 0.020006668889629875
+        },
+        "http_reqs": {
+            "count": 8997,
+            "rate": 29.947574070416415
+        },
+        "http_req_waiting": {
+            "p(90)": 141.73620000000008,
+            "p(95)": 193.7312,
+            "avg": 122.86089307546959,
+            "min": 0,
+            "med": 72.881,
+            "max": 60000.747
+        },
+        "checks": {
+            "passes": 8992,
+            "fails": 5,
+            "value": 0.9994442591975102
+        },
+        "iteration_duration": {
+            "max": 90880.363083,
+            "p(90)": 466.7646166,
+            "p(95)": 656.4627463999993,
+            "avg": 472.0359693027679,
+            "min": 244.887084,
+            "med": 291.782958
+        },
+        "dropped_iterations": {
+            "count": 1,
+            "rate": 0.0033286177693027026
+        },
+        "http_req_tls_handshaking": {
+            "p(95)": 0,
+            "avg": 0,
+            "min": 0,
+            "med": 0,
+            "max": 0,
+            "p(90)": 0
+        },
+        "http_req_duration": {
+            "avg": 123.69328698455051,
+            "min": 0,
+            "med": 73.067,
+            "max": 60000.773,
+            "p(90)": 143.5086,
+            "p(95)": 197.33799999999997
+        },
+        "vus": {
+            "value": 4,
+            "min": 2,
+            "max": 38
+        },
+        "vus_max": {
+            "value": 41,
+            "min": 40,
+            "max": 41
+        },
+        "http_req_sending": {
+            "avg": 0.020604979437590105,
+            "min": 0,
+            "med": 0.019,
+            "max": 0.213,
+            "p(90)": 0.029,
+            "p(95)": 0.034
+        },
+        "data_received": {
+            "count": 9040151,
+            "rate": 30091.2072557796
+        }
+    }
+}
