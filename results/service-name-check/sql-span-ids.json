@@ -1,6 +1,27 @@
 {
-  "trace.id": "ba6a3a839d8a18faf4a005388bd1b026",
-  "span.id": "6e891179a1e9e3da",
-  "transaction.id": "1c3299c68853062c",
-  "service.name": "ShipmentsWeb"
+  "trace.id": "b0ab8ed422b9f48703de78c3cc0a9790",
+  "transaction.id": "774d0a410e54f92e",
+  "span.id": "84c439d0540bd483",
+  "http": [
+    [
+      50714,
+      "success"
+    ],
+    [
+      41098,
+      "success"
+    ]
+  ],
+  "track": [
+    [
+      50714,
+      "success"
+    ],
+    [
+      41098,
+      "success"
+    ]
+  ],
+  "runslow": true,
+  "has_error": false
 }

@@ -63,13 +63,17 @@ if ($Mode -eq 'clear' -or $Mode -eq 'none') {
   Set-PoolEnv 'ELASTIC_APM_ENVIRONMENT' 'lab'
   Set-PoolEnv 'ELASTIC_APM_PROFILER_LOG' 'info'
   Set-PoolEnv 'ELASTIC_APM_PROFILER_LOG_DIR' $LogDir
+  # Profiler reads these from env (Web.config alone is not enough for stack frame classification).
+  Set-PoolEnv 'ELASTIC_APM_APPLICATION_NAMESPACES' 'Contoso.'
+  Set-PoolEnv 'ELASTIC_APM_SPAN_STACK_TRACE_MIN_DURATION' '0ms'
   if ($Mode -eq 'profiler-named' -and $ServiceName) {
     Set-PoolEnv 'ELASTIC_APM_SERVICE_NAME' $ServiceName
   }
   Write-Output "Configured SharedPool mode=$Mode serverHost=$(([Uri]$ServerUrl).Host) apiKeyLen=$($ApiKey.Length)"
 }
 
-Restart-WebAppPool SharedPool
+$poolState = (Get-WebAppPoolState -Name SharedPool).Value
+if ($poolState -eq 'Stopped') { Start-WebAppPool SharedPool } else { Restart-WebAppPool SharedPool }
 Start-Sleep 4
 Write-Output "Pool state=$((Get-WebAppPoolState -Name SharedPool).Value)"
 Write-Output "Env names now:"

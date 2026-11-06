@@ -36,7 +36,9 @@ namespace ShipmentsWeb.Controllers
 
             var quote = await _shipments.CreateQuoteAsync(trackingId, lane, weightKg).ConfigureAwait(false);
             var viaHttpClient = await _tracking.GetStatusHttpClientAsync(trackingId).ConfigureAwait(false);
-            var viaWebRequest = _tracking.GetStatusHttpWebRequest(trackingId);
+            // Distinct id suffix avoids DiagnosticSource conflating back-to-back HttpClient + HttpWebRequest
+            // calls to the same URL (which produced 0µs outbound spans / TrackingApi children).
+            var viaWebRequest = await _tracking.GetStatusHttpWebRequestAsync(trackingId + "-wr").ConfigureAwait(false);
 
             ViewBag.Quote = quote;
             ViewBag.HttpClientStatus = viaHttpClient;

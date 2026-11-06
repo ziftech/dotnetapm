@@ -1,0 +1,554 @@
+[
+  {
+    "trace": "d61a7b8fe4d37b9cd511d7c4b594367d",
+    "tx": "43c5be0433022e6a",
+    "http": [
+      78145,
+      32220
+    ],
+    "track": [
+      32220,
+      78145
+    ],
+    "svc": [
+      [
+        "ShipmentService.LookupStatus",
+        510
+      ],
+      [
+        "ShipmentService.CreateQuoteAsync",
+        2043126
+      ]
+    ],
+    "sql": [
+      {
+        "id": "73223d0ec44d0ca2",
+        "dur": 2011356,
+        "name": "WAITFOR"
+      },
+      {
+        "id": "73223d0ec44d0ca2",
+        "dur": 2011356,
+        "name": "WAITFOR"
+      }
+    ],
+    "runslow": [
+      {
+        "library_frame": null,
+        "classname": "Contoso.Shipments.Business.ShipmentRepository"
+      },
+      {
+        "library_frame": null,
+        "classname": "Contoso.Shipments.Business.ShipmentRepository"
+      }
+    ]
+  },
+  {
+    "trace": "b0ab8ed422b9f48703de78c3cc0a9790",
+    "tx": "774d0a410e54f92e",
+    "http": [
+      50714,
+      41098
+    ],
+    "track": [
+      50714,
+      41098
+    ],
+    "svc": [
+      [
+        "ShipmentService.CreateQuoteAsync",
+        2043492
+      ],
+      [
+        "ShipmentService.LookupStatus",
+        3171
+      ],
+      [
+        "ShipmentService.LookupStatus",
+        516
+      ]
+    ],
+    "sql": [
+      {
+        "id": "84c439d0540bd483",
+        "dur": 2011358,
+        "name": "WAITFOR"
+      },
+      {
+        "id": "84c439d0540bd483",
+        "dur": 2011358,
+        "name": "WAITFOR"
+      }
+    ],
+    "runslow": [
+      {
+        "library_frame": null,
+        "classname": "Contoso.Shipments.Business.ShipmentRepository"
+      },
+      {
+        "library_frame": null,
+        "classname": "Contoso.Shipments.Business.ShipmentRepository"
+      }
+    ]
+  },
+  {
+    "trace": "f4b7119b313fcdfce7991853548a9647",
+    "tx": "d016a91b10c0a78e",
+    "http": [
+      53995,
+      31240
+    ],
+    "track": [
+      46872,
+      31240
+    ],
+    "svc": [
+      [
+        "ShipmentService.LookupStatus",
+        0
+      ],
+      [
+        "ShipmentService.LookupStatus",
+        0
+      ],
+      [
+        "ShipmentService.CreateQuoteAsync",
+        2048496
+      ]
+    ],
+    "sql": [
+      {
+        "id": "2bab853caa8023ce",
+        "dur": 2013840,
+        "name": "WAITFOR"
+      },
+      {
+        "id": "2bab853caa8023ce",
+        "dur": 2013840,
+        "name": "WAITFOR"
+      }
+    ],
+    "runslow": [
+      {
+        "library_frame": null,
+        "classname": "Contoso.Shipments.Business.ShipmentRepository"
+      },
+      {
+        "library_frame": null,
+        "classname": "Contoso.Shipments.Business.ShipmentRepository"
+      }
+    ]
+  },
+  {
+    "trace": "6fc41988628a60054a40c604689eadd8",
+    "tx": "03b42815b9a1a88f",
+    "http": [
+      46757,
+      31385
+    ],
+    "track": [
+      46757,
+      31385
+    ],
+    "svc": [
+      [
+        "ShipmentService.LookupStatus",
+        0
+      ],
+      [
+        "ShipmentService.LookupStatus",
+        0
+      ],
+      [
+        "ShipmentService.CreateQuoteAsync",
+        2058771
+      ]
+    ],
+    "sql": [
+      {
+        "id": "a8ba6d27f17f3bce",
+        "dur": 2016497,
+        "name": "WAITFOR"
+      },
+      {
+        "id": "a8ba6d27f17f3bce",
+        "dur": 2016497,
+        "name": "WAITFOR"
+      }
+    ],
+    "runslow": [
+      {
+        "library_frame": null,
+        "classname": "Contoso.Shipments.Business.ShipmentRepository"
+      },
+      {
+        "library_frame": null,
+        "classname": "Contoso.Shipments.Business.ShipmentRepository"
+      }
+    ]
+  },
+  {
+    "trace": "3d7ea04788cf1c9907dd362d8205bd60",
+    "tx": "6f937a7e440ce834",
+    "http": [
+      46675,
+      31777
+    ],
+    "track": [
+      46675,
+      31777
+    ],
+    "svc": [
+      [
+        "ShipmentService.LookupStatus",
+        0
+      ],
+      [
+        "ShipmentService.LookupStatus",
+        624
+      ],
+      [
+        "ShipmentService.CreateQuoteAsync",
+        2053431
+      ]
+    ],
+    "sql": [
+      {
+        "id": "f05bd381ed8d9ea5",
+        "dur": 2006019,
+        "name": "WAITFOR"
+      },
+      {
+        "id": "f05bd381ed8d9ea5",
+        "dur": 2006019,
+        "name": "WAITFOR"
+      }
+    ],
+    "runslow": [
+      {
+        "library_frame": null,
+        "classname": "Contoso.Shipments.Business.ShipmentRepository"
+      },
+      {
+        "library_frame": null,
+        "classname": "Contoso.Shipments.Business.ShipmentRepository"
+      }
+    ]
+  },
+  {
+    "trace": "d812362dfdd4d37ed917c4a975283c34",
+    "tx": "58bba8119633580e",
+    "http": [
+      48330,
+      32158
+    ],
+    "track": [
+      48330,
+      32158
+    ],
+    "svc": [
+      [
+        "ShipmentService.LookupStatus",
+        0
+      ],
+      [
+        "ShipmentService.LookupStatus",
+        0
+      ],
+      [
+        "ShipmentService.CreateQuoteAsync",
+        2050985
+      ]
+    ],
+    "sql": [
+      {
+        "id": "a61d0e93074fcd7b",
+        "dur": 2018757,
+        "name": "WAITFOR"
+      },
+      {
+        "id": "a61d0e93074fcd7b",
+        "dur": 2018757,
+        "name": "WAITFOR"
+      }
+    ],
+    "runslow": [
+      {
+        "library_frame": null,
+        "classname": "Contoso.Shipments.Business.ShipmentRepository"
+      },
+      {
+        "library_frame": null,
+        "classname": "Contoso.Shipments.Business.ShipmentRepository"
+      }
+    ]
+  },
+  {
+    "trace": "123375048209e536a75f5ec6e16a2fb1",
+    "tx": "f99f75881bdd09a4",
+    "http": [
+      47964,
+      31221
+    ],
+    "track": [
+      47964,
+      31221
+    ],
+    "svc": [
+      [
+        "ShipmentService.LookupStatus",
+        748
+      ],
+      [
+        "ShipmentService.LookupStatus",
+        0
+      ],
+      [
+        "ShipmentService.CreateQuoteAsync",
+        2050976
+      ]
+    ],
+    "sql": [
+      {
+        "id": "c3ee8e8972b63ba7",
+        "dur": 2003769,
+        "name": "WAITFOR"
+      },
+      {
+        "id": "c3ee8e8972b63ba7",
+        "dur": 2003769,
+        "name": "WAITFOR"
+      }
+    ],
+    "runslow": [
+      {
+        "library_frame": null,
+        "classname": "Contoso.Shipments.Business.ShipmentRepository"
+      },
+      {
+        "library_frame": null,
+        "classname": "Contoso.Shipments.Business.ShipmentRepository"
+      }
+    ]
+  },
+  {
+    "trace": "a4073f4b6799dd42c93fe07b9385e8c3",
+    "tx": "d1737ba14c2c9aba",
+    "http": [
+      46892,
+      47363
+    ],
+    "track": [
+      46892,
+      47363
+    ],
+    "svc": [
+      [
+        "ShipmentService.LookupStatus",
+        0
+      ],
+      [
+        "ShipmentService.LookupStatus",
+        0
+      ],
+      [
+        "ShipmentService.CreateQuoteAsync",
+        2089007
+      ]
+    ],
+    "sql": [
+      {
+        "id": "235338827bd9ad2e",
+        "dur": 2041072,
+        "name": "WAITFOR"
+      },
+      {
+        "id": "235338827bd9ad2e",
+        "dur": 2041072,
+        "name": "WAITFOR"
+      }
+    ],
+    "runslow": [
+      {
+        "library_frame": null,
+        "classname": "Contoso.Shipments.Business.ShipmentRepository"
+      },
+      {
+        "library_frame": null,
+        "classname": "Contoso.Shipments.Business.ShipmentRepository"
+      }
+    ]
+  },
+  {
+    "trace": "ee6ce9c4191ed4a151a01cf73f022da0",
+    "tx": "bcb9a8a60727f372",
+    "http": [
+      67846,
+      11804688
+    ],
+    "track": [
+      52730,
+      1628792
+    ],
+    "svc": [
+      [
+        "ShipmentService.LookupStatus",
+        708
+      ],
+      [
+        "ShipmentService.LookupStatus",
+        854066
+      ],
+      [
+        "ShipmentService.CreateQuoteAsync",
+        930732
+      ]
+    ],
+    "sql": [],
+    "runslow": []
+  },
+  {
+    "trace": "1aefd2643425f41ea32680bd205b184f",
+    "tx": "47f6a0acdac58559",
+    "http": [
+      7815,
+      8330
+    ],
+    "track": [
+      7815,
+      8330
+    ],
+    "svc": [
+      [
+        "ShipmentService.CreateQuoteAsync",
+        2049713
+      ],
+      [
+        "ShipmentService.LookupStatus",
+        7815
+      ],
+      [
+        "ShipmentService.LookupStatus",
+        8330
+      ]
+    ],
+    "sql": [
+      {
+        "id": "c151e25c4c5290e8",
+        "dur": 2018459,
+        "name": "WAITFOR"
+      },
+      {
+        "id": "c151e25c4c5290e8",
+        "dur": 2018459,
+        "name": "WAITFOR"
+      }
+    ],
+    "runslow": [
+      {
+        "library_frame": null,
+        "classname": "Contoso.Shipments.Business.ShipmentRepository"
+      },
+      {
+        "library_frame": null,
+        "classname": "Contoso.Shipments.Business.ShipmentRepository"
+      }
+    ]
+  },
+  {
+    "trace": "8dfd17cf99961bbad3c9a509c3f803a4",
+    "tx": "8e1d472e29d30ad8",
+    "http": [
+      2613,
+      11445
+    ],
+    "track": [
+      0,
+      9499
+    ],
+    "svc": [
+      [
+        "ShipmentService.LookupStatus",
+        0
+      ],
+      [
+        "ShipmentService.LookupStatus",
+        7550
+      ],
+      [
+        "ShipmentService.CreateQuoteAsync",
+        2049649
+      ]
+    ],
+    "sql": [
+      {
+        "id": "551b07756d56251e",
+        "dur": 2015119,
+        "name": "WAITFOR"
+      },
+      {
+        "id": "551b07756d56251e",
+        "dur": 2015119,
+        "name": "WAITFOR"
+      }
+    ],
+    "runslow": [
+      {
+        "library_frame": null,
+        "classname": "Contoso.Shipments.Business.ShipmentRepository"
+      },
+      {
+        "library_frame": null,
+        "classname": "Contoso.Shipments.Business.ShipmentRepository"
+      }
+    ]
+  },
+  {
+    "trace": "062528dbaeddc2320eb152cb1f6e5514",
+    "tx": "0cc68a51b12ceced",
+    "http": [
+      0,
+      15624
+    ],
+    "track": [
+      15624,
+      0
+    ],
+    "svc": [
+      [
+        "ShipmentService.LookupStatus",
+        15624
+      ],
+      [
+        "ShipmentService.LookupStatus",
+        0
+      ],
+      [
+        "ShipmentService.CreateQuoteAsync",
+        2060498
+      ]
+    ],
+    "sql": [
+      {
+        "id": "59461ccc5aec0230",
+        "dur": 2013183,
+        "name": "WAITFOR"
+      },
+      {
+        "id": "59461ccc5aec0230",
+        "dur": 2013183,
+        "name": "WAITFOR"
+      }
+    ],
+    "runslow": [
+      {
+        "library_frame": null,
+        "classname": "Contoso.Shipments.Business.ShipmentRepository"
+      },
+      {
+        "library_frame": null,
+        "classname": "Contoso.Shipments.Business.ShipmentRepository"
+      }
+    ]
+  }
+]

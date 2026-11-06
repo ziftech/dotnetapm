@@ -1,0 +1,539 @@
+{
+  "took": 2,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 77,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": [
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "XMRBsqEBMViun3ke1MkU",
+        "_score": null,
+        "_source": {
+          "url": {
+            "full": "http://127.0.0.1/web/Checkout"
+          },
+          "trace": {
+            "id": "1aefd2643425f41ea32680bd205b184f"
+          },
+          "@timestamp": "2026-11-06T19:06:51.857215000Z",
+          "service": {
+            "name": "ShipmentsWeb"
+          },
+          "transaction": {
+            "duration": {
+              "us": 2065858
+            },
+            "id": "47f6a0acdac58559"
+          }
+        },
+        "sort": [
+          1793992011857
+        ]
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "W8RBsqEBMViun3ke1MkU",
+        "_score": null,
+        "_source": {
+          "url": {
+            "full": "http://127.0.0.1/web/Checkout"
+          },
+          "trace": {
+            "id": "8dfd17cf99961bbad3c9a509c3f803a4"
+          },
+          "@timestamp": "2026-11-06T19:06:47.689503000Z",
+          "service": {
+            "name": "ShipmentsWeb"
+          },
+          "transaction": {
+            "duration": {
+              "us": 2064685
+            },
+            "id": "8e1d472e29d30ad8"
+          }
+        },
+        "sort": [
+          1793992007689
+        ]
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "D8RBsqEBMViun3keschZ",
+        "_score": null,
+        "_source": {
+          "url": {
+            "full": "http://127.0.0.1/web/Checkout"
+          },
+          "trace": {
+            "id": "062528dbaeddc2320eb152cb1f6e5514"
+          },
+          "@timestamp": "2026-11-06T19:06:43.501897000Z",
+          "service": {
+            "name": "ShipmentsWeb"
+          },
+          "transaction": {
+            "duration": {
+              "us": 2076121
+            },
+            "id": "0cc68a51b12ceced"
+          }
+        },
+        "sort": [
+          1793992003501
+        ]
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "9MRBsqEBMViun3kescdZ",
+        "_score": null,
+        "_source": {
+          "url": {
+            "full": "http://127.0.0.1/web/Checkout"
+          },
+          "trace": {
+            "id": "e34c3ae79bc6f51d9c73b43edede2317"
+          },
+          "@timestamp": "2026-11-06T19:06:39.313939000Z",
+          "service": {
+            "name": "ShipmentsWeb"
+          },
+          "transaction": {
+            "duration": {
+              "us": 2083466
+            },
+            "id": "96df0aa5515c798b"
+          }
+        },
+        "sort": [
+          1793991999313
+        ]
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "88RBsqEBMViun3kescdZ",
+        "_score": null,
+        "_source": {
+          "url": {
+            "full": "http://127.0.0.1/web/Checkout"
+          },
+          "trace": {
+            "id": "84cfefc83d08dd50a7cbba0814e1f304"
+          },
+          "@timestamp": "2026-11-06T19:06:35.156734000Z",
+          "service": {
+            "name": "ShipmentsWeb"
+          },
+          "transaction": {
+            "duration": {
+              "us": 2072271
+            },
+            "id": "a0450c1520845d45"
+          }
+        },
+        "sort": [
+          1793991995156
+        ]
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "dcRBsqEBMViun3kegMVL",
+        "_score": null,
+        "_source": {
+          "url": {
+            "full": "http://127.0.0.1/web/Checkout"
+          },
+          "trace": {
+            "id": "a7d043fb45264c0a1cc9f94445bb17df"
+          },
+          "@timestamp": "2026-11-06T19:06:30.999607000Z",
+          "service": {
+            "name": "ShipmentsWeb"
+          },
+          "transaction": {
+            "duration": {
+              "us": 2060042
+            },
+            "id": "635dd88413229ec5"
+          }
+        },
+        "sort": [
+          1793991990999
+        ]
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "aMRBsqEBMViun3kegMVL",
+        "_score": null,
+        "_source": {
+          "url": {
+            "full": "http://127.0.0.1/web/Checkout"
+          },
+          "trace": {
+            "id": "66984fe2d6743e117bcf857289e0fc46"
+          },
+          "@timestamp": "2026-11-06T19:06:26.854156000Z",
+          "service": {
+            "name": "ShipmentsWeb"
+          },
+          "transaction": {
+            "duration": {
+              "us": 2066541
+            },
+            "id": "e0ea6b52585caea0"
+          }
+        },
+        "sort": [
+          1793991986854
+        ]
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "SsRBsqEBMViun3keYMWn",
+        "_score": null,
+        "_source": {
+          "url": {
+            "full": "http://127.0.0.1/web/Checkout"
+          },
+          "trace": {
+            "id": "9ded5ffe1c42bc796a8668e028b8058e"
+          },
+          "@timestamp": "2026-11-06T19:06:22.701936000Z",
+          "service": {
+            "name": "ShipmentsWeb"
+          },
+          "transaction": {
+            "duration": {
+              "us": 2060076
+            },
+            "id": "4182299212c3e046"
+          }
+        },
+        "sort": [
+          1793991982701
+        ]
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "PsRBsqEBMViun3keYMWn",
+        "_score": null,
+        "_source": {
+          "url": {
+            "full": "http://127.0.0.1/web/Checkout"
+          },
+          "trace": {
+            "id": "dc728e4cda07f348ca669d08a1ce1295"
+          },
+          "@timestamp": "2026-11-06T19:06:18.530555000Z",
+          "service": {
+            "name": "ShipmentsWeb"
+          },
+          "transaction": {
+            "duration": {
+              "us": 2074697
+            },
+            "id": "a79f927b2d721a2e"
+          }
+        },
+        "sort": [
+          1793991978530
+        ]
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "HMRBsqEBMViun3keQcUf",
+        "_score": null,
+        "_source": {
+          "url": {
+            "full": "http://127.0.0.1/web/Checkout"
+          },
+          "trace": {
+            "id": "7c37f7d6b6d408f2e781661194c6dbac"
+          },
+          "@timestamp": "2026-11-06T19:06:14.380218000Z",
+          "service": {
+            "name": "ShipmentsWeb"
+          },
+          "transaction": {
+            "duration": {
+              "us": 2069828
+            },
+            "id": "8c827ceb9ad8a179"
+          }
+        },
+        "sort": [
+          1793991974380
+        ]
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "G8RBsqEBMViun3keQcUf",
+        "_score": null,
+        "_source": {
+          "url": {
+            "full": "http://127.0.0.1/web/Checkout"
+          },
+          "trace": {
+            "id": "52a74fcd4fd2b48b201e1d553bedf336"
+          },
+          "@timestamp": "2026-11-06T19:06:10.200099000Z",
+          "service": {
+            "name": "ShipmentsWeb"
+          },
+          "transaction": {
+            "duration": {
+              "us": 2079119
+            },
+            "id": "7d6e5ecfc5d67da8"
+          }
+        },
+        "sort": [
+          1793991970200
+        ]
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "d8RBsqEBMViun3keIsOA",
+        "_score": null,
+        "_source": {
+          "url": {
+            "full": "http://127.0.0.1/web/Checkout"
+          },
+          "trace": {
+            "id": "cc6a5536f35ded94094b4472a6a3def8"
+          },
+          "@timestamp": "2026-11-06T19:06:03.633317000Z",
+          "service": {
+            "name": "ShipmentsWeb"
+          },
+          "transaction": {
+            "duration": {
+              "us": 4484312
+            },
+            "id": "26b908d9acf39696"
+          }
+        },
+        "sort": [
+          1793991963633
+        ]
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "CMQ-sqEBMViun3keAaqI",
+        "_score": null,
+        "_source": {
+          "url": {
+            "full": "http://127.0.0.1/web/Checkout"
+          },
+          "trace": {
+            "id": "28a5ce2395b30d56c1a7407589bdcc12"
+          },
+          "@timestamp": "2026-11-06T19:02:32.725500000Z",
+          "service": {
+            "name": "ShipmentsWeb"
+          },
+          "transaction": {
+            "duration": {
+              "us": 9467177
+            },
+            "id": "a5dce14facd69ef1"
+          }
+        },
+        "sort": [
+          1793991752725
+        ]
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "jsQ8sqEBMViun3keCJq5",
+        "_score": null,
+        "_source": {
+          "url": {
+            "full": "http://34.18.109.143/web/Checkout"
+          },
+          "trace": {
+            "id": "d199004ff85a5cf437317f1fd0a2cccd"
+          },
+          "@timestamp": "2026-11-06T19:00:24.406712000Z",
+          "service": {
+            "name": "ShipmentsWeb"
+          },
+          "transaction": {
+            "duration": {
+              "us": 2071755
+            },
+            "id": "16e35c3ca327e490"
+          }
+        },
+        "sort": [
+          1793991624406
+        ]
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "b8Q7sqEBMViun3ke4pkB",
+        "_score": null,
+        "_source": {
+          "url": {
+            "full": "http://34.18.109.143/web/Checkout"
+          },
+          "trace": {
+            "id": "ee29faab4ca7c091fe1b93730d3f0269"
+          },
+          "@timestamp": "2026-11-06T19:00:24.075205000Z",
+          "service": {
+            "name": "ShipmentsWeb"
+          },
+          "transaction": {
+            "duration": {
+              "us": 63573
+            },
+            "id": "b7ad5f4e6d96cc1b"
+          }
+        },
+        "sort": [
+          1793991624075
+        ]
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "bsQ7sqEBMViun3ke4pkB",
+        "_score": null,
+        "_source": {
+          "url": {
+            "full": "http://34.18.109.143/web/Checkout"
+          },
+          "trace": {
+            "id": "3ca0295c2f1f65bb33af4563e670279f"
+          },
+          "@timestamp": "2026-11-06T19:00:23.856489000Z",
+          "service": {
+            "name": "ShipmentsWeb"
+          },
+          "transaction": {
+            "duration": {
+              "us": 62650
+            },
+            "id": "3979b2046e24042f"
+          }
+        },
+        "sort": [
+          1793991623856
+        ]
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "C8Q7sqEBMViun3keyZjY",
+        "_score": null,
+        "_source": {
+          "url": {
+            "full": "http://34.18.109.143/web/Checkout"
+          },
+          "trace": {
+            "id": "8a034d6d48ca4e1874947c5cc300de4a"
+          },
+          "@timestamp": "2026-11-06T19:00:23.572241000Z",
+          "service": {
+            "name": "ShipmentsWeb"
+          },
+          "transaction": {
+            "duration": {
+              "us": 142572
+            },
+            "id": "91b0e3b7fc58a8ca"
+          }
+        },
+        "sort": [
+          1793991623572
+        ]
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "CsQ7sqEBMViun3keyZjY",
+        "_score": null,
+        "_source": {
+          "url": {
+            "full": "http://34.18.109.143/web/Checkout"
+          },
+          "trace": {
+            "id": "d4e47d443aada2ed0edadfb233d49d51"
+          },
+          "@timestamp": "2026-11-06T19:00:21.352986000Z",
+          "service": {
+            "name": "ShipmentsWeb"
+          },
+          "transaction": {
+            "duration": {
+              "us": 2077147
+            },
+            "id": "014d97ebdf9f3e73"
+          }
+        },
+        "sort": [
+          1793991621352
+        ]
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "-MQ7sqEBMViun3keyZfY",
+        "_score": null,
+        "_source": {
+          "url": {
+            "full": "http://34.18.109.143/web/Checkout"
+          },
+          "trace": {
+            "id": "5a72221a4864b5614d7d51057b304990"
+          },
+          "@timestamp": "2026-11-06T19:00:21.108422000Z",
+          "service": {
+            "name": "ShipmentsWeb"
+          },
+          "transaction": {
+            "duration": {
+              "us": 54694
+            },
+            "id": "6085312ba9c60a44"
+          }
+        },
+        "sort": [
+          1793991621108
+        ]
+      },
+      {
+        "_index": ".ds-traces-apm-default-2026.11.06-000001",
+        "_id": "5MQ7sqEBMViun3keyZfY",
+        "_score": null,
+        "_source": {
+          "url": {
+            "full": "http://34.18.109.143/web/Checkout"
+          },
+          "trace": {
+            "id": "b4191f3a2455eee5b5efdbff81bf2a80"
+          },
+          "@timestamp": "2026-11-06T19:00:20.920891000Z",
+          "service": {
+            "name": "ShipmentsWeb"
+          },
+          "transaction": {
+            "duration": {
+              "us": 46849
+            },
+            "id": "33fe65ddca6bd84b"
+          }
+        },
+        "sort": [
+          1793991620920
+        ]
+      }
+    ]
+  }
+}

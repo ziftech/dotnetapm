@@ -40,6 +40,11 @@ namespace TrackingApi.Controllers
                 throw new InvalidOperationException("Synthetic unhandled TrackingApi failure");
             }
 
+            // Keep the handler above Windows/DiagnosticSource timer granularity (~15ms).
+            // Faster localhost replies still complete real work, but HttpHandlerDiagnosticListener
+            // Start/Stop can land on the same tick and report 0µs client + server durations.
+            System.Threading.Thread.Sleep(25);
+
             var status = _shipments.LookupStatus(id);
             return Request.CreateResponse(HttpStatusCode.OK, new
             {

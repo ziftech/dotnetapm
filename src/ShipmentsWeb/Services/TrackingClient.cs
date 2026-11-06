@@ -38,7 +38,13 @@ namespace ShipmentsWeb.Services
             }
         }
 
-        public string GetStatusHttpWebRequest(string trackingId)
+        /// <summary>
+        /// HttpWebRequest path for outbound instrumentation demos.
+        /// Must use GetResponseAsync: sync GetResponse() on .NET Framework makes
+        /// System.Net.HttpHandlerDiagnosticListener emit Start/Stop with 0µs duration
+        /// (and a matching 0µs TrackingApi child transaction).
+        /// </summary>
+        public async Task<string> GetStatusHttpWebRequestAsync(string trackingId)
         {
             var url = _baseUrl + "/api/tracking/" + Uri.EscapeDataString(trackingId ?? string.Empty);
             try
@@ -46,11 +52,11 @@ namespace ShipmentsWeb.Services
                 var request = (HttpWebRequest)WebRequest.Create(url);
                 request.Method = "GET";
                 request.Timeout = 15000;
-                using (var response = (HttpWebResponse)request.GetResponse())
+                using (var response = (HttpWebResponse)await request.GetResponseAsync().ConfigureAwait(false))
                 using (var stream = response.GetResponseStream())
                 using (var reader = new StreamReader(stream ?? Stream.Null))
                 {
-                    var body = reader.ReadToEnd();
+                    var body = await reader.ReadToEndAsync().ConfigureAwait(false);
                     Log.InfoFormat("HttpWebRequest status={0}", (int)response.StatusCode);
                     return ((int)response.StatusCode) + " " + body;
                 }
