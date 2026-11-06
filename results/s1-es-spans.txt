@@ -1,0 +1,3 @@
+LABEL=S1-per-app QUERY=spans_sample TOTAL_HITS=2
+  SPAN service=ContosoSharedPoolNamed name=ShipmentService.LookupStatus type=app
+  SPAN service=ContosoSharedPoolNamed name=ShipmentService.LookupStatus type=app

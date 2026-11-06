@@ -10,3 +10,6 @@ using System.Reflection;
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+
+// S2 narrow: weave public methods on *Service types in Contoso.Shipments.* (class-level Trace below is the reliable Fody path).
+// Broad variant additionally applies [Trace] on PricingCalculator / CallChain / ShipmentRepository.

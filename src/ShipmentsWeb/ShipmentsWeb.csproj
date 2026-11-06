@@ -82,11 +82,18 @@
     <Reference Include="log4net, Version=2.0.17.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\log4net.2.0.17\lib\net45\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Elastic.Apm">
+      <HintPath>..\..\packages\Elastic.Apm.1.34.7\lib\net462\Elastic.Apm.dll</HintPath>
+    </Reference>
+    <Reference Include="Elastic.Apm.AspNetFullFramework">
+      <HintPath>..\..\packages\Elastic.Apm.AspNetFullFramework.1.34.7\lib\net462\Elastic.Apm.AspNetFullFramework.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
+    <Compile Include="Filters\ApmExceptionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -1,0 +1,2 @@
+LABEL=B1-profiler QUERY=errors ERROR=HTTPError
+FALLBACK_ERROR=HTTPError

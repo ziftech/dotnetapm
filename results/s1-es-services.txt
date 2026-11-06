@@ -1,0 +1,4 @@
+LABEL=S1-per-app QUERY=service_names TOTAL_HITS=45
+  AGG tx: metric:42, transaction:4, span:2
+  AGG span_types: app:6
+  AGG services: ContosoSharedPoolNamed:48

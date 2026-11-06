@@ -1,0 +1,2 @@
+LABEL=B1-profiler QUERY=service_names ERROR=HTTPError
+FALLBACK_ERROR=HTTPError

@@ -1,0 +1,4 @@
+LABEL=B1-profiler-v2 QUERY=service_names TOTAL_HITS=3210
+  AGG tx: metric:2462, transaction:2284, span:884
+  AGG span_types: external:887, app:11
+  AGG services: Shipments_SharedPool:5630

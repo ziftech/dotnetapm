@@ -1,0 +1,2 @@
+LABEL=S2-nuget-fody QUERY=errors TOTAL_HITS=0
+  AGG by_service: (empty)

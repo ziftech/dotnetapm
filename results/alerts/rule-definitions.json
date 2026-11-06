@@ -1,0 +1,42 @@
+[
+  {
+    "name": "lab-shipmentsweb-failed-transaction-rate",
+    "rule_type_id": "apm.transaction_error_rate",
+    "params": {
+      "serviceName": "ShipmentsWeb",
+      "environment": "lab",
+      "threshold": 5,
+      "windowSize": 5,
+      "windowUnit": "m"
+    }
+  },
+  {
+    "name": "lab-shipmentsweb-latency",
+    "rule_type_id": "apm.transaction_duration",
+    "params": {
+      "serviceName": "ShipmentsWeb",
+      "environment": "lab",
+      "threshold": 2000,
+      "windowSize": 5,
+      "windowUnit": "m"
+    }
+  },
+  {
+    "name": "lab-trackingapi-error-count",
+    "rule_type_id": "apm.error_rate",
+    "params": {
+      "serviceName": "TrackingApi",
+      "environment": "lab",
+      "threshold": 1,
+      "windowSize": 5,
+      "windowUnit": "m"
+    }
+  },
+  {
+    "name": "lab-checkout-slo-placeholder",
+    "type": "slo",
+    "indicator": "apm.transaction_success_rate",
+    "service": "ShipmentsWeb",
+    "transaction": "POST Checkout/Index"
+  }
+]

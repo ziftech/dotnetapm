@@ -1,0 +1,2 @@
+LABEL=B1-profiler-v2 QUERY=errors TOTAL_HITS=0
+  AGG by_service: (empty)

@@ -1,0 +1,4 @@
+LABEL=S2-nuget-fody QUERY=service_names TOTAL_HITS=0
+  AGG tx: (empty)
+  AGG span_types: (empty)
+  AGG services: (empty)

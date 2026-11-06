@@ -56,10 +56,23 @@
     <Reference Include="NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NLog.5.3.4\lib\net46\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="Elastic.Apm">
+      <HintPath>..\..\packages\Elastic.Apm.1.34.7\lib\net462\Elastic.Apm.dll</HintPath>
+    </Reference>
+    <Reference Include="Elastic.Apm.AspNetFullFramework">
+      <HintPath>..\..\packages\Elastic.Apm.AspNetFullFramework.1.34.7\lib\net462\Elastic.Apm.AspNetFullFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Elastic.Apm.NLog">
+      <HintPath>..\..\packages\Elastic.Apm.NLog.8.18.2\lib\net462\Elastic.Apm.NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Elastic.CommonSchema.NLog">
+      <HintPath>..\..\packages\Elastic.CommonSchema.NLog.8.18.2\lib\net462\Elastic.CommonSchema.NLog.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\TrackingController.cs" />
+    <Compile Include="Filters\ApmExceptionLogger.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

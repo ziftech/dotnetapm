@@ -1,0 +1,191 @@
+{
+  "page": 1,
+  "per_page": 20,
+  "total": 4,
+  "data": [
+    {
+      "id": "cac6bec2-1b63-4b2d-b51e-5cd66f0e99f2",
+      "enabled": true,
+      "name": "lab-shipmentsweb-latency",
+      "tags": [
+        "contoso-lab"
+      ],
+      "rule_type_id": "apm.transaction_duration",
+      "consumer": "apm",
+      "schedule": {
+        "interval": "1m"
+      },
+      "actions": [],
+      "params": {
+        "serviceName": "ShipmentsWeb",
+        "environment": "lab",
+        "threshold": 2000,
+        "windowSize": 5,
+        "windowUnit": "m",
+        "aggregationType": "avg",
+        "transactionType": "request"
+      },
+      "scheduled_task_id": "cac6bec2-1b63-4b2d-b51e-5cd66f0e99f2",
+      "created_by": "1986671273",
+      "updated_by": "1986671273",
+      "created_at": "2026-11-06T11:07:51.600Z",
+      "updated_at": "2026-11-06T11:07:51.600Z",
+      "api_key_owner": "1986671273",
+      "api_key_created_by_user": true,
+      "throttle": null,
+      "mute_all": false,
+      "notify_when": null,
+      "muted_alert_ids": [],
+      "execution_status": {
+        "status": "pending",
+        "last_execution_date": "2026-11-06T11:07:51.600Z"
+      },
+      "revision": 0,
+      "running": false
+    },
+    {
+      "id": "262b853d-62ce-41bd-a69e-fdfde957edf6",
+      "enabled": true,
+      "name": "lab-trackingapi-error-rate",
+      "tags": [
+        "contoso-lab"
+      ],
+      "rule_type_id": "apm.transaction_error_rate",
+      "consumer": "apm",
+      "schedule": {
+        "interval": "1m"
+      },
+      "actions": [],
+      "params": {
+        "serviceName": "TrackingApi",
+        "environment": "lab",
+        "threshold": 5,
+        "windowSize": 5,
+        "windowUnit": "m"
+      },
+      "scheduled_task_id": "262b853d-62ce-41bd-a69e-fdfde957edf6",
+      "created_by": "1986671273",
+      "updated_by": "1986671273",
+      "created_at": "2026-11-06T11:07:54.111Z",
+      "updated_at": "2026-11-06T11:07:54.111Z",
+      "api_key_owner": "1986671273",
+      "api_key_created_by_user": true,
+      "throttle": null,
+      "mute_all": false,
+      "notify_when": null,
+      "muted_alert_ids": [],
+      "execution_status": {
+        "status": "pending",
+        "last_execution_date": "2026-11-06T11:07:54.111Z"
+      },
+      "revision": 0,
+      "running": false
+    },
+    {
+      "id": "72a74205-79dd-40e8-8e42-aba86de9f101",
+      "enabled": true,
+      "name": "lab-shipmentsweb-failed-transaction-rate",
+      "tags": [
+        "contoso-lab",
+        "Missing Elastic Cloud API Key"
+      ],
+      "rule_type_id": "apm.transaction_error_rate",
+      "consumer": "apm",
+      "schedule": {
+        "interval": "1m"
+      },
+      "actions": [],
+      "params": {
+        "serviceName": "ShipmentsWeb",
+        "environment": "lab",
+        "threshold": 5,
+        "windowSize": 5,
+        "windowUnit": "m"
+      },
+      "scheduled_task_id": "72a74205-79dd-40e8-8e42-aba86de9f101",
+      "created_by": "1986671273",
+      "updated_by": "1986671273",
+      "created_at": "2026-11-06T11:07:25.145Z",
+      "updated_at": "2026-11-06T11:07:25.145Z",
+      "api_key_owner": "1986671273",
+      "api_key_created_by_user": true,
+      "throttle": null,
+      "mute_all": false,
+      "notify_when": null,
+      "muted_alert_ids": [],
+      "execution_status": {
+        "status": "ok",
+        "last_execution_date": "2026-11-06T11:07:29.409Z",
+        "last_duration": 2048
+      },
+      "last_run": {
+        "outcome": "succeeded",
+        "outcome_order": 0,
+        "warning": null,
+        "outcome_msg": null,
+        "alerts_count": {
+          "new": 0,
+          "ignored": 0,
+          "recovered": 0,
+          "active": 0
+        }
+      },
+      "next_run": "2026-11-06T11:08:29.090Z",
+      "revision": 0,
+      "running": false
+    },
+    {
+      "id": "e43f3f45-ef2d-423c-a928-e13b3765f130",
+      "enabled": true,
+      "name": "lab-shipmentsweb-failed-transaction-rate",
+      "tags": [
+        "contoso-lab",
+        "Missing Elastic Cloud API Key"
+      ],
+      "rule_type_id": "apm.transaction_error_rate",
+      "consumer": "apm",
+      "schedule": {
+        "interval": "1m"
+      },
+      "actions": [],
+      "params": {
+        "serviceName": "ShipmentsWeb",
+        "environment": "lab",
+        "threshold": 5,
+        "windowSize": 5,
+        "windowUnit": "m"
+      },
+      "scheduled_task_id": "e43f3f45-ef2d-423c-a928-e13b3765f130",
+      "created_by": "1986671273",
+      "updated_by": "1986671273",
+      "created_at": "2026-11-06T11:07:26.951Z",
+      "updated_at": "2026-11-06T11:07:26.951Z",
+      "api_key_owner": "1986671273",
+      "api_key_created_by_user": true,
+      "throttle": null,
+      "mute_all": false,
+      "notify_when": null,
+      "muted_alert_ids": [],
+      "execution_status": {
+        "status": "ok",
+        "last_execution_date": "2026-11-06T11:07:29.411Z",
+        "last_duration": 2045
+      },
+      "last_run": {
+        "outcome": "succeeded",
+        "outcome_order": 0,
+        "warning": null,
+        "outcome_msg": null,
+        "alerts_count": {
+          "new": 0,
+          "ignored": 0,
+          "recovered": 0,
+          "active": 0
+        }
+      },
+      "next_run": "2026-11-06T11:08:29.090Z",
+      "revision": 0,
+      "running": false
+    }
+  ]
+}

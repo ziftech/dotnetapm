@@ -1,0 +1,6 @@
+LABEL=B1-profiler-v2 QUERY=spans_sample TOTAL_HITS=884
+  SPAN service=Shipments_SharedPool name=GET localhost type=external
+  SPAN service=Shipments_SharedPool name=GET localhost type=external
+  SPAN service=Shipments_SharedPool name=GET localhost type=external
+  SPAN service=Shipments_SharedPool name=GET localhost type=external
+  SPAN service=Shipments_SharedPool name=GET localhost type=external

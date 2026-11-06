@@ -1,0 +1,10 @@
+LABEL=S2-repaired QUERY=service_names TOTAL_HITS=6772
+  AGG tx: metric:4428, span:4345, transaction:2269, error:100
+  AGG span_types: app:3499, external:867
+  AGG services: ShipmentsWeb:5582, TrackingApi:5560
+LABEL=S2-repaired QUERY=spans_sample TOTAL_HITS=4345
+  SPAN service=TrackingApi name=ShipmentService.LookupStatus type=app
+  SPAN service=TrackingApi name=ShipmentService.LookupStatus type=app
+  SPAN service=TrackingApi name=ShipmentService.LookupStatus type=app
+  SPAN service=TrackingApi name=ShipmentService.LookupStatus type=app
+  SPAN service=TrackingApi name=ShipmentService.LookupStatus type=app

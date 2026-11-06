@@ -1,0 +1,4 @@
+LABEL=B1b-named QUERY=service_names TOTAL_HITS=4562
+  AGG tx: metric:5015, transaction:3231, span:1250
+  AGG span_types: external:1255, app:16
+  AGG services: Shipments_SharedPool:7772, ContosoSharedPoolNamed:1724

@@ -1,0 +1,164 @@
+{
+  "services": {
+    "tx_names": {
+      "doc_count_error_upper_bound": 1,
+      "sum_other_doc_count": 60,
+      "buckets": [
+        {
+          "key": "GET tracking {id}",
+          "doc_count": 2802
+        },
+        {
+          "key": "GET Home/Index",
+          "doc_count": 845
+        },
+        {
+          "key": "POST Checkout/Index",
+          "doc_count": 838
+        },
+        {
+          "key": "GET /tracking/api/tracking/boom",
+          "doc_count": 24
+        },
+        {
+          "key": "GET /tracking/api/tracking/K6-1-100",
+          "doc_count": 1
+        },
+        {
+          "key": "GET /tracking/api/tracking/K6-1-107",
+          "doc_count": 1
+        },
+        {
+          "key": "GET /tracking/api/tracking/K6-1-109",
+          "doc_count": 1
+        },
+        {
+          "key": "GET /tracking/api/tracking/K6-1-11",
+          "doc_count": 1
+        },
+        {
+          "key": "GET /tracking/api/tracking/K6-1-27",
+          "doc_count": 1
+        },
+        {
+          "key": "GET /tracking/api/tracking/K6-1-30",
+          "doc_count": 1
+        },
+        {
+          "key": "GET /tracking/api/tracking/K6-1-34",
+          "doc_count": 1
+        },
+        {
+          "key": "GET /tracking/api/tracking/K6-1-42",
+          "doc_count": 1
+        },
+        {
+          "key": "GET /tracking/api/tracking/K6-1-43",
+          "doc_count": 1
+        },
+        {
+          "key": "GET /tracking/api/tracking/K6-1-44",
+          "doc_count": 1
+        },
+        {
+          "key": "GET /tracking/api/tracking/K6-1-54",
+          "doc_count": 1
+        },
+        {
+          "key": "GET /tracking/api/tracking/K6-1-59",
+          "doc_count": 1
+        },
+        {
+          "key": "GET /tracking/api/tracking/K6-1-62",
+          "doc_count": 1
+        },
+        {
+          "key": "GET /tracking/api/tracking/K6-1-65",
+          "doc_count": 1
+        },
+        {
+          "key": "GET /tracking/api/tracking/K6-1-66",
+          "doc_count": 1
+        },
+        {
+          "key": "GET /tracking/api/tracking/K6-1-74",
+          "doc_count": 1
+        }
+      ]
+    },
+    "services": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": "ShipmentsWeb",
+          "doc_count": 5584
+        },
+        {
+          "key": "TrackingApi",
+          "doc_count": 5561
+        }
+      ]
+    },
+    "dest": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": "localhost:80",
+          "doc_count": 868
+        }
+      ]
+    },
+    "span_names": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": "<CreateQuoteAsync>d__4.MoveNext",
+          "doc_count": 1359
+        },
+        {
+          "key": "ShipmentService.LookupStatus",
+          "doc_count": 1254
+        },
+        {
+          "key": "GET localhost",
+          "doc_count": 868
+        },
+        {
+          "key": "<CreateQuoteAsync>d__4.SetStateMachine",
+          "doc_count": 435
+        },
+        {
+          "key": "ShipmentService.CreateQuoteAsync",
+          "doc_count": 433
+        }
+      ]
+    },
+    "errors": {
+      "doc_count": 100,
+      "by_svc": {
+        "doc_count_error_upper_bound": 0,
+        "sum_other_doc_count": 0,
+        "buckets": [
+          {
+            "key": "TrackingApi",
+            "doc_count": 100
+          }
+        ]
+      }
+    }
+  },
+  "span_stats": {
+    "spans": {
+      "value": 1.9100925517849272
+    },
+    "max_spans": {
+      "value": 8.0
+    },
+    "dropped": {
+      "value": 0.0
+    }
+  }
+}
