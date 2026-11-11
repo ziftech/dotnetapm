@@ -48,8 +48,10 @@ An Actions workflow example lives at `preso/github-pages.workflow.yml.example` (
 | `public/downloads/demo-guide-instrumentation.md` | Instrumentation guide |
 | `../docs/demo-guide-instrumentation.md` | Canonical guide in the repo |
 
-## Content map (15 scenes)
+## Content map (7 scenes)
 
-1. Hero · 2 Common concerns · 3 Layers A/B/C · 4 Lab map · 5 Profiler · 6 EDOT · 7 Weave · 8 C# · 9 VB · 10 Backends · 11 Waterfall · 12 Labels · 13 Logs · 14 Demo script · 15 Close
+1. Hero · 2 Layers A/B/C · 3 Host agent · 4 Aspects (C#/VB) · 5 Profiler vs EDOT backends · 6 Checkout proof · 7 Close
+
+High-level approach only — details live in `docs/demo-guide-instrumentation.md`.
 
 See `THIRD_PARTY_NOTICES.md` for player-shell attribution.

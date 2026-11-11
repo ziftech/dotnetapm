@@ -1,18 +1,10 @@
 export type VisualKind =
   | "hero"
-  | "objection"
   | "layers"
-  | "lab-map"
-  | "profiler"
-  | "edot"
-  | "weave"
-  | "csharp"
-  | "vb"
+  | "agent"
+  | "aspects"
   | "backends"
-  | "waterfall"
-  | "labels"
-  | "logs"
-  | "demo"
+  | "proof"
   | "closing";
 
 export interface Source {
