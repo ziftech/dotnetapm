@@ -1,36 +1,36 @@
 {
   "title": "Contoso APM \u2014 Profiler vs EDOT",
-  "description": "Side-by-side Elastic APM .NET profiler vs EDOT for Contoso lab (ShipmentsWeb + TrackingApi-EDOT).",
+  "description": "Side-by-side Elastic APM .NET profiler vs EDOT (fixed EDOT volume query).",
   "panels": [
     {
-      "id": "899f436a-3670-46c8-bee6-94a534d78335",
+      "id": "72326ba4-3957-4e31-a4e6-f93384b893d3",
       "type": "markdown",
       "grid": {
         "x": 0,
         "y": 0,
         "w": 48,
-        "h": 6
+        "h": 5
       },
       "config": {
         "title": "Overview",
-        "content": "## Contoso .NET APM lab \u2014 Profiler vs EDOT\n\n**Live demo layout (Asia/Dubai):**\n- `ShipmentsWeb` \u2192 SharedPool + **Elastic APM profiler** (`agent.name=dotnet`) \u2192 `traces-apm*`\n- `TrackingApi-EDOT` \u2192 TrackingEdotPool + **EDOT / Elastic.OpenTelemetry** (`agent.name=opentelemetry/dotnet/elastic`) \u2192 `traces-*.otel*` / `generic.otel`\n\nBusiness spans come from **Fody MethodBoundaryAspect** (`app`/`business` via `ElasticApmTraceBackend`, or `Internal` via `ActivitySource Contoso.Observability` on EDOT).\n"
+        "content": "## Contoso .NET APM lab \u2014 Profiler vs EDOT\n\n**Live layout:**\n- `ShipmentsWeb` \u2192 SharedPool + **Elastic APM profiler** (`agent.name=dotnet`) \u2192 `traces-apm*`\n- `TrackingApi-EDOT` \u2192 TrackingEdotPool + **EDOT** (`agent.name=opentelemetry/dotnet/elastic`) \u2192 `traces-generic.otel-default`\n\nBusiness spans: Fody weave (`app`/`business` or OTel `Internal` via `Contoso.Observability`).\n"
       }
     },
     {
-      "id": "95f3cbc5-c36e-4428-80bb-8ace7d635f67",
+      "id": "f9f1dc58-a481-41a6-8025-bd14c37c2100",
       "type": "vis",
       "grid": {
         "x": 0,
-        "y": 6,
+        "y": 5,
         "w": 12,
         "h": 6
       },
       "config": {
-        "title": "Profiler docs (selected range)",
+        "title": "Profiler docs (7d)",
         "type": "metric",
         "data_source": {
           "type": "esql",
-          "query": "FROM traces-apm* | WHERE @timestamp >= ?_tstart AND @timestamp < ?_tend AND service.name IN (\"ShipmentsWeb\", \"TrackingApi\") | STATS docs = COUNT(*)"
+          "query": "FROM traces-apm-default | WHERE @timestamp > NOW() - 7 days AND service.name IN (\"ShipmentsWeb\",\"TrackingApi\") | STATS docs = COUNT(*)"
         },
         "metrics": [
           {
@@ -41,20 +41,20 @@
       }
     },
     {
-      "id": "76f2fbe5-69d9-4cd8-acef-dca7b90c91ab",
+      "id": "ea0b530a-738b-447c-b8fa-d306292d146f",
       "type": "vis",
       "grid": {
         "x": 12,
-        "y": 6,
+        "y": 5,
         "w": 12,
         "h": 6
       },
       "config": {
-        "title": "EDOT docs (selected range)",
+        "title": "EDOT docs (7d)",
         "type": "metric",
         "data_source": {
           "type": "esql",
-          "query": "FROM traces-*.otel* | WHERE @timestamp >= ?_tstart AND @timestamp < ?_tend AND service.name == \"TrackingApi-EDOT\" | STATS docs = COUNT(*)"
+          "query": "FROM traces-generic.otel-default | WHERE @timestamp > NOW() - 7 days AND service.name == \"TrackingApi-EDOT\" | STATS docs = COUNT(*)"
         },
         "metrics": [
           {
@@ -65,16 +65,16 @@
       }
     },
     {
-      "id": "345962ff-a0e3-48bb-8618-d23fab906a9b",
+      "id": "2e4faa74-262c-4af9-976d-3a60a619cf2e",
       "type": "vis",
       "grid": {
         "x": 24,
-        "y": 6,
+        "y": 5,
         "w": 24,
         "h": 6
       },
       "config": {
-        "title": "Docs by agent.name",
+        "title": "Docs by agent.name (7d)",
         "type": "xy",
         "layers": [
           {
@@ -82,7 +82,7 @@
             "ignore_global_filters": true,
             "data_source": {
               "type": "esql",
-              "query": "FROM traces-apm*, traces-*.otel* | WHERE @timestamp >= ?_tstart AND @timestamp < ?_tend AND service.name IN (\"ShipmentsWeb\", \"TrackingApi\", \"TrackingApi-EDOT\") | STATS docs = COUNT(*) BY agent.name | SORT docs DESC"
+              "query": "FROM traces-apm-default, traces-generic.otel-default | WHERE @timestamp > NOW() - 7 days AND service.name IN (\"ShipmentsWeb\",\"TrackingApi\",\"TrackingApi-EDOT\") | STATS docs = COUNT(*) BY agent.name | SORT docs DESC"
             },
             "x": {
               "column": "agent.name"
@@ -97,16 +97,16 @@
       }
     },
     {
-      "id": "d65fbd5f-b2b9-4c69-b557-eb964334cc35",
+      "id": "2fad269d-97cb-406f-847b-e710e9d83ad9",
       "type": "vis",
       "grid": {
         "x": 0,
-        "y": 12,
+        "y": 11,
         "w": 24,
-        "h": 10
+        "h": 12
       },
       "config": {
-        "title": "Profiler ShipmentsWeb volume",
+        "title": "Profiler ShipmentsWeb volume (7d)",
         "type": "xy",
         "layers": [
           {
@@ -114,10 +114,10 @@
             "ignore_global_filters": true,
             "data_source": {
               "type": "esql",
-              "query": "FROM traces-apm* | WHERE @timestamp >= ?_tstart AND @timestamp < ?_tend AND service.name == \"ShipmentsWeb\" | STATS docs = COUNT(*) BY BUCKET(@timestamp, 1 hour, ?_tstart, ?_tend) | SORT `BUCKET(@timestamp, 1 hour, ?_tstart, ?_tend)` ASC"
+              "query": "FROM traces-apm-default | WHERE @timestamp > NOW() - 7 days AND service.name == \"ShipmentsWeb\" | STATS docs = COUNT(*) BY time_bucket = BUCKET(@timestamp, 1 hour) | SORT time_bucket ASC"
             },
             "x": {
-              "column": "BUCKET(@timestamp, 1 hour, ?_tstart, ?_tend)"
+              "column": "time_bucket"
             },
             "y": [
               {
@@ -129,16 +129,16 @@
       }
     },
     {
-      "id": "f0d1d80e-7272-4427-a21c-80edd15f0018",
+      "id": "0358801a-4e6e-419e-9928-03689b583a87",
       "type": "vis",
       "grid": {
         "x": 24,
-        "y": 12,
+        "y": 11,
         "w": 24,
-        "h": 10
+        "h": 12
       },
       "config": {
-        "title": "EDOT TrackingApi-EDOT volume",
+        "title": "EDOT TrackingApi-EDOT volume (7d)",
         "type": "xy",
         "layers": [
           {
@@ -146,10 +146,10 @@
             "ignore_global_filters": true,
             "data_source": {
               "type": "esql",
-              "query": "FROM traces-*.otel* | WHERE @timestamp >= ?_tstart AND @timestamp < ?_tend AND service.name == \"TrackingApi-EDOT\" | STATS docs = COUNT(*) BY BUCKET(@timestamp, 1 hour, ?_tstart, ?_tend) | SORT `BUCKET(@timestamp, 1 hour, ?_tstart, ?_tend)` ASC"
+              "query": "FROM traces-generic.otel-default | WHERE @timestamp > NOW() - 7 days AND service.name == \"TrackingApi-EDOT\" | STATS docs = COUNT(*) BY time_bucket = BUCKET(@timestamp, 1 hour) | SORT time_bucket ASC"
             },
             "x": {
-              "column": "BUCKET(@timestamp, 1 hour, ?_tstart, ?_tend)"
+              "column": "time_bucket"
             },
             "y": [
               {
@@ -161,16 +161,16 @@
       }
     },
     {
-      "id": "754758bc-7bad-4a63-89ce-6999f7fe3b46",
+      "id": "b957eb04-db87-4341-af43-3ca1691834f9",
       "type": "vis",
       "grid": {
         "x": 0,
-        "y": 22,
+        "y": 23,
         "w": 24,
         "h": 10
       },
       "config": {
-        "title": "Profiler span types (ShipmentsWeb)",
+        "title": "Profiler span types (24h)",
         "type": "xy",
         "layers": [
           {
@@ -178,7 +178,7 @@
             "ignore_global_filters": true,
             "data_source": {
               "type": "esql",
-              "query": "FROM traces-apm* | WHERE @timestamp >= ?_tstart AND @timestamp < ?_tend AND service.name == \"ShipmentsWeb\" AND processor.event == \"span\" | STATS docs = COUNT(*) BY span.type | SORT docs DESC"
+              "query": "FROM traces-apm-default | WHERE @timestamp > NOW() - 24 hours AND service.name == \"ShipmentsWeb\" AND processor.event == \"span\" | STATS docs = COUNT(*) BY span.type | SORT docs DESC"
             },
             "x": {
               "column": "span.type"
@@ -193,16 +193,16 @@
       }
     },
     {
-      "id": "12807bd6-60bb-413c-aac4-61a630083933",
+      "id": "ea6cb843-db9c-4c79-b3e3-851878d479c9",
       "type": "vis",
       "grid": {
         "x": 24,
-        "y": 22,
+        "y": 23,
         "w": 24,
         "h": 10
       },
       "config": {
-        "title": "EDOT span kinds (TrackingApi-EDOT)",
+        "title": "EDOT span kinds (24h)",
         "type": "xy",
         "layers": [
           {
@@ -210,7 +210,7 @@
             "ignore_global_filters": true,
             "data_source": {
               "type": "esql",
-              "query": "FROM traces-*.otel* | WHERE @timestamp >= ?_tstart AND @timestamp < ?_tend AND service.name == \"TrackingApi-EDOT\" | STATS docs = COUNT(*) BY kind | SORT docs DESC"
+              "query": "FROM traces-generic.otel-default | WHERE @timestamp > NOW() - 24 hours AND service.name == \"TrackingApi-EDOT\" | STATS docs = COUNT(*) BY kind | SORT docs DESC"
             },
             "x": {
               "column": "kind"
@@ -225,16 +225,16 @@
       }
     },
     {
-      "id": "ee14c45d-5dd6-484f-bfc9-3ffb3cbcf919",
+      "id": "102a3609-0522-43fd-a3ac-b80b9a908138",
       "type": "vis",
       "grid": {
         "x": 0,
-        "y": 32,
+        "y": 33,
         "w": 48,
         "h": 8
       },
       "config": {
-        "title": "EDOT instrumentation scopes",
+        "title": "EDOT instrumentation scopes (24h)",
         "type": "xy",
         "layers": [
           {
@@ -242,7 +242,7 @@
             "ignore_global_filters": true,
             "data_source": {
               "type": "esql",
-              "query": "FROM traces-*.otel* | WHERE @timestamp >= ?_tstart AND @timestamp < ?_tend AND service.name == \"TrackingApi-EDOT\" | STATS docs = COUNT(*) BY scope.name | SORT docs DESC"
+              "query": "FROM traces-generic.otel-default | WHERE @timestamp > NOW() - 24 hours AND service.name == \"TrackingApi-EDOT\" | STATS docs = COUNT(*) BY scope.name | SORT docs DESC"
             },
             "x": {
               "column": "scope.name"
@@ -257,13 +257,13 @@
       }
     },
     {
-      "id": "51f8b0bb-3fe5-4896-a513-e08688046615",
+      "id": "1a5416b1-65ce-4bd7-8931-9a516baa09de",
       "type": "markdown",
       "grid": {
         "x": 0,
-        "y": 40,
+        "y": 41,
         "w": 28,
-        "h": 14
+        "h": 12
       },
       "config": {
         "title": "Capability matrix",
@@ -271,13 +271,13 @@
       }
     },
     {
-      "id": "8681ddd3-183a-4af8-9608-94fb26ed7dd3",
+      "id": "2bb41e5f-3805-4628-b2bf-300837efc70a",
       "type": "markdown",
       "grid": {
         "x": 28,
-        "y": 40,
+        "y": 41,
         "w": 20,
-        "h": 14
+        "h": 12
       },
       "config": {
         "title": "Overhead summary",
@@ -290,12 +290,6 @@
     "to": "now"
   },
   "options": {
-    "auto_apply_filters": true,
-    "hide_panel_titles": false,
-    "hide_panel_borders": false,
-    "use_margins": true,
-    "sync_colors": false,
-    "sync_tooltips": false,
-    "sync_cursor": true
+    "use_margins": true
   }
 }
