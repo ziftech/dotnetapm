@@ -22,7 +22,8 @@ $toInstall = @(
   @{ Id='OpenTelemetry.Api.ProviderBuilderExtensions'; Version='1.20.1'; Pre=$false },
   @{ Id='OpenTelemetry.Exporter.OpenTelemetryProtocol'; Version='1.20.1'; Pre=$false },
   @{ Id='OpenTelemetry.Instrumentation.Http'; Version='1.20.1'; Pre=$false },
-  @{ Id='OpenTelemetry.Instrumentation.SqlClient'; Version='1.20.1'; Pre=$false },
+  @{ Id='OpenTelemetry.Instrumentation.SqlClient'; Version='1.20.2'; Pre=$false },
+
   @{ Id='OpenTelemetry.Instrumentation.AspNet'; Version='1.20.3'; Pre=$false },
   @{ Id='OpenTelemetry.Instrumentation.AspNet.TelemetryHttpModule'; Version='1.20.3'; Pre=$false },
   @{ Id='Elastic.OpenTelemetry'; Version='1.7.0'; Pre=$true }
@@ -49,7 +50,7 @@ Copy-Item C:\lab\src\src\TrackingApi\Global.asax $app -Force
 Copy-Item C:\lab\src\src\TrackingApi\NLog.config $app -Force -ErrorAction SilentlyContinue
 Copy-Item C:\lab\src\src\Contoso.Observability\bin\Release\Contoso.Observability.dll "$app\bin\" -Force
 Copy-Item C:\lab\src\src\Contoso.Shipments.Business\bin\Release\Contoso.Shipments.Business.dll "$app\bin\" -Force
-Copy-Item C:\lab\src\packages\MethodBoundaryAspect.Fody.2.0.149\lib\net462\MethodBoundaryAspect.dll "$app\bin\" -Force -ErrorAction SilentlyContinue
+Copy-Item C:\lab\src\packages\MethodBoundaryAspect.Fody.3.6.0\lib\net462\MethodBoundaryAspect.dll "$app\bin\" -Force -ErrorAction SilentlyContinue
 
 # Copy transitive package DLLs (net462 preferred, else netstandard2.0)
 $pkgDirs = Get-ChildItem $packages -Directory | Where-Object {
@@ -106,8 +107,11 @@ Import-Module WebAdministration
 Restart-WebAppPool TrackingEdotPool
 Start-Sleep 3
 Write-Output 'DEPLOY_EDOT_OK'
-# Remove leftover Elastic APM assemblies from prior profiler deploys
-Remove-Item "$app\bin\Elastic.Apm*.dll","$app\bin\Elastic.CommonSchema*.dll" -Force -ErrorAction SilentlyContinue
+# Contoso.Observability still references Elastic.Apm (ApmBusiness labels / dual-backend).
+# Keep Elastic.Apm.dll on EDOT hosts; only strip ASP.NET Full Framework module leftovers.
+Copy-Item "$packages\Elastic.Apm.1.34.7\lib\net462\Elastic.Apm.dll" "$app\bin\" -Force -ErrorAction SilentlyContinue
+Remove-Item "$app\bin\Elastic.Apm.AspNetFullFramework.dll","$app\bin\Elastic.CommonSchema*.dll" -Force -ErrorAction SilentlyContinue
 
 Get-ChildItem "$app\bin" -Filter 'Elastic*.dll' | Select Name
 Get-ChildItem "$app\bin" -Filter 'OpenTelemetry*.dll' | Select Name
+

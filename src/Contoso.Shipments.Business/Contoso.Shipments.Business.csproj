@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\packages\MethodBoundaryAspect.Fody.2.0.149\build\MethodBoundaryAspect.Fody.props" Condition="Exists('..\..\packages\MethodBoundaryAspect.Fody.2.0.149\build\MethodBoundaryAspect.Fody.props')" />
+  <Import Project="..\..\packages\MethodBoundaryAspect.Fody.3.6.0\build\MethodBoundaryAspect.Fody.props" Condition="Exists('..\..\packages\MethodBoundaryAspect.Fody.3.6.0\build\MethodBoundaryAspect.Fody.props')" />
   <Import Project="..\..\packages\Fody.6.8.2\build\Fody.props" Condition="Exists('..\..\packages\Fody.6.8.2\build\Fody.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -39,7 +39,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="MethodBoundaryAspect">
-      <HintPath>..\..\packages\MethodBoundaryAspect.Fody.2.0.149\lib\net462\MethodBoundaryAspect.dll</HintPath>
+      <HintPath>..\..\packages\MethodBoundaryAspect.Fody.3.6.0\lib\net462\MethodBoundaryAspect.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

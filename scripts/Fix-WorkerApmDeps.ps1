@@ -23,7 +23,7 @@ $copies = @(
   "$pkg\Ben.Demystifier.0.4.1\lib\netstandard2.0\Ben.Demystifier.dll",
   "$pkg\System.Reflection.Metadata.5.0.0\lib\net461\System.Reflection.Metadata.dll",
   "$pkg\System.Collections.Immutable.5.0.0\lib\net461\System.Collections.Immutable.dll",
-  "$pkg\MethodBoundaryAspect.Fody.2.0.149\lib\net462\MethodBoundaryAspect.dll"
+  "$pkg\MethodBoundaryAspect.Fody.3.6.0\lib\net462\MethodBoundaryAspect.dll"
 )
 foreach ($c in $copies) {
   if (Test-Path $c) { Copy-Item $c $dir -Force; Write-Output "copied $(Split-Path $c -Leaf)" }

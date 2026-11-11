@@ -3,8 +3,10 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using Contoso.Observability;
 using Contoso.Shipments.Business;
+using Contoso.Shipments.LegacyVb;
 using log4net;
 using ShipmentsWeb.Services;
+
 
 namespace ShipmentsWeb.Controllers
 {
@@ -12,7 +14,9 @@ namespace ShipmentsWeb.Controllers
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(CheckoutController));
         private readonly ShipmentService _shipments = new ShipmentService();
+        private readonly LegacyShipmentService _legacyVb = new LegacyShipmentService();
         private readonly TrackingClient _tracking = new TrackingClient();
+
 
         [HttpGet]
         public ActionResult Index()
@@ -40,20 +44,25 @@ namespace ShipmentsWeb.Controllers
                 throw new InvalidOperationException("Synthetic checkout failure for SLO burn");
             }
 
+            // VB class library (Fody-woven) — proves aspects work without C# / without per-method APM code.
+            var vbNote = _legacyVb.EnrichQuoteNote(trackingId, lane, weightKg);
+
             var quote = await _shipments.CreateQuoteAsync(trackingId, lane, weightKg).ConfigureAwait(false);
             ApmBusiness.SetCheckoutLabels(trackingId, lane, weightKg, (double)quote.Price);
 
             var viaHttpClient = await _tracking.GetStatusHttpClientAsync(trackingId).ConfigureAwait(false);
+
             // Distinct id suffix avoids DiagnosticSource conflating back-to-back HttpClient + HttpWebRequest
             // calls to the same URL (which produced 0µs outbound spans / TrackingApi children).
             var viaWebRequest = await _tracking.GetStatusHttpWebRequestAsync(trackingId + "-wr").ConfigureAwait(false);
 
             ViewBag.Quote = quote;
+            ViewBag.VbNote = vbNote;
             ViewBag.HttpClientStatus = viaHttpClient;
             ViewBag.WebRequestStatus = viaWebRequest;
             Log.InfoFormat(
-                "Checkout done price={0} chain={1} trackingId={2} trace.id={3}",
-                quote.Price, quote.ChainToken, trackingId, ApmBusiness.CurrentTraceId());
+                "Checkout done price={0} chain={1} vbNote={2} trackingId={3} trace.id={4}",
+                quote.Price, quote.ChainToken, vbNote, trackingId, ApmBusiness.CurrentTraceId());
             return View();
         }
     }

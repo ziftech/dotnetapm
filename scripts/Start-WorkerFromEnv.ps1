@@ -16,7 +16,7 @@ Copy-Item C:\lab\src\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\n
 Copy-Item C:\lab\src\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll $dir -Force -EA SilentlyContinue
 Copy-Item C:\lab\src\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll $dir -Force -EA SilentlyContinue
 Copy-Item C:\lab\src\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll $dir -Force -EA SilentlyContinue
-Copy-Item C:\lab\src\packages\MethodBoundaryAspect.Fody.2.0.149\lib\net462\MethodBoundaryAspect.dll $dir -Force -EA SilentlyContinue
+Copy-Item C:\lab\src\packages\MethodBoundaryAspect.Fody.3.6.0\lib\net462\MethodBoundaryAspect.dll $dir -Force -EA SilentlyContinue
 Copy-Item C:\lab\System.Threading.Tasks.Dataflow.dll $dir -Force -EA SilentlyContinue
 Copy-Item C:\lab\app\ShipmentsWorker\System.Threading.Tasks.Dataflow.dll $dir -Force -EA SilentlyContinue
 

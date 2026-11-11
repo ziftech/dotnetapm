@@ -78,7 +78,8 @@
       <HintPath>..\..\packages\OpenTelemetry.Instrumentation.AspNet.TelemetryHttpModule.1.20.3\lib\net462\OpenTelemetry.Instrumentation.AspNet.TelemetryHttpModule.dll</HintPath>
     </Reference>
     <Reference Include="OpenTelemetry.Instrumentation.SqlClient">
-      <HintPath>..\..\packages\OpenTelemetry.Instrumentation.SqlClient.1.20.1\lib\net462\OpenTelemetry.Instrumentation.SqlClient.dll</HintPath>
+      <HintPath>..\..\packages\OpenTelemetry.Instrumentation.SqlClient.1.20.2\lib\net462\OpenTelemetry.Instrumentation.SqlClient.dll</HintPath>
+
     </Reference>
     <Reference Include="System.Diagnostics.DiagnosticSource">
       <HintPath>..\..\packages\System.Diagnostics.DiagnosticSource.10.0.0\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>

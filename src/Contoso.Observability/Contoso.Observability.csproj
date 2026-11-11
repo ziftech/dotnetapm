@@ -39,7 +39,7 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="MethodBoundaryAspect">
-      <HintPath>..\..\packages\MethodBoundaryAspect.Fody.2.0.149\lib\net462\MethodBoundaryAspect.dll</HintPath>
+      <HintPath>..\..\packages\MethodBoundaryAspect.Fody.3.6.0\lib\net462\MethodBoundaryAspect.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Diagnostics.DiagnosticSource">
