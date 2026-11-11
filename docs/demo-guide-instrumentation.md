@@ -154,3 +154,14 @@ Docs: [EDOT .NET](https://www.elastic.co/docs/reference/opentelemetry/edot-sdks/
 
 | Comparison dashboard | `kibana/contoso-profiler-vs-edot-dashboard.json` |
 | Business values dashboard | `kibana/contoso-business-values-dashboard.json` |
+
+
+## Presentation deck
+
+Animated player (same shell as the Elastic Search customer preso):
+
+```sh
+cd preso && npm ci && npm run dev -- --port 4175
+```
+
+See `preso/README.md`.

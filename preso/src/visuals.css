@@ -1,0 +1,230 @@
+.presentation-visual {
+  width: 100%;
+  height: 100%;
+  color: #111820;
+}
+.presentation-visual svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  font-family: "Inter Variable", Inter, system-ui, sans-serif;
+  text-rendering: geometricPrecision;
+}
+.presentation-visual .v-mono {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  letter-spacing: -0.16px;
+}
+.presentation-visual .v-bold {
+  font-weight: 650;
+  letter-spacing: -0.3px;
+}
+
+/* Automatic phases transition only the diagram; slide text and annotations stay put. */
+.presentation-visual.auto-frame {
+  animation: auto-frame-in 180ms ease-out;
+}
+.presentation-visual.auto-frame .reveal {
+  animation: none;
+  opacity: 1;
+  transform: none;
+}
+.presentation-visual.auto-frame .v-draw {
+  animation: none;
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+}
+@keyframes auto-frame-in {
+  from {
+    opacity: 0.65;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.presentation-visual .reveal {
+  animation: diagram-enter 600ms both;
+  animation-delay: var(--delay, 0ms);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.presentation-visual .v-draw {
+  stroke-dasharray: 1500;
+  stroke-dashoffset: 1500;
+  animation: diagram-draw 1050ms ease-out 150ms forwards;
+}
+.presentation-visual .v-flow {
+  stroke-dasharray: 4 4;
+  animation: diagram-flow 2800ms linear infinite;
+}
+.presentation-visual.settled .reveal,
+.presentation-visual.settled .v-draw,
+.presentation-visual.settled .v-flow {
+  animation: none;
+  opacity: 1;
+  transform: none;
+}
+.presentation-visual.settled .v-draw {
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+}
+@keyframes diagram-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes diagram-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes diagram-flow {
+  to {
+    stroke-dashoffset: -48;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .presentation-visual .reveal,
+  .presentation-visual .v-draw,
+  .presentation-visual .v-flow {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .presentation-visual .v-draw {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+  }
+}
+@media print {
+  .presentation-visual .reveal,
+  .presentation-visual .v-draw,
+  .presentation-visual .v-flow {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Purposeful continuous motion; labels remain stationary and readable. */
+.presentation-visual .v-pulse {
+  animation: evidence-pulse 3.6s ease-in-out infinite;
+}
+.presentation-visual .v-orbit {
+  animation: neighborhood-orbit 22s linear infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+.presentation-visual .v-scan {
+  animation: evidence-scan 4.6s ease-in-out infinite;
+}
+.presentation-visual .v-trace {
+  stroke-dasharray: 18 100;
+  animation: path-trace 5s linear infinite;
+}
+.presentation-visual .v-float {
+  animation: evidence-float 5.4s ease-in-out infinite;
+}
+.motion-particles {
+  pointer-events: none;
+}
+@keyframes evidence-pulse {
+  0%,
+  100% {
+    opacity: 0.72;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes neighborhood-orbit {
+  to {
+    rotate: 360deg;
+  }
+}
+@keyframes evidence-scan {
+  0%,
+  100% {
+    translate: 0 -8px;
+    opacity: 0.55;
+  }
+  50% {
+    translate: 0 14px;
+    opacity: 1;
+  }
+}
+@keyframes path-trace {
+  to {
+    stroke-dashoffset: -236;
+  }
+}
+@keyframes evidence-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -4px;
+  }
+}
+.presentation-visual.settled * {
+  animation: none !important;
+  transition: none !important;
+  translate: none !important;
+  rotate: none !important;
+}
+.presentation-visual.settled .v-pulse,
+.presentation-visual.settled .v-scan {
+  opacity: 1;
+}
+.presentation-visual.settled .v-trace {
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+}
+.presentation-visual.settled .motion-particles {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .presentation-visual * {
+    animation: none !important;
+    transition: none !important;
+    translate: none !important;
+    rotate: none !important;
+  }
+  .presentation-visual .motion-particles {
+    display: none;
+  }
+  .presentation-visual .v-pulse,
+  .presentation-visual .v-scan {
+    opacity: 1;
+  }
+  .presentation-visual .v-trace {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+  }
+}
+@media print {
+  .presentation-visual * {
+    animation: none !important;
+    transition: none !important;
+    translate: none !important;
+    rotate: none !important;
+  }
+  .presentation-visual .motion-particles {
+    display: none;
+  }
+  .presentation-visual .v-pulse,
+  .presentation-visual .v-scan {
+    opacity: 1;
+  }
+  .presentation-visual .v-trace {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+  }
+}
