@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Contoso.Observability;
 using Contoso.Shipments.Business;
 using log4net;
 using ShipmentsWeb.Services;
@@ -26,7 +27,12 @@ namespace ShipmentsWeb.Controllers
             lane = string.IsNullOrWhiteSpace(lane) ? "DXB-AMM" : lane;
             if (weightKg <= 0) weightKg = 5;
 
-            Log.InfoFormat("Checkout start trackingId={0} lane={1} weight={2}", trackingId, lane, weightKg);
+            // Business values → APM labels (Metadata → Labels) for filtering / demo
+            ApmBusiness.SetCheckoutLabels(trackingId, lane, weightKg);
+
+            Log.InfoFormat(
+                "Checkout start trackingId={0} lane={1} weight={2} trace.id={3} transaction.id={4}",
+                trackingId, lane, weightKg, ApmBusiness.CurrentTraceId(), ApmBusiness.CurrentTransactionOrSpanId());
 
             // Synthetic failure for SLO burn demos (trackingId prefix SLOBOOM)
             if (trackingId.StartsWith("SLOBOOM", StringComparison.OrdinalIgnoreCase))
@@ -35,6 +41,8 @@ namespace ShipmentsWeb.Controllers
             }
 
             var quote = await _shipments.CreateQuoteAsync(trackingId, lane, weightKg).ConfigureAwait(false);
+            ApmBusiness.SetCheckoutLabels(trackingId, lane, weightKg, (double)quote.Price);
+
             var viaHttpClient = await _tracking.GetStatusHttpClientAsync(trackingId).ConfigureAwait(false);
             // Distinct id suffix avoids DiagnosticSource conflating back-to-back HttpClient + HttpWebRequest
             // calls to the same URL (which produced 0µs outbound spans / TrackingApi children).
@@ -43,7 +51,9 @@ namespace ShipmentsWeb.Controllers
             ViewBag.Quote = quote;
             ViewBag.HttpClientStatus = viaHttpClient;
             ViewBag.WebRequestStatus = viaWebRequest;
-            Log.InfoFormat("Checkout done price={0} chain={1}", quote.Price, quote.ChainToken);
+            Log.InfoFormat(
+                "Checkout done price={0} chain={1} trackingId={2} trace.id={3}",
+                quote.Price, quote.ChainToken, trackingId, ApmBusiness.CurrentTraceId());
             return View();
         }
     }

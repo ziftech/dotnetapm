@@ -113,6 +113,10 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Contoso.Observability\Contoso.Observability.csproj">
+      <Project>{A5555555-5555-5555-5555-555555555555}</Project>
+      <Name>Contoso.Observability</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Contoso.Shipments.Business\Contoso.Shipments.Business.csproj">
       <Project>{A1111111-1111-1111-1111-111111111111}</Project>
       <Name>Contoso.Shipments.Business</Name>

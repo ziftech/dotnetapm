@@ -2,6 +2,7 @@ using System;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Contoso.Observability;
 using Contoso.Shipments.Business;
 using NLog;
 
@@ -17,6 +18,7 @@ namespace TrackingApi.Controllers
         public HttpResponseMessage Get(string id)
         {
             var n = System.Threading.Interlocked.Increment(ref _requestCount);
+            ApmBusiness.SetTrackingLabels(id);
             Log.Info("GET tracking id={0} n={1}", id, n);
 
             if (string.IsNullOrWhiteSpace(id))
@@ -46,6 +48,7 @@ namespace TrackingApi.Controllers
             System.Threading.Thread.Sleep(25);
 
             var status = _shipments.LookupStatus(id);
+            ApmBusiness.SetTrackingLabels(id, status);
             return Request.CreateResponse(HttpStatusCode.OK, new
             {
                 trackingId = id,

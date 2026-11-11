@@ -60,6 +60,7 @@
     <Compile Include="TraceAspect.cs" />
     <Compile Include="TraceScope.cs" />
     <Compile Include="ApmNLogLayoutRenderers.cs" />
+    <Compile Include="ApmBusiness.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
