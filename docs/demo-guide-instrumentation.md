@@ -1,44 +1,43 @@
-# Contoso .NET APM lab — demo guide (Profiler vs EDOT + aspects)
+# Instrumenting Contoso Shipments (.NET Framework 4.8)
 
-Audience: public Contoso lab / customer-facing demos (legacy .NET Framework 4.8, C# and VB class libraries).
-Runtime: your Contoso lab host (paths `/web` and `/tracking`) · Elastic Observability / APM UI.
+This sample shows how to get business-method visibility in Elastic Observability for legacy ASP.NET apps **without editing every method body**. It covers C# and Visual Basic class libraries, and both the Elastic .NET APM profiler and EDOT (OpenTelemetry).
+
+Related deck: https://ziftech.github.io/dotnetapm/
 
 ---
 
-## 1. What to say in the first two minutes
+## Three layers
 
-We do **not** ask teams to wrap hundreds of methods with `CaptureTransaction`.
-
-| Layer | What you install / change | What you get |
+| Layer | What changes | What you get |
 |---|---|---|
-| **A — Agent on the host** | IIS pool COR_* profiler **or** EDOT/OTel on the app pool | HTTP transactions, SQL, outbound HTTP, errors, service map |
-| **B — Aspect on business DLLs** | One shared library + assembly-level `[Trace]` / `<Assembly: Trace>` | Named business spans (`ShipmentService.*`, `LegacyShipmentService.*`) **without editing method bodies** |
-| **C — Optional values** | A few `SetLabel` / Activity tags at choke points | `tracking_id`, `lane`, `weight_kg`, `quote_price` for filtering |
+| **A — Agent on the host** | IIS app-pool profiler **or** EDOT / OpenTelemetry on the pool | HTTP transactions, SQL, outbound HTTP, errors, service map |
+| **B — Aspect on business DLLs** | One shared library + an assembly-level `Trace` filter | Named business spans (`ShipmentService.*`, `LegacyShipmentService.*`) with **no APM calls in method bodies** |
+| **C — Optional values** | A few `SetLabel` / Activity tags at choke points | Filterable fields such as `tracking_id`, `lane`, `weight_kg`, `quote_price` |
 
-**Demo order:** open untouched business code → show assembly Trace filter → run Checkout → open waterfall → (optional) labels / logs / EDOT side-by-side.
+Layers A and B are enough for named business timing. Layer C is optional.
 
 ---
 
-## 2. How instrumentation works (shared aspect)
+## Shared aspect (C# and VB)
 
-Both traditional APM and EDOT reuse the **same** build-time weave:
+Traditional APM and EDOT reuse the **same** build-time weave:
 
-1. NuGet: `MethodBoundaryAspect.Fody` + project `FodyWeavers.xml` (`<MethodBoundaryAspect />`).
-2. Shared library: `Contoso.Observability` defines `TraceAttribute` (`OnEntry` / `OnExit` / `OnException`).
-3. Business DLL applies it once at assembly level with filters (namespace / `*Service` / public methods).
+1. Add NuGet `MethodBoundaryAspect.Fody` and `FodyWeavers.xml` with `<MethodBoundaryAspect />`.
+2. Reference `Contoso.Observability`, which defines `TraceAttribute` (`OnEntry` / `OnExit` / `OnException`).
+3. Apply the attribute once at assembly level with namespace / type / method filters.
 4. At runtime the aspect calls `TraceBackends.Current.StartSpanOrTransaction(...)`.
-5. Host selects the backend:
-   - **Traditional:** `ElasticApmTraceBackend` → Elastic APM Agent API (`ISpan` / `ITransaction`)
-   - **EDOT:** `ActivitySourceTraceBackend` → `ActivitySource("Contoso.Observability")` exported by OpenTelemetry / EDOT
+5. The host selects the backend:
+   - **Profiler path:** `ElasticApmTraceBackend` → Elastic APM Agent API
+   - **EDOT path:** `ActivitySourceTraceBackend` → `ActivitySource("Contoso.Observability")` exported over OTLP
 
 ```
 HTTP request
-    └─ Layer A: profiler or EDOT ASP.NET instrumentation  → transaction / server span
-         └─ Layer B: Fody-woven business methods           → child spans (app/business or Internal)
-              └─ Layer C (optional): labels / tags         → Metadata in Kibana
+  └─ Layer A: profiler or EDOT ASP.NET instrumentation  → transaction / server span
+       └─ Layer B: Fody-woven business methods           → child spans
+            └─ Layer C (optional): labels / tags         → transaction metadata
 ```
 
-C# assembly filter (narrow):
+### C# filter example
 
 ```csharp
 [assembly: Trace(
@@ -48,7 +47,7 @@ C# assembly filter (narrow):
     AttributeTargetMemberAttributes = MulticastAttributes.Public)]
 ```
 
-VB.NET equivalent (`My Project/AssemblyInfo.vb`):
+### VB.NET filter example (`My Project/AssemblyInfo.vb`)
 
 ```vb
 <Assembly: Trace(
@@ -58,110 +57,94 @@ VB.NET equivalent (`My Project/AssemblyInfo.vb`):
     AttributeTargetMemberAttributes:=MulticastAttributes.Public)>
 ```
 
-The VB sample lives in `src/Contoso.Shipments.LegacyVb` (`LegacyShipmentService`). Method bodies have **no** APM calls. Checkout calls `EnrichQuoteNote` so the waterfall shows `LegacyShipmentService.*` next to the C# `ShipmentService.*` spans.
+The VB sample is `src/Contoso.Shipments.LegacyVb` (`LegacyShipmentService`). Method bodies contain no APM API calls. Checkout calls `EnrichQuoteNote`, so the waterfall shows `LegacyShipmentService.*` next to the C# `ShipmentService.*` spans under the **ShipmentsWeb** service (VB is not a separate APM service).
 
-> **VB note:** Lab uses MethodBoundaryAspect.Fody **3.6.0** (required for reliable VB weaving; 2.0.149 NRE’d on VB attribute resolution). Keep explicit `mscorlib` + `System` references on Framework VB projects so Fody can resolve `System.Object`.
-
+> **VB on .NET Framework 4.8:** use MethodBoundaryAspect.Fody **3.6.0** (earlier 2.x builds can fail VB attribute resolution). Keep explicit `mscorlib` and `System` references on Framework VB projects so Fody can resolve `System.Object`.
 
 ---
 
-## 3. Traditional path — Elastic .NET APM Profiler
+## Profiler path (ShipmentsWeb)
 
-**Host:** `ShipmentsWeb` on IIS **SharedPool**.
+`ShipmentsWeb` runs on IIS with the Elastic .NET APM profiler attached to the app pool.
 
-| Piece | Contoso wiring |
+| Piece | How this sample wires it |
 |---|---|
-| Profiler | Pool env: `COR_ENABLE_PROFILING=1`, `COR_PROFILER`, Elastic profiler path (see `scripts/Install-ApmProfiler.ps1` / `Configure-ApmPool.ps1`) |
-| Service name | `ElasticApm:ServiceName` = `ShipmentsWeb` in `Web.config` (and/or pool env) |
-| Auto spans | ASP.NET MVC, SqlClient, HttpClient / HttpWebRequest via profiler + DiagnosticSource |
-| Business spans | Fody → `ElasticApmTraceBackend` (default `TraceBackends.Current`) |
+| Profiler | App-pool env: `COR_ENABLE_PROFILING`, `COR_PROFILER`, profiler path (`scripts/Install-ApmProfiler.ps1`, `scripts/Configure-ApmPool.ps1`) |
+| Service name | `ElasticApm:ServiceName` = `ShipmentsWeb` in `Web.config` (prefer also setting `ELASTIC_APM_SERVICE_NAME` on the pool) |
+| Auto instrumentation | ASP.NET MVC, SqlClient, HttpClient / HttpWebRequest |
+| Business spans | Fody → `ElasticApmTraceBackend` |
 | Optional labels | `ApmBusiness.SetCheckoutLabels` in `CheckoutController` |
-| Logs | log4net lines include `trace.id` / `transaction.id`; Fleet `lab-app-logs` maps them to ECS |
+| Logs | log4net includes `trace.id` / `transaction.id` for correlation |
 
-**What you show**
+**What to look for in Elastic APM**
 
 1. Source: `ShipmentService.cs` / `LegacyShipmentService.vb` — no APM API in bodies.
-2. `POST /web/Checkout` on the lab host
-3. APM UI → service **ShipmentsWeb** → transaction `POST Checkout/Index` waterfall:
-   - `LegacyShipmentService.EnrichQuoteNote` (+ nested Normalize/Classify)
+2. `POST /web/Checkout`
+3. Service **ShipmentsWeb** → transaction `POST Checkout/Index`:
+   - `LegacyShipmentService.EnrichQuoteNote` (and nested helpers)
    - `ShipmentService.CreateQuoteAsync`
-   - SQL / outbound HTTP to Tracking
-4. Metadata → Labels: `tracking_id`, `lane`, `weight_kg`, `quote_price`
-5. Logs tab / Discover: same `trace.id`
+   - SQL and outbound HTTP to Tracking
+4. Optional labels: `tracking_id`, `lane`, `weight_kg`, `quote_price`
+5. Logs correlated by the same `trace.id`
 
-Docs: [Profiler auto instrumentation (zero-code)](https://www.elastic.co/docs/reference/apm/agents/dotnet/setup-auto-instrumentation) · [ASP.NET / IIS module](https://www.elastic.co/docs/reference/apm/agents/dotnet/setup-asp-dot-net).
-
+Product docs: [Profiler auto instrumentation](https://www.elastic.co/docs/reference/apm/agents/dotnet/setup-auto-instrumentation) · [ASP.NET / IIS](https://www.elastic.co/docs/reference/apm/agents/dotnet/setup-asp-dot-net)
 
 ---
 
-## 4. EDOT path — Elastic Distribution of OpenTelemetry (.NET)
+## EDOT path (TrackingApi)
 
-**Host:** `TrackingApi` on IIS **TrackingEdotPool** (app path `/tracking`).
+`TrackingApi` can run with the Elastic Distribution of OpenTelemetry (.NET) when the pool sets `OTEL_EXPORTER_OTLP_ENDPOINT`.
 
-| Piece | Contoso wiring |
+| Piece | How this sample wires it |
 |---|---|
-| Trigger | Pool sets `OTEL_EXPORTER_OTLP_ENDPOINT` (and related `OTEL_*`) |
-| Startup | `TrackingApi/Global.asax.cs`: if OTLP endpoint present → `ActivitySourceTraceBackend` + `OpenTelemetrySdk` with `WithElasticDefaults()`, AspNet + SqlClient + `AddSource("Contoso.Observability")` |
-| Service name | `OTEL_SERVICE_NAME` → `TrackingApi-EDOT` |
-| Auto spans | OpenTelemetry ASP.NET + SqlClient instrumentations |
+| Trigger | Pool `OTEL_*` variables (including `OTEL_SERVICE_NAME` → `TrackingApi-EDOT`) |
+| Startup | `TrackingApi/Global.asax.cs`: when OTLP is set → `ActivitySourceTraceBackend` + OpenTelemetry SDK (`WithElasticDefaults`, AspNet, SqlClient, `AddSource("Contoso.Observability")`) |
+| Auto instrumentation | OpenTelemetry ASP.NET + SqlClient |
 | Business spans | Same Fody aspects → `ActivitySourceTraceBackend` → OTLP |
-| Ingest | `traces-generic.otel-default` (OTel) vs profiler `traces-apm*` |
+| Fallback | If OTLP is unset, TrackingApi uses `ElasticApmTraceBackend` (profiler path) |
 
-When OTLP is **not** set, TrackingApi falls back to `ElasticApmTraceBackend` (profiler path).
+**What to look for**
 
-**What you show**
+1. Service **TrackingApi-EDOT** (agent name around `opentelemetry/dotnet/elastic`)
+2. Dashboard NDJSON under `kibana/contoso-profiler-vs-edot-dashboard.json`
+3. Tracking request traces: server span plus woven business / Internal spans from `Contoso.Observability`
 
-1. Service inventory: **TrackingApi-EDOT** with `agent.name` ≈ `opentelemetry/dotnet/elastic`
-2. Dashboard **Profiler vs EDOT** (`kibana/contoso-profiler-vs-edot-dashboard.json`)
-3. Trace for a Tracking GET: AspNet server span + woven business / Internal spans from `Contoso.Observability`
-
-Docs: [EDOT .NET](https://www.elastic.co/docs/reference/opentelemetry/edot-sdks/dotnet) · [Migrate from APM .NET agent](https://www.elastic.co/docs/reference/opentelemetry/edot-sdks/dotnet/migration).
-
+Product docs: [EDOT .NET](https://www.elastic.co/docs/reference/opentelemetry/edot-sdks/dotnet) · [Migrate from the APM .NET agent](https://www.elastic.co/docs/reference/opentelemetry/edot-sdks/dotnet/migration)
 
 ---
 
-## 5. Live demo script (≈15 minutes)
+## Walkthrough
 
-1. **Objection:** “We can’t edit 500 methods / we only have Web.config.”  
-   Answer with Layers A/B/C. Host agent = Web.config/IIS. Aspects = business **DLL build**, not every method.
-2. **Code:** show `LegacyShipmentService.vb` and `ShipmentService.cs` (untouched bodies) + one `AssemblyInfo` Trace filter each.
-3. **Run:** submit Checkout (`lane=DXB-AMM`). Confirm page shows `VB enrich: VB:…`.
-4. **APM waterfall (profiler):** `LegacyShipmentService` + `ShipmentService` under Checkout.
-5. **Business values:** Labels on the same transaction (Layer C — optional).
-6. **Log correlation:** ShipmentsWeb Logs / Discover by `trace.id`.
-7. **EDOT contrast:** open TrackingApi-EDOT + Profiler vs EDOT dashboard (same aspect library, different backend).
-8. **Next step:** tailor `NamespaceFilter` / `TypeNameFilter` using one real VB or C# class library sample.
+1. Open `LegacyShipmentService.vb` and `ShipmentService.cs` — method bodies have no APM calls.
+2. Open each assembly’s `Trace` filter in `AssemblyInfo`.
+3. Submit Checkout (for example `lane=DXB-AMM`) and confirm the page shows the VB enrich note.
+4. In APM, open **ShipmentsWeb** → `POST Checkout/Index` and find both VB and C# business spans.
+5. Optionally inspect labels and log lines for the same `trace.id`.
+6. Optionally open **TrackingApi-EDOT** and the Profiler vs EDOT dashboard to compare backends with the same aspect library.
 
 ---
 
-## 6. Takeaway (one line)
+## Takeaway
 
-> Install the agent on the host (Web.config / IIS). Add one shared aspect package to each business DLL build and set assembly filters. Method bodies stay clean — works for C# and VB. Labels and OpenTelemetry are optional next steps.
+Install the agent on the host (Web.config / IIS). Add one shared aspect package to each business DLL build and set assembly filters. Method bodies stay clean for C# and VB. Labels and OpenTelemetry are optional next steps.
 
 ---
 
-## 7. Lab pointers
+## Repository map
 
-| Item | Location |
+| Item | Path |
 |---|---|
 | Aspect + backends | `src/Contoso.Observability/` |
 | C# woven business DLL | `src/Contoso.Shipments.Business/` |
 | VB woven business DLL | `src/Contoso.Shipments.LegacyVb/` |
 | Profiler web app | `src/ShipmentsWeb/` |
-| EDOT web API | `src/TrackingApi/` |
-| Build/deploy | `scripts/Build-And-Deploy.ps1` (re-run `Install-EdotTrackingApi.ps1` afterward to keep `/tracking` on `TrackingEdotPool`) |
-| Weave verify | `scripts/Verify-AssemblyWeave.ps1`, `scripts/Verify-VbAssemblyWeave.ps1` |
-
+| EDOT-capable web API | `src/TrackingApi/` |
+| Build / deploy | `scripts/Build-And-Deploy.ps1` (re-run `Install-EdotTrackingApi.ps1` afterward if `/tracking` should stay on the EDOT pool) |
+| Weave checks | `scripts/Verify-AssemblyWeave.ps1`, `scripts/Verify-VbAssemblyWeave.ps1` |
 | Comparison dashboard | `kibana/contoso-profiler-vs-edot-dashboard.json` |
-| Business values dashboard | `kibana/contoso-business-values-dashboard.json` |
-
-
-## Presentation deck
-
-Public animated deck (GitHub Pages): https://ziftech.github.io/dotnetapm/
+| Business-values dashboard | `kibana/contoso-business-values-dashboard.json` |
+| Presentation | https://ziftech.github.io/dotnetapm/ (`preso/`) |
 
 ```sh
 cd preso && npm ci && npm run dev -- --port 4175
 ```
-
-See `preso/README.md`.

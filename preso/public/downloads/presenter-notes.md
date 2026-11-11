@@ -16,3 +16,5 @@ Install the agent on the host. Weave business DLLs once. Keep method bodies clea
 
 ## Finding VB in Elastic
 VB is **not** a separate service. Open **ShipmentsWeb** → `POST Checkout/Index` → waterfall → `LegacyShipmentService.*`.
+
+Companion how-to: `docs/demo-guide-instrumentation.md` (also under Downloads in the deck).
