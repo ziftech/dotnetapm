@@ -1,7 +1,7 @@
 # Contoso .NET APM lab — demo guide (Profiler vs EDOT + aspects)
 
-Audience: customer sessions (legacy .NET Framework 4.8, C# and VB class libraries).
-Lab VM: `http://34.18.109.143` · Kibana: Elastic Observability (serverless project used by the lab).
+Audience: public Contoso lab / customer-facing demos (legacy .NET Framework 4.8, C# and VB class libraries).
+Runtime: your Contoso lab host (paths `/web` and `/tracking`) · Elastic Observability / APM UI.
 
 ---
 
@@ -81,7 +81,7 @@ The VB sample lives in `src/Contoso.Shipments.LegacyVb` (`LegacyShipmentService`
 **What you show**
 
 1. Source: `ShipmentService.cs` / `LegacyShipmentService.vb` — no APM API in bodies.
-2. `POST http://34.18.109.143/web/Checkout`
+2. `POST /web/Checkout` on the lab host
 3. APM UI → service **ShipmentsWeb** → transaction `POST Checkout/Index` waterfall:
    - `LegacyShipmentService.EnrichQuoteNote` (+ nested Normalize/Classify)
    - `ShipmentService.CreateQuoteAsync`
@@ -130,11 +130,11 @@ Docs: [EDOT .NET](https://www.elastic.co/docs/reference/opentelemetry/edot-sdks/
 5. **Business values:** Labels on the same transaction (Layer C — optional).
 6. **Log correlation:** ShipmentsWeb Logs / Discover by `trace.id`.
 7. **EDOT contrast:** open TrackingApi-EDOT + Profiler vs EDOT dashboard (same aspect library, different backend).
-8. **Ask for one real VB class library** from the customer to tailor `NamespaceFilter` / `TypeNameFilter`.
+8. **Next step:** tailor `NamespaceFilter` / `TypeNameFilter` using one real VB or C# class library sample.
 
 ---
 
-## 6. Customer takeaway (one line)
+## 6. Takeaway (one line)
 
 > Install the agent on the host (Web.config / IIS). Add one shared aspect package to each business DLL build and set assembly filters. Method bodies stay clean — works for C# and VB. Labels and OpenTelemetry are optional next steps.
 
@@ -154,3 +154,14 @@ Docs: [EDOT .NET](https://www.elastic.co/docs/reference/opentelemetry/edot-sdks/
 
 | Comparison dashboard | `kibana/contoso-profiler-vs-edot-dashboard.json` |
 | Business values dashboard | `kibana/contoso-business-values-dashboard.json` |
+
+
+## Presentation deck
+
+Public animated deck (GitHub Pages): https://ziftech.github.io/dotnetapm/
+
+```sh
+cd preso && npm ci && npm run dev -- --port 4175
+```
+
+See `preso/README.md`.

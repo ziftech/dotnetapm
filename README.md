@@ -1,5 +1,7 @@
 # Contoso Shipments — .NET APM lab (synthetic)
 
+Public deck: **[Contoso .NET APM presentation](https://ziftech.github.io/dotnetapm/)** (`preso/`)
+
 .NET Framework 4.8 estate with old-style `.csproj` + `packages.config`:
 
 | Project | Role |

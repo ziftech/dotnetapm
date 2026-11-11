@@ -60,7 +60,7 @@ export const scenes: Scene[] = [
     eyebrow: "Contoso .NET Framework lab",
     headline: "Business spans.",
     emphasis: "Without touching every method.",
-    lead: "Legacy IIS shops need Dynatrace-class visibility. Elastic delivers it with a host agent plus build-time aspects — not CaptureTransaction on 500 methods.",
+    lead: "Legacy IIS shops want deep visibility without editing every business method. Elastic delivers it with a host agent plus build-time aspects — not CaptureTransaction on 500 methods.",
     visual: "hero",
     layout: "hero",
     takeaways: [
@@ -73,9 +73,9 @@ export const scenes: Scene[] = [
     qualification: qual,
     sources: [S.profiler, S.edot, S.mba],
     notes: n(
-      "Open with the customer objection, not the product catalog.",
-      "They do not want to modify every method across 15 class libraries. Agree — that is why we use AOP. Contoso shows C# and VB class libraries with untouched method bodies.",
-      "Move to the objection slide so they feel heard.",
+      "Open with the scaling problem, not the product catalog.",
+      "Teams rarely want to modify every method across many class libraries. Contoso shows C# and VB libraries with untouched method bodies, instrumented via aspects.",
+      "Move to the common-concerns slide.",
       35,
     ),
     steps: phases(
@@ -87,24 +87,24 @@ export const scenes: Scene[] = [
   {
     id: "objection",
     chapter: "Problem",
-    eyebrow: "What they told us",
+    eyebrow: "Common concerns",
     headline: "Manual wraps",
     emphasis: "do not scale.",
-    lead: "CaptureTransaction in every function was a short-term tip. Their estate is Framework 4.8, mixed VB/C#, class libraries that never “start”, and hosts where only Web.config is easy to change.",
+    lead: "CaptureTransaction in every function does not scale. Typical estates are Framework 4.8, mixed VB/C#, class libraries that never “start”, and hosts where only Web.config is easy to change.",
     visual: "objection",
     layout: "split",
     takeaways: [
       t("Friction", "Per-method APM", "500–1000 edits across 15 DLLs"),
       t("Access", "Web.config", "Often no Global.asax ownership"),
-      t("Compare", "Dynatrace", "They liked install simplicity"),
+      t("Expectation", "Zero friction", "Deep visibility with little code"),
     ],
     densityExtra:
       "Wrappers and inheritance still force call-site or type changes. Aspects weave matching methods at build time.",
     qualification: qual,
     sources: [S.profiler, S.aspnet],
     notes: n(
-      "Mirror their words before pitching Elastic.",
-      "Acknowledge Dynatrace install friction. Pivot: Elastic matches visibility; aspects remove the manual method tax. Host onboarding can stay Web.config/IIS.",
+      "Name the constraints before pitching Elastic.",
+      "Acknowledge the desire for low-friction install. Pivot: Elastic matches visibility; aspects remove the manual method tax. Host onboarding can stay Web.config/IIS.",
       "Introduce the three layers.",
       40,
     ),
@@ -120,7 +120,7 @@ export const scenes: Scene[] = [
     eyebrow: "Three layers",
     headline: "A · B · C",
     emphasis: "Minimum change first.",
-    lead: "Separate host agent, business weave, and optional business values. Customers can stop after A+B and still see named service methods in the waterfall.",
+    lead: "Separate host agent, business weave, and optional business values. Teams can stop after A+B and still see named service methods in the waterfall.",
     visual: "layers",
     layout: "wide",
     takeaways: [
@@ -158,7 +158,7 @@ export const scenes: Scene[] = [
       t("EDOT", lab.tracking, "TrackingEdotPool · OTel ingest"),
       t("Business", "C# + VB DLLs", "Fody weave at build"),
     ],
-    densityExtra: `Lab URL ${lab.host}/web/Checkout — also /tracking API.`,
+    densityExtra: `Example paths: ${lab.checkoutPath} and ${lab.trackingPath}.`,
     qualification: qual,
     sources: [S.profiler, S.edot],
     notes: n(
@@ -185,7 +185,7 @@ export const scenes: Scene[] = [
     takeaways: [
       t("Install", "IIS pool", "COR_ENABLE_PROFILING + profiler"),
       t("Auto", "Framework", "ASP.NET · SqlClient · HTTP"),
-      t("Config", "Web.config", "ServiceName / secret / server URL"),
+      t("Config", "Web.config", "ServiceName and server URL"),
     ],
     densityExtra:
       "Global.asax is not required for profiler spans. Exception filters and labels are extras.",
@@ -223,7 +223,7 @@ export const scenes: Scene[] = [
     sources: [S.edot, S.migrate, S.otel],
     notes: n(
       "Do not force OTel as day-one for every Framework app.",
-      "Show the side-by-side dashboard after the weave story so they see continuity.",
+      "Show the side-by-side dashboard after the weave story to show continuity.",
       "Explain the shared weave.",
       40,
     ),
@@ -253,7 +253,7 @@ export const scenes: Scene[] = [
     sources: [S.mba, S.profiler],
     notes: n(
       "This is the answer to “aspects vs editing every method”.",
-      "Show filters so they know they can start narrow (*Service) and broaden later.",
+      "Show filters so teams can start narrow (*Service) and broaden later.",
       "Show the C# AssemblyInfo.",
       45,
     ),
@@ -283,7 +283,7 @@ export const scenes: Scene[] = [
     sources: [S.mba],
     notes: n(
       "Open the real file in Visual Studio if projecting code.",
-      "Contrast with the old CaptureTransaction sample they may have tried.",
+      "Contrast with a manual CaptureTransaction sample.",
       "Show VB — same pattern.",
       35,
     ),
@@ -308,7 +308,7 @@ export const scenes: Scene[] = [
       t("Refs", "mscorlib + System", "Fody on Framework VB"),
     ],
     densityExtra:
-      "Ask them for one real VB class library to tailor NamespaceFilter / TypeNameFilter.",
+      "Invite a real VB class library sample to tailor NamespaceFilter / TypeNameFilter.",
     qualification: qual,
     sources: [S.mba],
     notes: n(
@@ -367,7 +367,7 @@ export const scenes: Scene[] = [
       t("C#", "ShipmentService", "Async CreateQuote"),
       t("Deps", "SQL + HTTP", "Layer A auto spans"),
     ],
-    densityExtra: `Live: ${lab.host}/web/Checkout — submit DXB-AMM.`,
+    densityExtra: `In the lab UI: POST ${lab.checkoutPath} with lane DXB-AMM.`,
     qualification: qual,
     sources: [S.profiler],
     notes: n(
@@ -403,7 +403,7 @@ export const scenes: Scene[] = [
     qualification: qual,
     sources: [S.profiler],
     notes: n(
-      "Separate spans from values — customers conflate them.",
+      "Separate spans from values — audiences often conflate them.",
       "Show the business-values dashboard if time allows.",
       "Log correlation.",
       30,
@@ -450,11 +450,11 @@ export const scenes: Scene[] = [
     eyebrow: "Live walkthrough",
     headline: "Fifteen minutes.",
     emphasis: "Objection → proof.",
-    lead: "Code first (untouched bodies), then AssemblyInfo, then Checkout, waterfall, labels, logs, EDOT contrast. Ask for one real class library to tailor filters.",
+    lead: "Code first (untouched bodies), then AssemblyInfo, then Checkout, waterfall, labels, logs, EDOT contrast. Finish by tailoring filters to one real class library.",
     visual: "demo",
     layout: "wide",
     takeaways: [
-      t("1–3", "Story", "Layers + objection"),
+      t("1–3", "Story", "Layers + concerns"),
       t("4–10", "Proof", "Code · Checkout · waterfall"),
       t("11–15", "Ask", "Their VB/C# sample DLL"),
     ],
@@ -464,7 +464,7 @@ export const scenes: Scene[] = [
     sources: [S.profiler, S.edot, S.mba],
     notes: n(
       "Stay disciplined — do not drown in Kibana chrome.",
-      "End with a clear ask: one class library + which host they can change (Web.config vs build).",
+      "End with a clear next step: one class library + which host surface can change (Web.config vs build).",
       "Close.",
       35,
     ),
@@ -477,7 +477,7 @@ export const scenes: Scene[] = [
   {
     id: "closing",
     chapter: "Close",
-    eyebrow: "Customer takeaway",
+    eyebrow: "Takeaway",
     headline: "Minimum change.",
     emphasis: "Maximum business visibility.",
     lead: "Install the agent on the host. Add one shared aspect package to each business DLL build. Set assembly filters. Method bodies stay clean — C# and VB. Labels and OpenTelemetry are optional next steps.",
@@ -486,14 +486,14 @@ export const scenes: Scene[] = [
     takeaways: [
       t("Now", "Profiler + aspects", "Framework IIS ready"),
       t("Next", "EDOT", "Same weave, OTLP"),
-      t("Ask", "One DLL", "Tailor filters together"),
+      t("Next", "One DLL", "Tailor filters together"),
     ],
-    densityExtra: `Repo ${lab.host.replace("http://", "")} lab · github.com/ziftech/dotnetapm`,
+    densityExtra: `Source: ${lab.repo}`,
     qualification: qual,
     sources: [S.profiler, S.edot, S.migrate],
     notes: n(
       "Leave the one-liner on screen.",
-      "Offer guide + repo + Kibana access. Schedule the OTel deep-dive only if they want it.",
+      "Offer the guide and repo. Schedule an OTel deep-dive if useful.",
       "Stop talking.",
       25,
     ),

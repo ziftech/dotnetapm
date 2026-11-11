@@ -59,7 +59,7 @@ const visuals: Record<string, Render> = {
     (step >= 1
       ? group(
           rect(40, 160, 640, 160, C.gray, "none", 12) +
-            txt(60, 200, "What they reject", 16, C.ink, "v-bold") +
+            txt(60, 200, "What teams reject", 16, C.ink, "v-bold") +
             mono(60, 230, "× CaptureTransaction in every function", 13, C.pink) +
             mono(60, 255, "× Wrapper / proxy that changes call sites", 13, C.pink) +
             mono(60, 280, "× Re-implementing via inheritance", 13, C.pink) +
