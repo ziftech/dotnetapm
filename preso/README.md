@@ -31,7 +31,14 @@ Open http://127.0.0.1:4175/#0
 npm run build
 ```
 
-GitHub Actions deploys `preso/dist` to GitHub Pages on pushes to `main` (and via **workflow_dispatch**).
+Pages is served from the `gh-pages` branch. Republish after deck changes:
+
+```sh
+./scripts/Publish-PresoPages.sh
+```
+
+An Actions workflow example lives at `preso/github-pages.workflow.yml.example` (needs a token with `workflow` scope to install under `.github/workflows/`).
+
 
 ## Companion material
 
