@@ -13,7 +13,10 @@
       },
       "config": {
         "title": "Overview",
-        "content": "## Contoso .NET APM lab \u2014 Profiler vs EDOT\n\n**Live layout:**\n- `ShipmentsWeb` \u2192 SharedPool + **Elastic APM profiler** (`agent.name=dotnet`) \u2192 `traces-apm*`\n- `TrackingApi-EDOT` \u2192 TrackingEdotPool + **EDOT** (`agent.name=opentelemetry/dotnet/elastic`) \u2192 `traces-generic.otel-default`\n\nBusiness spans: Fody weave (`app`/`business` or OTel `Internal` via `Contoso.Observability`).\n"
+        "content": "## Contoso .NET APM lab \u2014 Profiler vs EDOT\n\n**Live layout:**\n- `ShipmentsWeb` \u2192 SharedPool + **Elastic APM profiler** (`agent.name=dotnet`) \u2192 `traces-apm*`\n- `TrackingApi-EDOT` \u2192 TrackingEdotPool + **EDOT** (`agent.name=opentelemetry/dotnet/elastic`) \u2192 `traces-generic.otel-default`\n\nBusiness spans: Fody weave (`app`/`business` or OTel `Internal` via `Contoso.Observability`).\n",
+        "settings": {
+          "open_links_in_new_tab": true
+        }
       }
     },
     {
@@ -26,16 +29,34 @@
         "h": 6
       },
       "config": {
-        "title": "Profiler docs (7d)",
         "type": "metric",
+        "title": "Profiler docs (7d)",
+        "sampling": 1,
+        "ignore_global_filters": false,
         "data_source": {
           "type": "esql",
           "query": "FROM traces-apm-default | WHERE @timestamp > NOW() - 7 days AND service.name IN (\"ShipmentsWeb\",\"TrackingApi\") | STATS docs = COUNT(*)"
         },
+        "styling": {
+          "density": "default",
+          "primary": {
+            "position": "bottom",
+            "labels": {
+              "alignment": "left"
+            },
+            "value": {
+              "alignment": "right",
+              "sizing": "auto"
+            }
+          }
+        },
         "metrics": [
           {
+            "column": "docs",
             "type": "primary",
-            "column": "docs"
+            "color": {
+              "type": "auto"
+            }
           }
         ]
       }
@@ -50,16 +71,34 @@
         "h": 6
       },
       "config": {
-        "title": "EDOT docs (7d)",
         "type": "metric",
+        "title": "EDOT docs (7d)",
+        "sampling": 1,
+        "ignore_global_filters": false,
         "data_source": {
           "type": "esql",
           "query": "FROM traces-generic.otel-default | WHERE @timestamp > NOW() - 7 days AND service.name == \"TrackingApi-EDOT\" | STATS docs = COUNT(*)"
         },
+        "styling": {
+          "density": "default",
+          "primary": {
+            "position": "bottom",
+            "labels": {
+              "alignment": "left"
+            },
+            "value": {
+              "alignment": "right",
+              "sizing": "auto"
+            }
+          }
+        },
         "metrics": [
           {
+            "column": "docs",
             "type": "primary",
-            "column": "docs"
+            "color": {
+              "type": "auto"
+            }
           }
         ]
       }
@@ -74,24 +113,96 @@
         "h": 6
       },
       "config": {
-        "title": "Docs by agent.name (7d)",
         "type": "xy",
+        "title": "Docs by agent.name (7d)",
+        "legend": {
+          "visibility": "hidden",
+          "placement": "outside",
+          "layout": {
+            "type": "grid",
+            "truncate": {
+              "max_lines": 1
+            }
+          },
+          "position": "right"
+        },
+        "axis": {
+          "x": {
+            "title": {
+              "visible": true
+            },
+            "ticks": {
+              "visible": true
+            },
+            "grid": {
+              "visible": true
+            },
+            "labels": {
+              "orientation": "horizontal"
+            },
+            "scale": "ordinal",
+            "domain": {
+              "type": "fit",
+              "rounding": false
+            }
+          },
+          "y": {
+            "title": {
+              "visible": true
+            },
+            "ticks": {
+              "visible": true
+            },
+            "grid": {
+              "visible": true
+            },
+            "labels": {
+              "orientation": "horizontal"
+            },
+            "scale": "linear",
+            "domain": {
+              "type": "full",
+              "rounding": true
+            }
+          }
+        },
+        "styling": {
+          "overlays": {
+            "partial_buckets": {
+              "visible": false
+            },
+            "current_time_marker": {
+              "visible": false
+            }
+          },
+          "bars": {
+            "minimum_height": 1,
+            "data_labels": {
+              "visible": false
+            }
+          }
+        },
         "layers": [
           {
-            "type": "bar",
+            "sampling": 1,
             "ignore_global_filters": true,
             "data_source": {
               "type": "esql",
               "query": "FROM traces-apm-default, traces-generic.otel-default | WHERE @timestamp > NOW() - 7 days AND service.name IN (\"ShipmentsWeb\",\"TrackingApi\",\"TrackingApi-EDOT\") | STATS docs = COUNT(*) BY agent.name | SORT docs DESC"
             },
-            "x": {
-              "column": "agent.name"
-            },
+            "type": "bar",
             "y": [
               {
-                "column": "docs"
+                "column": "docs",
+                "axis": "y",
+                "color": {
+                  "type": "auto"
+                }
               }
-            ]
+            ],
+            "x": {
+              "column": "agent.name"
+            }
           }
         ]
       }
@@ -106,18 +217,83 @@
         "h": 12
       },
       "config": {
-        "title": "Profiler ShipmentsWeb volume (7d)",
         "type": "xy",
+        "title": "Profiler ShipmentsWeb volume (7d, by hour)",
+        "legend": {
+          "visibility": "hidden",
+          "placement": "outside",
+          "layout": {
+            "type": "grid",
+            "truncate": {
+              "max_lines": 1
+            }
+          },
+          "position": "right"
+        },
+        "axis": {
+          "x": {
+            "title": {
+              "visible": true
+            },
+            "ticks": {
+              "visible": true
+            },
+            "grid": {
+              "visible": true
+            },
+            "labels": {
+              "orientation": "horizontal"
+            },
+            "scale": "ordinal",
+            "domain": {
+              "type": "fit",
+              "rounding": false
+            }
+          },
+          "y": {
+            "title": {
+              "visible": true
+            },
+            "ticks": {
+              "visible": true
+            },
+            "grid": {
+              "visible": true
+            },
+            "labels": {
+              "orientation": "horizontal"
+            },
+            "scale": "linear",
+            "domain": {
+              "type": "full",
+              "rounding": true
+            }
+          }
+        },
+        "styling": {
+          "overlays": {
+            "partial_buckets": {
+              "visible": false
+            },
+            "current_time_marker": {
+              "visible": false
+            }
+          },
+          "interpolation": "linear",
+          "points": {
+            "visibility": "auto"
+          }
+        },
         "layers": [
           {
-            "type": "line",
+            "type": "bar",
             "ignore_global_filters": true,
             "data_source": {
               "type": "esql",
-              "query": "FROM traces-apm-default | WHERE @timestamp > NOW() - 7 days AND service.name == \"ShipmentsWeb\" | STATS docs = COUNT(*) BY time_bucket = BUCKET(@timestamp, 1 hour) | SORT time_bucket ASC"
+              "query": "FROM traces-apm-default | WHERE @timestamp > NOW() - 7 days AND service.name == \"ShipmentsWeb\" | EVAL hour = DATE_FORMAT(\"yyyy-MM-dd HH:00\", @timestamp) | STATS docs = COUNT(*) BY hour | SORT hour ASC"
             },
             "x": {
-              "column": "time_bucket"
+              "column": "hour"
             },
             "y": [
               {
@@ -138,18 +314,85 @@
         "h": 12
       },
       "config": {
-        "title": "EDOT TrackingApi-EDOT volume (7d)",
         "type": "xy",
+        "title": "EDOT TrackingApi-EDOT volume (7d, by hour)",
+        "legend": {
+          "visibility": "hidden",
+          "placement": "outside",
+          "layout": {
+            "type": "grid",
+            "truncate": {
+              "max_lines": 1
+            }
+          },
+          "position": "right"
+        },
+        "axis": {
+          "x": {
+            "title": {
+              "visible": true
+            },
+            "ticks": {
+              "visible": true
+            },
+            "grid": {
+              "visible": true
+            },
+            "labels": {
+              "orientation": "horizontal"
+            },
+            "scale": "ordinal",
+            "domain": {
+              "type": "fit",
+              "rounding": false
+            }
+          },
+          "y": {
+            "title": {
+              "visible": true
+            },
+            "ticks": {
+              "visible": true
+            },
+            "grid": {
+              "visible": true
+            },
+            "labels": {
+              "orientation": "horizontal"
+            },
+            "scale": "linear",
+            "domain": {
+              "type": "full",
+              "rounding": true
+            }
+          }
+        },
+        "styling": {
+          "overlays": {
+            "partial_buckets": {
+              "visible": false
+            },
+            "current_time_marker": {
+              "visible": false
+            }
+          },
+          "bars": {
+            "minimum_height": 1,
+            "data_labels": {
+              "visible": false
+            }
+          }
+        },
         "layers": [
           {
             "type": "bar",
             "ignore_global_filters": true,
             "data_source": {
               "type": "esql",
-              "query": "FROM traces-generic.otel-default | WHERE @timestamp > NOW() - 7 days AND service.name == \"TrackingApi-EDOT\" | STATS docs = COUNT(*) BY time_bucket = BUCKET(@timestamp, 1 hour) | SORT time_bucket ASC"
+              "query": "FROM traces-generic.otel-default | WHERE @timestamp > NOW() - 7 days AND service.name == \"TrackingApi-EDOT\" | EVAL hour = DATE_FORMAT(\"yyyy-MM-dd HH:00\", @timestamp) | STATS docs = COUNT(*) BY hour | SORT hour ASC"
             },
             "x": {
-              "column": "time_bucket"
+              "column": "hour"
             },
             "y": [
               {
@@ -170,24 +413,96 @@
         "h": 10
       },
       "config": {
-        "title": "Profiler span types (24h)",
         "type": "xy",
+        "title": "Profiler span types (24h)",
+        "legend": {
+          "visibility": "hidden",
+          "placement": "outside",
+          "layout": {
+            "type": "grid",
+            "truncate": {
+              "max_lines": 1
+            }
+          },
+          "position": "right"
+        },
+        "axis": {
+          "x": {
+            "title": {
+              "visible": true
+            },
+            "ticks": {
+              "visible": true
+            },
+            "grid": {
+              "visible": true
+            },
+            "labels": {
+              "orientation": "horizontal"
+            },
+            "scale": "ordinal",
+            "domain": {
+              "type": "fit",
+              "rounding": false
+            }
+          },
+          "y": {
+            "title": {
+              "visible": true
+            },
+            "ticks": {
+              "visible": true
+            },
+            "grid": {
+              "visible": true
+            },
+            "labels": {
+              "orientation": "horizontal"
+            },
+            "scale": "linear",
+            "domain": {
+              "type": "full",
+              "rounding": true
+            }
+          }
+        },
+        "styling": {
+          "overlays": {
+            "partial_buckets": {
+              "visible": false
+            },
+            "current_time_marker": {
+              "visible": false
+            }
+          },
+          "bars": {
+            "minimum_height": 1,
+            "data_labels": {
+              "visible": false
+            }
+          }
+        },
         "layers": [
           {
-            "type": "bar",
+            "sampling": 1,
             "ignore_global_filters": true,
             "data_source": {
               "type": "esql",
               "query": "FROM traces-apm-default | WHERE @timestamp > NOW() - 24 hours AND service.name == \"ShipmentsWeb\" AND processor.event == \"span\" | STATS docs = COUNT(*) BY span.type | SORT docs DESC"
             },
-            "x": {
-              "column": "span.type"
-            },
+            "type": "bar",
             "y": [
               {
-                "column": "docs"
+                "column": "docs",
+                "axis": "y",
+                "color": {
+                  "type": "auto"
+                }
               }
-            ]
+            ],
+            "x": {
+              "column": "span.type"
+            }
           }
         ]
       }
@@ -202,24 +517,96 @@
         "h": 10
       },
       "config": {
-        "title": "EDOT span kinds (24h)",
         "type": "xy",
+        "title": "EDOT span kinds (24h)",
+        "legend": {
+          "visibility": "hidden",
+          "placement": "outside",
+          "layout": {
+            "type": "grid",
+            "truncate": {
+              "max_lines": 1
+            }
+          },
+          "position": "right"
+        },
+        "axis": {
+          "x": {
+            "title": {
+              "visible": true
+            },
+            "ticks": {
+              "visible": true
+            },
+            "grid": {
+              "visible": true
+            },
+            "labels": {
+              "orientation": "horizontal"
+            },
+            "scale": "ordinal",
+            "domain": {
+              "type": "fit",
+              "rounding": false
+            }
+          },
+          "y": {
+            "title": {
+              "visible": true
+            },
+            "ticks": {
+              "visible": true
+            },
+            "grid": {
+              "visible": true
+            },
+            "labels": {
+              "orientation": "horizontal"
+            },
+            "scale": "linear",
+            "domain": {
+              "type": "full",
+              "rounding": true
+            }
+          }
+        },
+        "styling": {
+          "overlays": {
+            "partial_buckets": {
+              "visible": false
+            },
+            "current_time_marker": {
+              "visible": false
+            }
+          },
+          "bars": {
+            "minimum_height": 1,
+            "data_labels": {
+              "visible": false
+            }
+          }
+        },
         "layers": [
           {
-            "type": "bar",
+            "sampling": 1,
             "ignore_global_filters": true,
             "data_source": {
               "type": "esql",
               "query": "FROM traces-generic.otel-default | WHERE @timestamp > NOW() - 24 hours AND service.name == \"TrackingApi-EDOT\" | STATS docs = COUNT(*) BY kind | SORT docs DESC"
             },
-            "x": {
-              "column": "kind"
-            },
+            "type": "bar",
             "y": [
               {
-                "column": "docs"
+                "column": "docs",
+                "axis": "y",
+                "color": {
+                  "type": "auto"
+                }
               }
-            ]
+            ],
+            "x": {
+              "column": "kind"
+            }
           }
         ]
       }
@@ -234,24 +621,96 @@
         "h": 8
       },
       "config": {
-        "title": "EDOT instrumentation scopes (24h)",
         "type": "xy",
+        "title": "EDOT instrumentation scopes (24h)",
+        "legend": {
+          "visibility": "hidden",
+          "placement": "outside",
+          "layout": {
+            "type": "grid",
+            "truncate": {
+              "max_lines": 1
+            }
+          },
+          "position": "right"
+        },
+        "axis": {
+          "x": {
+            "title": {
+              "visible": true
+            },
+            "ticks": {
+              "visible": true
+            },
+            "grid": {
+              "visible": true
+            },
+            "labels": {
+              "orientation": "horizontal"
+            },
+            "scale": "ordinal",
+            "domain": {
+              "type": "fit",
+              "rounding": false
+            }
+          },
+          "y": {
+            "title": {
+              "visible": true
+            },
+            "ticks": {
+              "visible": true
+            },
+            "grid": {
+              "visible": true
+            },
+            "labels": {
+              "orientation": "horizontal"
+            },
+            "scale": "linear",
+            "domain": {
+              "type": "full",
+              "rounding": true
+            }
+          }
+        },
+        "styling": {
+          "overlays": {
+            "partial_buckets": {
+              "visible": false
+            },
+            "current_time_marker": {
+              "visible": false
+            }
+          },
+          "bars": {
+            "minimum_height": 1,
+            "data_labels": {
+              "visible": false
+            }
+          }
+        },
         "layers": [
           {
-            "type": "bar",
+            "sampling": 1,
             "ignore_global_filters": true,
             "data_source": {
               "type": "esql",
               "query": "FROM traces-generic.otel-default | WHERE @timestamp > NOW() - 24 hours AND service.name == \"TrackingApi-EDOT\" | STATS docs = COUNT(*) BY scope.name | SORT docs DESC"
             },
-            "x": {
-              "column": "scope.name"
-            },
+            "type": "bar",
             "y": [
               {
-                "column": "docs"
+                "column": "docs",
+                "axis": "y",
+                "color": {
+                  "type": "auto"
+                }
               }
-            ]
+            ],
+            "x": {
+              "column": "scope.name"
+            }
           }
         ]
       }
@@ -267,7 +726,10 @@
       },
       "config": {
         "title": "Capability matrix",
-        "content": "### Capability matrix\n\n| Dimension | Profiler (.NET APM agent) | EDOT (.NET) |\n|---|---|---|\n| Intake | APM server (`.apm`) | Managed OTLP (`.ingest`) |\n| Data stream | `traces-apm*` / dataset `apm` | `traces-*.otel*` / `generic.otel` |\n| HTTP server | APM transactions | OTel Server spans (AspNet instrumentation) |\n| SQL | `span.type=db` / mssql | SqlClient Client spans |\n| Business/Fody | `app` / `business` | `Internal` ActivitySource |\n| Stacktraces | Yes | Not available |\n| Central/dynamic config | Yes | Not available |\n| Span compression | Yes | Not implemented |\n| IIS model | COR profiler on pool | NuGet + TelemetryHttpModule; **separate pool** |\n"
+        "content": "### Capability matrix\n\n| Dimension | Profiler (.NET APM agent) | EDOT (.NET) |\n|---|---|---|\n| Intake | APM server (`.apm`) | Managed OTLP (`.ingest`) |\n| Data stream | `traces-apm*` / dataset `apm` | `traces-*.otel*` / `generic.otel` |\n| HTTP server | APM transactions | OTel Server spans (AspNet instrumentation) |\n| SQL | `span.type=db` / mssql | SqlClient Client spans |\n| Business/Fody | `app` / `business` | `Internal` ActivitySource |\n| Stacktraces | Yes | Not available |\n| Central/dynamic config | Yes | Not available |\n| Span compression | Yes | Not implemented |\n| IIS model | COR profiler on pool | NuGet + TelemetryHttpModule; **separate pool** |\n",
+        "settings": {
+          "open_links_in_new_tab": true
+        }
       }
     },
     {
@@ -281,7 +743,10 @@
       },
       "config": {
         "title": "Overhead summary",
-        "content": "### Weave / profiler overhead (10m @ 10 req/s k6)\n\n| Stage | med | p95 | checks |\n|---|---|---|---|\n| B0 (no weave, no profiler) | 43.3ms | 101ms | 100% |\n| S1 (no weave + profiler) | 40.0ms | 101ms | 100% |\n| narrow (`*Service` only) | 46.8ms | 111ms | 100% |\n| broad (+ Pricing/CallChain/Repo) | 40.6ms | 111ms | 100% |\n\nSource: `results/overhead-table.md`\n"
+        "content": "### Weave / profiler overhead (10m @ 10 req/s k6)\n\n| Stage | med | p95 | checks |\n|---|---|---|---|\n| B0 (no weave, no profiler) | 43.3ms | 101ms | 100% |\n| S1 (no weave + profiler) | 40.0ms | 101ms | 100% |\n| narrow (`*Service` only) | 46.8ms | 111ms | 100% |\n| broad (+ Pricing/CallChain/Repo) | 40.6ms | 111ms | 100% |\n\nSource: `results/overhead-table.md`\n",
+        "settings": {
+          "open_links_in_new_tab": true
+        }
       }
     }
   ],
@@ -290,6 +755,12 @@
     "to": "now"
   },
   "options": {
-    "use_margins": true
+    "auto_apply_filters": true,
+    "hide_panel_titles": false,
+    "hide_panel_borders": false,
+    "use_margins": true,
+    "sync_colors": false,
+    "sync_tooltips": false,
+    "sync_cursor": true
   }
 }

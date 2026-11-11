@@ -20,3 +20,7 @@ powershell -File C:\lab\src\scripts\Restore-ProfilerTrackingApi.ps1
 ## Panel fix (2026-11-11)
 
 EDOT volume chart was empty because the xy layer used an aliased `time_bucket` column with hardcoded `NOW()-7d` and `ignore_global_filters=false`. Panels now use Kibana time params (`?_tstart` / `?_tend`) and `BUCKET(@timestamp, 1 hour, ?_tstart, ?_tend)` with the bar series for sparse EDOT data.
+
+## Volume panel fix (categorical hours)
+
+Date-axis `BUCKET(@timestamp, 1 hour)` bars were blanked when the dashboard time picker (e.g. Last 3 days) did not align with sparse EDOT buckets. Panels now use `DATE_FORMAT(... )` keyword hours so bars always render.
