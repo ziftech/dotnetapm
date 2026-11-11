@@ -11,6 +11,8 @@ npm ci
 npm run build
 
 cp -R "$ROOT/preso/dist/." "$STAGING/"
+# Prevent Jekyll from hiding Vite asset folders on GitHub Pages.
+touch "$STAGING/.nojekyll"
 cd "$STAGING"
 git init -q
 git checkout -q -b gh-pages
