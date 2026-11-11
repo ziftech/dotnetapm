@@ -5,6 +5,8 @@
 - **Definition (recreate):** `kibana/contoso-profiler-vs-edot-dashboard.json`
 - **Screenshot:** `screenshots/14-profiler-vs-edot-dashboard.png`
 
+Panels use ES|QL against `traces-apm*` and `traces-*.otel*` (EDOT uses root field `kind` / `scope.name`, not APM `span.*`).
+
 ## Live binding for demo
 
 `/tracking` is on **TrackingEdotPool** (`TrackingApi-EDOT`) so the EDOT panels have live data. `/web` stays on SharedPool profiler (`ShipmentsWeb`).
