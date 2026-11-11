@@ -1,0 +1,21 @@
+- script:
+    lang: javascript
+    source: |
+      function process(event) {
+        var msg = event.Get("message");
+        if (msg) {
+          var tm = msg.match(/trace\.id=([0-9a-fA-F]{32})/);
+          if (tm) { event.Put("trace.id", tm[1].toLowerCase()); }
+          var xm = msg.match(/transaction\.id=([0-9a-fA-F]+)/);
+          if (xm) { event.Put("transaction.id", xm[1].toLowerCase()); }
+        }
+        var path = event.Get("log.file.path") || "";
+        if (path.indexOf("shipments-web") >= 0) {
+          event.Put("service.name", "ShipmentsWeb");
+          event.Put("service.environment", "lab");
+        } else if (path.indexOf("tracking-api") >= 0) {
+          event.Put("service.name", "TrackingApi-EDOT");
+          event.Put("service.environment", "lab");
+        }
+        return event;
+      }
