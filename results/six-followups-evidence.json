@@ -1,0 +1,164 @@
+{
+  "edot_any": {
+    "value": 4,
+    "relation": "eq"
+  },
+  "edot_business": {
+    "value": 3,
+    "relation": "eq"
+  },
+  "vb_spans": {
+    "value": 3,
+    "relation": "eq"
+  },
+  "checkout_tx": {
+    "value": 1,
+    "relation": "eq"
+  },
+  "services": [
+    [
+      "ShipmentsWeb",
+      13
+    ],
+    [
+      "TrackingApi-EDOT",
+      4
+    ]
+  ],
+  "sample_edot": [
+    {
+      "@timestamp": "2026-11-12T12:43:56.601Z"
+    },
+    {
+      "@timestamp": "2026-11-12T12:43:56.528Z"
+    },
+    {
+      "@timestamp": "2026-11-12T12:43:55.958Z"
+    },
+    {
+      "@timestamp": "2026-11-12T12:43:55.410Z"
+    }
+  ],
+  "sample_edot_biz": [
+    {
+      "@timestamp": "2026-11-12T12:43:56.601Z"
+    },
+    {
+      "@timestamp": "2026-11-12T12:43:56.528Z"
+    },
+    {
+      "@timestamp": "2026-11-12T12:43:55.958Z"
+    }
+  ],
+  "sample_vb": [
+    {
+      "agent": {
+        "name": "dotnet"
+      },
+      "processor": {
+        "event": "span"
+      },
+      "trace": {
+        "id": "8a7d68f66db3a5dd468cce7d95a0817b"
+      },
+      "@timestamp": "2026-11-12T12:36:15.162373000Z",
+      "service": {
+        "name": "ShipmentsWeb"
+      },
+      "transaction": {
+        "id": "c2a374dabb77eb8a"
+      },
+      "span": {
+        "name": "LegacyShipmentService.ClassifyLane"
+      }
+    },
+    {
+      "agent": {
+        "name": "dotnet"
+      },
+      "processor": {
+        "event": "span"
+      },
+      "trace": {
+        "id": "8a7d68f66db3a5dd468cce7d95a0817b"
+      },
+      "@timestamp": "2026-11-12T12:36:14.941203000Z",
+      "service": {
+        "name": "ShipmentsWeb"
+      },
+      "transaction": {
+        "id": "c2a374dabb77eb8a"
+      },
+      "span": {
+        "name": "LegacyShipmentService.NormalizeTrackingId"
+      }
+    },
+    {
+      "agent": {
+        "name": "dotnet"
+      },
+      "processor": {
+        "event": "span"
+      },
+      "trace": {
+        "id": "8a7d68f66db3a5dd468cce7d95a0817b"
+      },
+      "@timestamp": "2026-11-12T12:36:14.925535000Z",
+      "service": {
+        "name": "ShipmentsWeb"
+      },
+      "transaction": {
+        "id": "c2a374dabb77eb8a"
+      },
+      "span": {
+        "name": "LegacyShipmentService.EnrichQuoteNote"
+      }
+    }
+  ],
+  "sample_checkout": [
+    {
+      "agent": {
+        "name": "dotnet"
+      },
+      "processor": {
+        "event": "transaction"
+      },
+      "labels": {
+        "lane": "DXB-AMM",
+        "tracking_id": "CTR-ZERO123614"
+      },
+      "trace": {
+        "id": "8a7d68f66db3a5dd468cce7d95a0817b"
+      },
+      "@timestamp": "2026-11-12T12:36:14.658992000Z",
+      "service": {
+        "name": "ShipmentsWeb"
+      },
+      "transaction": {
+        "name": "POST Checkout/Index",
+        "id": "c2a374dabb77eb8a"
+      }
+    }
+  ],
+  "edot_span_names": [
+    {
+      "key": "ContosoShipments",
+      "doc_count": 22
+    },
+    {
+      "key": "GET api/{controller}/{id}",
+      "doc_count": 11
+    },
+    {
+      "key": "ShipmentService.LookupStatus",
+      "doc_count": 11
+    }
+  ],
+  "vb_trace_id": "8a7d68f66db3a5dd468cce7d95a0817b",
+  "vb_transaction_id": "c2a374dabb77eb8a",
+  "screenshot": "screenshots/16-vb-legacyshipmentservice-waterfall.png",
+  "screenshot_note": "Kibana APM UI deep-link was flaky (Refresh page); screenshot rendered from live traces-apm* docs for the same trace.",
+  "log4net": "ShipmentsWeb %apm_trace_id populated (FRESH_LOG4NET_OK)",
+  "tracking_nlog_under_otel": "ContosoApmTraceId populated under OTel profiler (TRACKING_NLOG_TRACE_OK)",
+  "labels_module": "checkout transaction labels tracking_id + lane present without Global.asax changes"
+}

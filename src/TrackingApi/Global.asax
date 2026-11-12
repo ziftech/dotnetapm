@@ -1,1 +1,1 @@
-<%@ Application Codebehind="Global.asax.cs" Inherits="TrackingApi.WebApiApplication" Language="C#" %>
+<%@ Application Inherits="TrackingApi.WebApiApplication" Language="C#" %>

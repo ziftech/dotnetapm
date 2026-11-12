@@ -51,6 +51,11 @@
       <HintPath>..\..\packages\NLog.5.3.4\lib\net46\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\packages\log4net.2.0.17\lib\net45\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,6 +65,8 @@
     <Compile Include="TraceAspect.cs" />
     <Compile Include="TraceScope.cs" />
     <Compile Include="ApmNLogLayoutRenderers.cs" />
+    <Compile Include="ApmLog4NetPatternConverters.cs" />
+    <Compile Include="CheckoutLabelsHttpModule.cs" />
     <Compile Include="ApmBusiness.cs" />
   </ItemGroup>
   <ItemGroup>

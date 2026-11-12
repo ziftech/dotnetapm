@@ -31,12 +31,9 @@ namespace ShipmentsWeb.Controllers
             lane = string.IsNullOrWhiteSpace(lane) ? "DXB-AMM" : lane;
             if (weightKg <= 0) weightKg = 5;
 
-            // Business values → APM labels (Metadata → Labels) for filtering / demo
-            ApmBusiness.SetCheckoutLabels(trackingId, lane, weightKg);
-
-            Log.InfoFormat(
-                "Checkout start trackingId={0} lane={1} weight={2} trace.id={3} transaction.id={4}",
-                trackingId, lane, weightKg, ApmBusiness.CurrentTraceId(), ApmBusiness.CurrentTransactionOrSpanId());
+            // Business labels (tracking_id / lane / weight_kg / quote_price) come from
+            // CheckoutLabelsHttpModule registered in Web.config — not Global.asax.
+            Log.InfoFormat("Checkout start trackingId={0} lane={1} weight={2}", trackingId, lane, weightKg);
 
             // Synthetic failure for SLO burn demos (trackingId prefix SLOBOOM)
             if (trackingId.StartsWith("SLOBOOM", StringComparison.OrdinalIgnoreCase))
@@ -48,7 +45,7 @@ namespace ShipmentsWeb.Controllers
             var vbNote = _legacyVb.EnrichQuoteNote(trackingId, lane, weightKg);
 
             var quote = await _shipments.CreateQuoteAsync(trackingId, lane, weightKg).ConfigureAwait(false);
-            ApmBusiness.SetCheckoutLabels(trackingId, lane, weightKg, (double)quote.Price);
+            HttpContext.Items[CheckoutLabelsHttpModule.QuotePriceItemKey] = (double)quote.Price;
 
             var viaHttpClient = await _tracking.GetStatusHttpClientAsync(trackingId).ConfigureAwait(false);
 
@@ -61,8 +58,8 @@ namespace ShipmentsWeb.Controllers
             ViewBag.HttpClientStatus = viaHttpClient;
             ViewBag.WebRequestStatus = viaWebRequest;
             Log.InfoFormat(
-                "Checkout done price={0} chain={1} vbNote={2} trackingId={3} trace.id={4}",
-                quote.Price, quote.ChainToken, vbNote, trackingId, ApmBusiness.CurrentTraceId());
+                "Checkout done price={0} chain={1} vbNote={2} trackingId={3}",
+                quote.Price, quote.ChainToken, vbNote, trackingId);
             return View();
         }
     }

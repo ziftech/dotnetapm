@@ -70,11 +70,11 @@ The VB sample is `src/Contoso.Shipments.LegacyVb` (`LegacyShipmentService`). Met
 | Piece | How this sample wires it |
 |---|---|
 | Profiler | App-pool env: `COR_ENABLE_PROFILING`, `COR_PROFILER`, profiler path (`scripts/Install-ApmProfiler.ps1`, `scripts/Configure-ApmPool.ps1`) |
-| Service name | `ElasticApm:ServiceName` = `ShipmentsWeb` in `Web.config` (prefer also setting `ELASTIC_APM_SERVICE_NAME` on the pool) |
+| Service name | `ElasticApm:ServiceName` = `ShipmentsWeb` in `Web.config` |
 | Auto instrumentation | ASP.NET MVC, SqlClient, HttpClient / HttpWebRequest |
 | Business spans | Fody → `ElasticApmTraceBackend` |
-| Optional labels | `ApmBusiness.SetCheckoutLabels` in `CheckoutController` |
-| Logs | log4net includes `trace.id` / `transaction.id` for correlation |
+| Optional labels | `CheckoutLabelsHttpModule` registered in `Web.config` only (no Global.asax changes) |
+| Logs | log4net layout converters `%apm_trace_id` / `%apm_transaction_id` |
 
 **What to look for in Elastic APM**
 
@@ -97,11 +97,11 @@ Product docs: [Profiler auto instrumentation](https://www.elastic.co/docs/refere
 
 | Piece | How this sample wires it |
 |---|---|
-| Trigger | Pool `OTEL_*` variables (including `OTEL_SERVICE_NAME` → `TrackingApi-EDOT`) |
-| Startup | `TrackingApi/Global.asax.cs`: when OTLP is set → `ActivitySourceTraceBackend` + OpenTelemetry SDK (`WithElasticDefaults`, AspNet, SqlClient, `AddSource("Contoso.Observability")`) |
-| Auto instrumentation | OpenTelemetry ASP.NET + SqlClient |
-| Business spans | Same Fody aspects → `ActivitySourceTraceBackend` → OTLP |
-| Fallback | If OTLP is unset, TrackingApi uses `ElasticApmTraceBackend` (profiler path) |
+| Trigger | IIS zero-code: `Install-OpenTelemetryCore` + `Register-OpenTelemetryForIIS`, plus pool `OTEL_*` |
+| Auto instrumentation | OpenTelemetry .NET AutoInstrumentation profiler (no OpenTelemetry SDK bootstrap in `Global.asax`) |
+| Business spans | Same Fody aspects → `ActivitySource("Contoso.Observability")` listened via `OTEL_DOTNET_AUTO_TRACES_ADDITIONAL_SOURCES=Contoso.Observability` |
+| Service name | `OTEL_SERVICE_NAME` → `TrackingApi-EDOT` |
+| Fallback | If OTEL env is unset, `TraceBackends` selects `ElasticApmTraceBackend` (classic profiler path) |
 
 **What to look for**
 
