@@ -160,5 +160,23 @@
   "screenshot_note": "Kibana APM UI deep-link was flaky (Refresh page); screenshot rendered from live traces-apm* docs for the same trace.",
   "log4net": "ShipmentsWeb %apm_trace_id populated (FRESH_LOG4NET_OK)",
   "tracking_nlog_under_otel": "ContosoApmTraceId populated under OTel profiler (TRACKING_NLOG_TRACE_OK)",
-  "labels_module": "checkout transaction labels tracking_id + lane present without Global.asax changes"
+  "labels_module": "checkout transaction labels tracking_id + lane present without Global.asax changes",
+  "screenshot_16": {
+    "path": "screenshots/16-vb-legacyshipmentservice-waterfall.png",
+    "source": "kibana-apm-trace-view",
+    "trace_id": "824aa29326a19201b98763ac8d5d456c",
+    "transaction_id": "2afe4aecd1db9f18",
+    "note": "Retaken from Kibana APM waterfall (not HTML rebuild). LegacyShipmentService.* visible.",
+    "prior_fabricated_html_removed": true
+  },
+  "caveats": {
+    "one_profiler_per_pool": "EDOT on TrackingEdotPool; Elastic profiler on SharedPool; whole-pool move only",
+    "evidence_volume": "smoke (small doc counts); overhead still from earlier 10-minute runs",
+    "labels_module": "request form/query only; quote_price needs HttpContext.Items",
+    "global_asax": "exception logger only; without it, unhandled-only automatic capture"
+  },
+  "diagnostic_source": {
+    "aligned_to": "8.0.1 (Elastic APM profiler net462 bundle)",
+    "avoid": "10.0.0 caused MissingMethodException ActivitySpanId.CopyTo on BeginRequest"
+  }
 }

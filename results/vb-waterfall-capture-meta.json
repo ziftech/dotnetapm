@@ -1,0 +1,11 @@
+{
+  "source": "kibana-apm-trace-view",
+  "trace_id": "824aa29326a19201b98763ac8d5d456c",
+  "transaction_id": "2afe4aecd1db9f18",
+  "span_id": "02e2add4e301d780",
+  "timestamp": "2026-11-12T13:21:15.958122000Z",
+  "has_legacy_spans": true,
+  "refresh_error": false,
+  "url": "<redacted-project-url>/app/apm/services/ShipmentsWeb/transactions/view?rangeFrom=now-2h&rangeTo=now&environment=lab&transactionId=2afe4aecd1db9f18&traceId=824aa29326a19201b98763ac8d5d456c&spanId=02e2add4e301d780&waterfallItemId=02e2add4e301d780&transactionName=POST%20Checkout%2FIndex&transactionType=request&comparisonEnabled=false",
+  "ok": true
+}

@@ -73,8 +73,10 @@ The VB sample is `src/Contoso.Shipments.LegacyVb` (`LegacyShipmentService`). Met
 | Service name | `ElasticApm:ServiceName` = `ShipmentsWeb` in `Web.config` |
 | Auto instrumentation | ASP.NET MVC, SqlClient, HttpClient / HttpWebRequest |
 | Business spans | Fody → `ElasticApmTraceBackend` |
-| Optional labels | `CheckoutLabelsHttpModule` registered in `Web.config` only (no Global.asax changes) |
+| Optional labels | `CheckoutLabelsHttpModule` registered in `Web.config` (request form/query fields) |
 | Logs | log4net layout converters `%apm_trace_id` / `%apm_transaction_id` |
+
+**Labels caveat:** the HTTP module can only promote values that exist on the request (form / query). Response-time fields such as `quote_price` still need one app touchpoint (this sample sets `HttpContext.Items["quote_price"]` in the controller so the module can attach them on the way out). For apps you cannot recompile, stick to request-derived labels.
 
 **What to look for in Elastic APM**
 
@@ -84,7 +86,7 @@ The VB sample is `src/Contoso.Shipments.LegacyVb` (`LegacyShipmentService`). Met
    - `LegacyShipmentService.EnrichQuoteNote` (and nested helpers)
    - `ShipmentService.CreateQuoteAsync`
    - SQL and outbound HTTP to Tracking
-4. Optional labels: `tracking_id`, `lane`, `weight_kg`, `quote_price`
+4. Optional labels: `tracking_id`, `lane`, `weight_kg` (and `quote_price` when the controller/Items hook is present)
 5. Logs correlated by the same `trace.id`
 
 Product docs: [Profiler auto instrumentation](https://www.elastic.co/docs/reference/apm/agents/dotnet/setup-auto-instrumentation) · [ASP.NET / IIS](https://www.elastic.co/docs/reference/apm/agents/dotnet/setup-asp-dot-net)
@@ -93,21 +95,26 @@ Product docs: [Profiler auto instrumentation](https://www.elastic.co/docs/refere
 
 ## EDOT path (TrackingApi)
 
-`TrackingApi` can run with the Elastic Distribution of OpenTelemetry (.NET) when the pool sets `OTEL_EXPORTER_OTLP_ENDPOINT`.
+`TrackingApi` runs on a **dedicated** IIS pool (`TrackingEdotPool`) with OpenTelemetry .NET AutoInstrumentation (zero-code). ShipmentsWeb stays on `SharedPool` with the Elastic .NET APM profiler.
+
+> **One profiler per process:** the CLR loads a single native profiler. Do **not** mix Elastic APM profiler and OTel auto-instrumentation on the same app pool / `w3wp` process. In this lab, EDOT is isolated on `TrackingEdotPool`. Moving shared-pool apps to EDOT means moving **the whole pool** together — never half Elastic / half EDOT on one pool.
 
 | Piece | How this sample wires it |
 |---|---|
-| Trigger | IIS zero-code: `Install-OpenTelemetryCore` + `Register-OpenTelemetryForIIS`, plus pool `OTEL_*` |
-| Auto instrumentation | OpenTelemetry .NET AutoInstrumentation profiler (no OpenTelemetry SDK bootstrap in `Global.asax`) |
-| Business spans | Same Fody aspects → `ActivitySource("Contoso.Observability")` listened via `OTEL_DOTNET_AUTO_TRACES_ADDITIONAL_SOURCES=Contoso.Observability` |
+| Trigger | IIS zero-code: `Install-OpenTelemetryCore` + `Register-OpenTelemetryForIIS`, then pool-scoped `OTEL_*` / `COR_*` (see `scripts/Install-EdotZeroCodeIis.ps1`) |
+| Auto instrumentation | OpenTelemetry .NET AutoInstrumentation profiler — **no** `OpenTelemetrySdk` bootstrap in `Global.asax` |
+| Business spans | Same Fody aspects → `ActivitySource("Contoso.Observability")` via `OTEL_DOTNET_AUTO_TRACES_ADDITIONAL_SOURCES=Contoso.Observability` |
 | Service name | `OTEL_SERVICE_NAME` → `TrackingApi-EDOT` |
+| `Global.asax` | Still present only to pick an exception logger. Traces work without SDK code there. Without a `Global.asax` at all, rely on automatic capture for **unhandled** exceptions only. |
 | Fallback | If OTEL env is unset, `TraceBackends` selects `ElasticApmTraceBackend` (classic profiler path) |
 
 **What to look for**
 
-1. Service **TrackingApi-EDOT** (agent name around `opentelemetry/dotnet/elastic`)
+1. Service **TrackingApi-EDOT** (agent name around `opentelemetry/dotnet/...`)
 2. Dashboard NDJSON under `kibana/contoso-profiler-vs-edot-dashboard.json`
-3. Tracking request traces: server span plus woven business / Internal spans from `Contoso.Observability`
+3. Tracking request traces: server span plus woven business spans such as `ShipmentService.LookupStatus`
+
+**Evidence note:** the zero-code / labels checks are smoke proofs (small document counts), not overhead benchmarks. For latency overhead, use the earlier 10-minute stage runs under `results/overhead-*`.
 
 Product docs: [EDOT .NET](https://www.elastic.co/docs/reference/opentelemetry/edot-sdks/dotnet) · [Migrate from the APM .NET agent](https://www.elastic.co/docs/reference/opentelemetry/edot-sdks/dotnet/migration)
 
