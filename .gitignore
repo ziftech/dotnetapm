@@ -8,3 +8,7 @@ packages/
 *.suo
 .vs/
 *.log
+
+# Demo Kibana captures — keep on disk locally; do not publish to GitHub
+screenshots/**
+!screenshots/README.md
