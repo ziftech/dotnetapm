@@ -192,9 +192,9 @@ function Ensure-OldStyleImports([string]$CsprojPath, [string]$PackagesRoot) {
 "@
 
   if ($text -match 'Microsoft\.Common\.props') {
-    $text = $text -replace '(<Import Project="\$\(MSBuildExtensionsPath\)\\\$\(MSBuildToolsVersion\)\\Microsoft\.Common\.props"[^/]*/>)', "`$1`r`n$importProps"
+    $text = $text -replace '(<Import Project="\$\(MSBuildExtensionsPath\)\\\$\(MSBuildToolsVersion\)\\Microsoft\.Common\.props"[^/]*/>)', "`$1`r`n$fodyProbe`r`n$importProps"
   } else {
-    $text = $text -replace '(<Project[^>]*>)', "`$1`r`n$importProps"
+    $text = $text -replace '(<Project[^>]*>)', "`$1`r`n$fodyProbe`r`n$importProps"
   }
 
   if ($text -notmatch '</Project>') { throw "no </Project> in $CsprojPath" }
