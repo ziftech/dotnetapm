@@ -2,6 +2,7 @@
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
   <appSettings>
     <add key="ElasticApm:ServiceName" value="YOUR_SERVICE_NAME" xdt:Transform="InsertIfMissing" xdt:Locator="Match(key)" />
+    <add key="Contoso:Labels:PathRegex" value="" xdt:Transform="InsertIfMissing" xdt:Locator="Match(key)" />
   </appSettings>
   <runtime>
     <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
@@ -14,7 +15,7 @@
   <system.webServer>
     <modules>
       <add name="ContosoApmContext"
-           type="Contoso.Observability.CheckoutLabelsHttpModule, Contoso.Observability.Web"
+           type="Contoso.Observability.ApmContextHttpModule, Contoso.Observability.Web"
            preCondition="managedHandler"
            xdt:Transform="InsertIfMissing"
            xdt:Locator="Match(name)" />
