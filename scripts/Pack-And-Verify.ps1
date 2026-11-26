@@ -9,15 +9,14 @@ $root = Split-Path -Parent $PSScriptRoot
 if (-not (Test-Path "$root\Contoso.Shipments.sln")) { throw "Run from repo with Contoso.Shipments.sln (root=$root)" }
 if (-not $ArtifactsDir) { $ArtifactsDir = Join-Path $root 'artifacts' }
 
-$nuget = @(
-  'C:\lab\nuget.exe',
-  (Join-Path $root 'nuget.exe'),
-  (Get-Command nuget -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source)
-) | Where-Object { $_ -and (Test-Path $_) } | Select-Object -First 1
-if (-not $nuget) {
-  $nuget = Join-Path $root 'nuget.exe'
-  Invoke-WebRequest 'https://dist.nuget.org/win-x86-commandline/latest/nuget.exe' -OutFile $nuget
+$nuget = Join-Path $root 'nuget.exe'
+# Lab image ships an old nuget.exe that rejects modern nuspec schema — always use latest beside the repo.
+$bootstrap = 'C:\lab\nuget-latest.exe'
+if (-not (Test-Path $bootstrap)) {
+  Invoke-WebRequest 'https://dist.nuget.org/win-x86-commandline/v6.11.1/nuget.exe' -OutFile $bootstrap -UseBasicParsing
 }
+Copy-Item $bootstrap $nuget -Force
+
 
 $msbuild = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -requires Microsoft.Component.MSBuild -find 'MSBuild\**\Bin\MSBuild.exe' 2>$null | Select-Object -First 1
 if (-not $msbuild) {

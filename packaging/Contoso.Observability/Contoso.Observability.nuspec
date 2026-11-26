@@ -7,15 +7,15 @@
     <authors>Contoso Lab</authors>
     <owners>Contoso Lab</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <license type="expression">MIT</license>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/ziftech/dotnetapm</projectUrl>
     <description>Build-time business-method spans for .NET Framework (MethodBoundaryAspect.Fody + Elastic APM / ActivitySource). Community sample — not an Elastic-supported product.</description>
     <tags>apm observability fody elastic edot</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.6.2">
         <dependency id="Elastic.Apm" version="[1.34.7]" />
-        <dependency id="MethodBoundaryAspect.Fody" version="3.6.0" include="All" />
-        <dependency id="Fody" version="6.8.2" include="All" />
+        <dependency id="MethodBoundaryAspect.Fody" version="3.6.0" />
+        <dependency id="Fody" version="6.8.2" />
         <dependency id="System.Diagnostics.DiagnosticSource" version="8.0.1" />
       </group>
     </dependencies>

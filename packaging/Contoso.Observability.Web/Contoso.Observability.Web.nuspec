@@ -7,7 +7,7 @@
     <authors>Contoso Lab</authors>
     <owners>Contoso Lab</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <license type="expression">MIT</license>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/ziftech/dotnetapm</projectUrl>
     <description>ASP.NET HTTP module for Contoso Observability labels/context. Community sample — not an Elastic-supported product.</description>
     <tags>apm aspnet observability</tags>

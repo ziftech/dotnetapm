@@ -6,7 +6,7 @@
     <title>Contoso Observability NLog</title>
     <authors>Contoso Lab</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <license type="expression">MIT</license>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
     <description>NLog ${ContosoApmTraceId} / ${ContosoApmTransactionId} layout renderers.</description>
     <dependencies>
       <group targetFramework=".NETFramework4.6.2">

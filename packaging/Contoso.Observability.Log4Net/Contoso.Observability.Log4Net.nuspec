@@ -6,7 +6,7 @@
     <title>Contoso Observability log4net</title>
     <authors>Contoso Lab</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <license type="expression">MIT</license>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
     <description>log4net %apm_trace_id / %apm_transaction_id converters.</description>
     <dependencies>
       <group targetFramework=".NETFramework4.6.2">
