@@ -12,3 +12,9 @@ packages/
 # Demo Kibana captures — keep on disk locally; do not publish to GitHub
 screenshots/**
 !screenshots/README.md
+
+# NuGet pack output
+artifacts/
+samples/**/packages/
+samples/**/bin/
+samples/**/obj/

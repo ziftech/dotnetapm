@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Contoso.Observability.NLog</id>
+    <version>1.0.0</version>
+    <authors>Contoso Lab</authors>
+    <description>NLog layout renderers for Contoso Observability.</description>
+    <dependencies>
+      <dependency id="Contoso.Observability" version="1.0.0" />
+      <dependency id="NLog" version="4.7.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="../../src/Contoso.Observability.NLog/bin/Release/Contoso.Observability.NLog.dll" target="lib/net462" />
+  </files>
+</package>

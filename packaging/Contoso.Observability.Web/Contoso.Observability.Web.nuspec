@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Contoso.Observability.Web</id>
+    <version>1.0.0</version>
+    <authors>Contoso Lab</authors>
+    <description>ASP.NET HTTP module for Contoso Observability.</description>
+    <dependencies>
+      <dependency id="Contoso.Observability" version="1.0.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="../../src/Contoso.Observability.Web/bin/Release/Contoso.Observability.Web.dll" target="lib/net462" />
+    <file src="content/web.config.install.xdt" target="content" />
+    <file src="content/web.config.uninstall.xdt" target="content" />
+    <file src="README.md" target="" />
+  </files>
+</package>

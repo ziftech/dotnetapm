@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Defaults for Contoso.Observability weaving. Override per project or in Directory.Build.props. -->
+  <PropertyGroup>
+    <ContosoTraceEnabled Condition="'$(ContosoTraceEnabled)' == ''">true</ContosoTraceEnabled>
+    <ContosoTraceNamespaceFilter Condition="'$(ContosoTraceNamespaceFilter)' == ''">^$(RootNamespace)</ContosoTraceNamespaceFilter>
+    <ContosoTraceTypeFilter Condition="'$(ContosoTraceTypeFilter)' == ''">.</ContosoTraceTypeFilter>
+    <!-- String::Copy keeps $(?!...) / trailing $ from being parsed as MSBuild properties -->
+    <ContosoTraceMethodFilter Condition="'$(ContosoTraceMethodFilter)' == ''">$([System.String]::Copy('^(?!get_|set_|add_|remove_|\.ctor|\.cctor|ToString$|Equals$|GetHashCode$|MoveNext$|SetStateMachine$).+'))</ContosoTraceMethodFilter>
+    <ContosoTraceVisibility Condition="'$(ContosoTraceVisibility)' == ''">Public</ContosoTraceVisibility>
+    <ContosoTraceStartTransactions Condition="'$(ContosoTraceStartTransactions)' == ''">false</ContosoTraceStartTransactions>
+    <ContosoTraceSkipGeneration Condition="'$(ContosoTraceSkipGeneration)' == ''">false</ContosoTraceSkipGeneration>
+  </PropertyGroup>
+
+  <!-- Prefer WeaverConfiguration so PackageReference consumers need no FodyWeavers.xml.
+       packages.config samples also get a generated FodyWeavers.xml from Pack-And-Verify. -->
+  <PropertyGroup>
+    <WeaverConfiguration Condition="'$(WeaverConfiguration)' == ''">&lt;Weavers&gt;&lt;MethodBoundaryAspect /&gt;&lt;/Weavers&gt;</WeaverConfiguration>
+  </PropertyGroup>
+</Project>
+

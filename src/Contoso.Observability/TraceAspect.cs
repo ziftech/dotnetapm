@@ -14,6 +14,12 @@ namespace Contoso.Observability
         AllowMultiple = true, Inherited = true)]
     public sealed class TraceAttribute : OnMethodBoundaryAspect
     {
+        /// <summary>
+        /// When true, ElasticApmTraceBackend may start a root transaction if none exists
+        /// (Windows services / workers). Default false — IIS profiler owns the root.
+        /// </summary>
+        public bool StartTransactions { get; set; }
+
         public override void OnEntry(MethodExecutionArgs args)
         {
             if (args.Method == null) return;

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Contoso.Observability.Log4Net</id>
+    <version>1.0.0</version>
+    <authors>Contoso Lab</authors>
+    <description>log4net converters for Contoso Observability.</description>
+    <dependencies>
+      <dependency id="Contoso.Observability" version="1.0.0" />
+      <dependency id="log4net" version="2.0.8" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="../../src/Contoso.Observability.Log4Net/bin/Release/Contoso.Observability.Log4Net.dll" target="lib/net462" />
+  </files>
+</package>
