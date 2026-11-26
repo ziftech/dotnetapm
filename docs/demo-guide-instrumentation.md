@@ -73,7 +73,7 @@ The VB sample is `src/Contoso.Shipments.LegacyVb` (`LegacyShipmentService`). Met
 | Service name | `ElasticApm:ServiceName` = `ShipmentsWeb` in `Web.config` |
 | Auto instrumentation | ASP.NET MVC, SqlClient, HttpClient / HttpWebRequest |
 | Business spans | Fody → `ElasticApmTraceBackend` |
-| Optional labels | `CheckoutLabelsHttpModule` registered in `Web.config` (request form/query fields) |
+| Optional labels | `ApmContextHttpModule` + `Contoso:Labels:*` appSettings in `Web.config` |
 | Logs | log4net layout converters `%apm_trace_id` / `%apm_transaction_id` |
 
 **Labels caveat:** the HTTP module can only promote values that exist on the request (form / query). Response-time fields such as `quote_price` still need one app touchpoint (this sample sets `HttpContext.Items["quote_price"]` in the controller so the module can attach them on the way out). For apps you cannot recompile, stick to request-derived labels.

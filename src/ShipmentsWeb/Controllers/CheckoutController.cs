@@ -1,7 +1,6 @@
 using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Contoso.Observability;
 using Contoso.Shipments.Business;
 using Contoso.Shipments.LegacyVb;
 using log4net;
@@ -31,8 +30,8 @@ namespace ShipmentsWeb.Controllers
             lane = string.IsNullOrWhiteSpace(lane) ? "DXB-AMM" : lane;
             if (weightKg <= 0) weightKg = 5;
 
-            // Business labels (tracking_id / lane / weight_kg / quote_price) come from
-            // CheckoutLabelsHttpModule registered in Web.config — not Global.asax.
+            // Business labels (tracking_id / lane / weight_kg) come from
+            // ApmContextHttpModule + Contoso:Labels:* appSettings — not Global.asax / controller code.
             Log.InfoFormat("Checkout start trackingId={0} lane={1} weight={2}", trackingId, lane, weightKg);
 
             // Synthetic failure for SLO burn demos (trackingId prefix SLOBOOM)
@@ -45,7 +44,6 @@ namespace ShipmentsWeb.Controllers
             var vbNote = _legacyVb.EnrichQuoteNote(trackingId, lane, weightKg);
 
             var quote = await _shipments.CreateQuoteAsync(trackingId, lane, weightKg).ConfigureAwait(false);
-            HttpContext.Items[CheckoutLabelsHttpModule.QuotePriceItemKey] = (double)quote.Price;
 
             var viaHttpClient = await _tracking.GetStatusHttpClientAsync(trackingId).ConfigureAwait(false);
 

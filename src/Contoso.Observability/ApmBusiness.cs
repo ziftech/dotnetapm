@@ -9,6 +9,17 @@ namespace Contoso.Observability
     /// </summary>
     public static class ApmBusiness
     {
+        /// <summary>Set a string label on the active Elastic APM transaction and/or Activity (EDOT).</summary>
+        public static void SetLabel(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value)) return;
+
+            var tx = Agent.IsConfigured ? Agent.Tracer?.CurrentTransaction : null;
+            tx?.SetLabel(key, value);
+
+            Activity.Current?.SetTag(key, value);
+        }
+
         public static void SetCheckoutLabels(string trackingId, string lane, int weightKg, double? quotePrice = null)
         {
             var tx = Agent.IsConfigured ? Agent.Tracer?.CurrentTransaction : null;
