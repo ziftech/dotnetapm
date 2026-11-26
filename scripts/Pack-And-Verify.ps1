@@ -157,8 +157,9 @@ function Ensure-OldStyleImports([string]$CsprojPath, [string]$PackagesRoot) {
   $text = Get-Content $CsprojPath -Raw
   if ($text -match 'Contoso\.Observability\.props') { return }
 
-  $importProps = "  <Import Project=`"$PackagesRoot\Contoso.Observability.1.0.0\build\Contoso.Observability.props`" Condition=`"Exists('$PackagesRoot\Contoso.Observability.1.0.0\build\Contoso.Observability.props')`" />"
-  $importTargets = "  <Import Project=`"$PackagesRoot\Contoso.Observability.1.0.0\build\Contoso.Observability.targets`" Condition=`"Exists('$PackagesRoot\Contoso.Observability.1.0.0\build\Contoso.Observability.targets')`" />"
+  $importContosoProps = "  <Import Project=`"$PackagesRoot\Contoso.Observability.1.0.0\build\Contoso.Observability.props`" Condition=`"Exists('$PackagesRoot\Contoso.Observability.1.0.0\build\Contoso.Observability.props')`" />"
+  $importMbaProps = "  <Import Project=`"$PackagesRoot\MethodBoundaryAspect.Fody.3.6.0\build\MethodBoundaryAspect.Fody.props`" Condition=`"Exists('$PackagesRoot\MethodBoundaryAspect.Fody.3.6.0\build\MethodBoundaryAspect.Fody.props')`" />"
+  $importContosoTargets = "  <Import Project=`"$PackagesRoot\Contoso.Observability.1.0.0\build\Contoso.Observability.targets`" Condition=`"Exists('$PackagesRoot\Contoso.Observability.1.0.0\build\Contoso.Observability.targets')`" />"
   $importFody = "  <Import Project=`"$PackagesRoot\Fody.6.8.2\build\Fody.targets`" Condition=`"Exists('$PackagesRoot\Fody.6.8.2\build\Fody.targets')`" />"
   $projDir = Split-Path $CsprojPath
   $weavers = Join-Path $projDir 'FodyWeavers.xml'
@@ -191,14 +192,15 @@ function Ensure-OldStyleImports([string]$CsprojPath, [string]$PackagesRoot) {
   </ItemGroup>
 "@
 
+  $earlyImports = "$importMbaProps`r`n$importContosoProps"
   if ($text -match 'Microsoft\.Common\.props') {
-    $text = $text -replace '(<Import Project="\$\(MSBuildExtensionsPath\)\\\$\(MSBuildToolsVersion\)\\Microsoft\.Common\.props"[^/]*/>)', "`$1`r`n$fodyProbe`r`n$importProps"
+    $text = $text -replace '(<Import Project="\$\(MSBuildExtensionsPath\)\\\$\(MSBuildToolsVersion\)\\Microsoft\.Common\.props"[^/]*/>)', "`$1`r`n$earlyImports"
   } else {
-    $text = $text -replace '(<Project[^>]*>)', "`$1`r`n$fodyProbe`r`n$importProps"
+    $text = $text -replace '(<Project[^>]*>)', "`$1`r`n$earlyImports"
   }
 
   if ($text -notmatch '</Project>') { throw "no </Project> in $CsprojPath" }
-  $text = $text -replace '</Project>', "$refs`r`n$importFody`r`n$importTargets`r`n</Project>"
+  $text = $text -replace '</Project>', "$refs`r`n$importFody`r`n$importContosoTargets`r`n</Project>"
   Set-Content -Path $CsprojPath -Value $text -Encoding UTF8
 }
 
