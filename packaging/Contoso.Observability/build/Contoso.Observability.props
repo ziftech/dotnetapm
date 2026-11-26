@@ -12,10 +12,10 @@
     <ContosoTraceSkipGeneration Condition="'$(ContosoTraceSkipGeneration)' == ''">false</ContosoTraceSkipGeneration>
   </PropertyGroup>
 
-  <!-- Avoid requiring a checked-in FodyWeavers.xml -->
+  <!-- Prefer WeaverConfiguration so PackageReference consumers need no FodyWeavers.xml.
+       packages.config samples also get a generated FodyWeavers.xml from Pack-And-Verify. -->
   <PropertyGroup>
-    <WeaverConfiguration Condition="'$(WeaverConfiguration)' == ''">
-      <![CDATA[<Weavers><MethodBoundaryAspect /></Weavers>]]>
-    </WeaverConfiguration>
+    <WeaverConfiguration Condition="'$(WeaverConfiguration)' == ''">&lt;Weavers&gt;&lt;MethodBoundaryAspect /&gt;&lt;/Weavers&gt;</WeaverConfiguration>
   </PropertyGroup>
 </Project>
+

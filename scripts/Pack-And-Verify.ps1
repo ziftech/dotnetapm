@@ -160,6 +160,16 @@ function Ensure-OldStyleImports([string]$CsprojPath, [string]$PackagesRoot) {
   $importProps = "  <Import Project=`"$PackagesRoot\Contoso.Observability.1.0.0\build\Contoso.Observability.props`" Condition=`"Exists('$PackagesRoot\Contoso.Observability.1.0.0\build\Contoso.Observability.props')`" />"
   $importTargets = "  <Import Project=`"$PackagesRoot\Contoso.Observability.1.0.0\build\Contoso.Observability.targets`" Condition=`"Exists('$PackagesRoot\Contoso.Observability.1.0.0\build\Contoso.Observability.targets')`" />"
   $importFody = "  <Import Project=`"$PackagesRoot\Fody.6.8.2\build\Fody.targets`" Condition=`"Exists('$PackagesRoot\Fody.6.8.2\build\Fody.targets')`" />"
+  $projDir = Split-Path $CsprojPath
+  $weavers = Join-Path $projDir 'FodyWeavers.xml'
+  if (-not (Test-Path $weavers)) {
+    @(
+      '<?xml version="1.0" encoding="utf-8"?>',
+      '<Weavers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="FodyWeavers.xsd">',
+      '  <MethodBoundaryAspect />',
+      '</Weavers>'
+    ) | Set-Content -Path $weavers -Encoding UTF8
+  }
   $refs = @"
   <ItemGroup>
     <Reference Include="Contoso.Observability">
