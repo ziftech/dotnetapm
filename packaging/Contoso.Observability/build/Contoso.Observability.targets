@@ -23,15 +23,14 @@
       <_ContosoStart Condition="'$(ContosoTraceStartTransactions)' == 'true'">true</_ContosoStart>
     </PropertyGroup>
 
-    <!-- C# -->
+    <!-- %3B = semicolon so WriteLinesToFile does not split on ';' -->
     <ItemGroup Condition="'$(Language)' != 'VB'">
       <_ContosoGenLines Include="// &lt;auto-generated /&gt;" />
-      <_ContosoGenLines Include="using Contoso.Observability;" />
-      <_ContosoGenLines Include="using MethodBoundaryAspect.Fody.Attributes;" />
+      <_ContosoGenLines Include="using Contoso.Observability%3B" />
+      <_ContosoGenLines Include="using MethodBoundaryAspect.Fody.Attributes%3B" />
       <_ContosoGenLines Include="[assembly: Trace(NamespaceFilter = @&quot;$(_ContosoNs)&quot;, TypeNameFilter = @&quot;$(_ContosoTy)&quot;, MethodNameFilter = @&quot;$(_ContosoMe)&quot;, StartTransactions = $(_ContosoStart), AttributeTargetMemberAttributes = MulticastAttributes.$(_ContosoVis))]" />
     </ItemGroup>
 
-    <!-- VB -->
     <ItemGroup Condition="'$(Language)' == 'VB'">
       <_ContosoGenLines Include="' &lt;auto-generated /&gt;" />
       <_ContosoGenLines Include="Imports Contoso.Observability" />
