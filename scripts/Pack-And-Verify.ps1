@@ -36,8 +36,17 @@ Write-Output "NuGet=$nuget"
 & $nuget restore "$root\Contoso.Shipments.sln" -NonInteractive | Out-Host
 if ($LASTEXITCODE -ne 0) { throw 'nuget restore failed' }
 
-& $msbuild "$root\Contoso.Shipments.sln" /t:Contoso.Observability`,Contoso.Observability.Web`,Contoso.Observability.Log4Net`,Contoso.Observability.NLog /p:Configuration=$Configuration /p:Platform='Any CPU' /v:m
-if ($LASTEXITCODE -ne 0) { throw 'msbuild observability projects failed' }
+$obsProjects = @(
+  "$root\src\Contoso.Observability\Contoso.Observability.csproj",
+  "$root\src\Contoso.Observability.Web\Contoso.Observability.Web.csproj",
+  "$root\src\Contoso.Observability.Log4Net\Contoso.Observability.Log4Net.csproj",
+  "$root\src\Contoso.Observability.NLog\Contoso.Observability.NLog.csproj"
+)
+foreach ($proj in $obsProjects) {
+  Write-Output "Build $proj"
+  & $msbuild $proj /p:Configuration=$Configuration /p:Platform=AnyCPU /v:m
+  if ($LASTEXITCODE -ne 0) { throw "msbuild failed for $proj" }
+}
 
 New-Item -ItemType Directory -Force -Path $ArtifactsDir | Out-Null
 Get-ChildItem $ArtifactsDir -Filter '*.nupkg' -ErrorAction SilentlyContinue | Remove-Item -Force
