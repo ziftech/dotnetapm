@@ -155,6 +155,12 @@ function Ensure-PackagesConfigRef([string]$ProjectDir, [string]$PackageId, [stri
 
 function Ensure-OldStyleImports([string]$CsprojPath, [string]$PackagesRoot) {
   $text = Get-Content $CsprojPath -Raw
+  # VB Fody needs an explicit mscorlib reference or it fails resolving System.Object.
+  if ($CsprojPath -match '\.vbproj$' -and $text -notmatch 'Include="mscorlib"') {
+    $text = $text -replace '<Reference Include="System" />', "<Reference Include=`"mscorlib`" />`r`n    <Reference Include=`"System`" />"
+    Set-Content -Path $CsprojPath -Value $text -Encoding UTF8
+    $text = Get-Content $CsprojPath -Raw
+  }
   if ($text -match 'Contoso\.Observability\.props') { return }
 
   $importContosoProps = "  <Import Project=`"$PackagesRoot\Contoso.Observability.1.0.0\build\Contoso.Observability.props`" Condition=`"Exists('$PackagesRoot\Contoso.Observability.1.0.0\build\Contoso.Observability.props')`" />"
@@ -204,12 +210,15 @@ function Ensure-OldStyleImports([string]$CsprojPath, [string]$PackagesRoot) {
   Set-Content -Path $CsprojPath -Value $text -Encoding UTF8
 }
 
+$feed = "$ArtifactsDir;https://api.nuget.org/v3/index.json"
+
 # --- CleanCsLib (packages.config) ---
 $csDir = Join-Path $root 'samples\CleanCsLib'
 $csPkg = Join-Path $csDir 'packages'
+if (Test-Path $csPkg) { Remove-Item $csPkg -Recurse -Force }
+Remove-Item (Join-Path $csDir 'FodyWeavers.xml') -Force -ErrorAction SilentlyContinue
 New-Item -ItemType Directory -Force -Path $csPkg | Out-Null
 Ensure-PackagesConfigRef $csDir 'Contoso.Observability' '1.0.0'
-$feed = "$ArtifactsDir;https://api.nuget.org/v3/index.json"
 & $nuget install Contoso.Observability -Version 1.0.0 -OutputDirectory $csPkg -Source $feed -NonInteractive
 if ($LASTEXITCODE -ne 0) { throw 'nuget install Contoso.Observability (CleanCsLib) failed' }
 Ensure-OldStyleImports (Join-Path $csDir 'CleanCsLib.csproj') 'packages'
@@ -220,6 +229,8 @@ Assert-Woven (Join-Path $csDir "bin\$Configuration\CleanCsLib.dll") 'CleanCsLib.
 # --- CleanVbLib (packages.config) ---
 $vbDir = Join-Path $root 'samples\CleanVbLib'
 $vbPkg = Join-Path $vbDir 'packages'
+if (Test-Path $vbPkg) { Remove-Item $vbPkg -Recurse -Force }
+Remove-Item (Join-Path $vbDir 'FodyWeavers.xml') -Force -ErrorAction SilentlyContinue
 New-Item -ItemType Directory -Force -Path $vbPkg | Out-Null
 Ensure-PackagesConfigRef $vbDir 'Contoso.Observability' '1.0.0'
 & $nuget install Contoso.Observability -Version 1.0.0 -OutputDirectory $vbPkg -Source $feed -NonInteractive
