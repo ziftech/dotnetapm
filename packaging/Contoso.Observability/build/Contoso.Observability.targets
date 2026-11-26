@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <ContosoTraceGeneratedFile Condition="'$(Language)' == 'VB'">$(IntermediateOutputPath)ContosoTrace.g.vb</ContosoTraceGeneratedFile>
+    <ContosoTraceGeneratedFile Condition="'$(ContosoTraceGeneratedFile)' == ''">$(IntermediateOutputPath)ContosoTrace.g.cs</ContosoTraceGeneratedFile>
+  </PropertyGroup>
+
+  <Target Name="ContosoGenerateTraceAttribute"
+          BeforeTargets="CoreCompile"
+          Condition="'$(ContosoTraceEnabled)' == 'true' AND '$(ContosoTraceSkipGeneration)' != 'true'"
+          Inputs="$(MSBuildProjectFile)"
+          Outputs="$(ContosoTraceGeneratedFile)">
+    <MakeDir Directories="$(IntermediateOutputPath)" Condition="!Exists('$(IntermediateOutputPath)')" />
+
+    <PropertyGroup>
+      <_ContosoNs>$([System.String]::Copy('$(ContosoTraceNamespaceFilter)').Replace('"','""'))</_ContosoNs>
+      <_ContosoTy>$([System.String]::Copy('$(ContosoTraceTypeFilter)').Replace('"','""'))</_ContosoTy>
+      <_ContosoMe>$([System.String]::Copy('$(ContosoTraceMethodFilter)').Replace('"','""'))</_ContosoMe>
+      <_ContosoVis>$(ContosoTraceVisibility)</_ContosoVis>
+      <_ContosoVis Condition="'$(_ContosoVis)' == ''">Public</_ContosoVis>
+      <_ContosoStart>false</_ContosoStart>
+      <_ContosoStart Condition="'$(ContosoTraceStartTransactions)' == 'true'">true</_ContosoStart>
+    </PropertyGroup>
+
+    <!-- C# -->
+    <ItemGroup Condition="'$(Language)' != 'VB'">
+      <_ContosoGenLines Include="// &lt;auto-generated /&gt;" />
+      <_ContosoGenLines Include="using Contoso.Observability;" />
+      <_ContosoGenLines Include="using MethodBoundaryAspect.Fody.Attributes;" />
+      <_ContosoGenLines Include="" />
+      <_ContosoGenLines Include="[assembly: Trace(NamespaceFilter = @&quot;$(_ContosoNs)&quot;, TypeNameFilter = @&quot;$(_ContosoTy)&quot;, MethodNameFilter = @&quot;$(_ContosoMe)&quot;, StartTransactions = $(_ContosoStart), AttributeTargetMemberAttributes = MulticastAttributes.$(_ContosoVis))]" />
+    </ItemGroup>
+
+    <!-- VB -->
+    <ItemGroup Condition="'$(Language)' == 'VB'">
+      <_ContosoGenLines Include="' &lt;auto-generated /&gt;" />
+      <_ContosoGenLines Include="Imports Contoso.Observability" />
+      <_ContosoGenLines Include="Imports MethodBoundaryAspect.Fody.Attributes" />
+      <_ContosoGenLines Include="" />
+      <_ContosoGenLines Include="&lt;Assembly: Trace(NamespaceFilter:=&quot;$(_ContosoNs)&quot;, TypeNameFilter:=&quot;$(_ContosoTy)&quot;, MethodNameFilter:=&quot;$(_ContosoMe)&quot;, StartTransactions:=$(_ContosoStart), AttributeTargetMemberAttributes:=MulticastAttributes.$(_ContosoVis))&gt;" />
+    </ItemGroup>
+
+    <WriteLinesToFile File="$(ContosoTraceGeneratedFile)"
+                      Lines="@(_ContosoGenLines)"
+                      Overwrite="true"
+                      Encoding="UTF-8" />
+
+    <ItemGroup>
+      <Compile Include="$(ContosoTraceGeneratedFile)" />
+      <FileWrites Include="$(ContosoTraceGeneratedFile)" />
+      <_ContosoGenLines Remove="@(_ContosoGenLines)" />
+    </ItemGroup>
+  </Target>
+
+</Project>

@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <RootNamespace>CleanSdkLib</RootNamespace>
+    <AssemblyName>CleanSdkLib</AssemblyName>
+    <ContosoTraceTypeFilter>Service$</ContosoTraceTypeFilter>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <!-- Contoso.Observability PackageReference added by Pack-And-Verify.ps1 -->
+</Project>

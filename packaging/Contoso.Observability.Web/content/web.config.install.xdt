@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <appSettings>
+    <add key="ElasticApm:ServiceName" value="YOUR_SERVICE_NAME" xdt:Transform="InsertIfMissing" xdt:Locator="Match(key)" />
+  </appSettings>
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly xdt:Transform="InsertIfMissing" xdt:Locator="Condition(assemblyIdentity/@name='System.Diagnostics.DiagnosticSource')">
+        <assemblyIdentity name="System.Diagnostics.DiagnosticSource" publicKeyToken="cc7b13ffcd2ddd51" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-99.0.0.0" newVersion="8.0.0.1" />
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+  <system.webServer>
+    <modules>
+      <add name="ContosoApmContext"
+           type="Contoso.Observability.CheckoutLabelsHttpModule, Contoso.Observability.Web"
+           preCondition="managedHandler"
+           xdt:Transform="InsertIfMissing"
+           xdt:Locator="Match(name)" />
+    </modules>
+  </system.webServer>
+</configuration>

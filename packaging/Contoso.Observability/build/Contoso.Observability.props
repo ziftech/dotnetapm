@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Defaults for Contoso.Observability weaving. Override per project or in Directory.Build.props. -->
+  <PropertyGroup>
+    <ContosoTraceEnabled Condition="'$(ContosoTraceEnabled)' == ''">true</ContosoTraceEnabled>
+    <ContosoTraceNamespaceFilter Condition="'$(ContosoTraceNamespaceFilter)' == ''">^$(RootNamespace)</ContosoTraceNamespaceFilter>
+    <ContosoTraceTypeFilter Condition="'$(ContosoTraceTypeFilter)' == ''">.</ContosoTraceTypeFilter>
+    <!-- $$ so MSBuild does not treat $(?!...) as a property reference -->
+    <ContosoTraceMethodFilter Condition="'$(ContosoTraceMethodFilter)' == ''">^($$(?!get_|set_|add_|remove_|\.ctor|\.cctor|ToString$$|Equals$$|GetHashCode$$|MoveNext$$|SetStateMachine$$).+</ContosoTraceMethodFilter>
+    <ContosoTraceVisibility Condition="'$(ContosoTraceVisibility)' == ''">Public</ContosoTraceVisibility>
+    <ContosoTraceStartTransactions Condition="'$(ContosoTraceStartTransactions)' == ''">false</ContosoTraceStartTransactions>
+    <ContosoTraceSkipGeneration Condition="'$(ContosoTraceSkipGeneration)' == ''">false</ContosoTraceSkipGeneration>
+  </PropertyGroup>
+
+  <!-- Avoid requiring a checked-in FodyWeavers.xml -->
+  <PropertyGroup>
+    <WeaverConfiguration Condition="'$(WeaverConfiguration)' == ''">
+      <![CDATA[<Weavers><MethodBoundaryAspect /></Weavers>]]>
+    </WeaverConfiguration>
+  </PropertyGroup>
+</Project>

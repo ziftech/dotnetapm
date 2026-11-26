@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/01/nuspec.xsd">
+  <metadata>
+    <id>Contoso.Observability.Log4Net</id>
+    <version>1.0.0</version>
+    <title>Contoso Observability log4net</title>
+    <authors>Contoso Lab</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <description>log4net %apm_trace_id / %apm_transaction_id converters.</description>
+    <dependencies>
+      <group targetFramework=".NETFramework4.6.2">
+        <dependency id="Contoso.Observability" version="[1.0.0]" />
+        <dependency id="log4net" version="2.0.8" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\..\src\Contoso.Observability.Log4Net\bin\Release\Contoso.Observability.Log4Net.dll" target="lib\net462\" />
+  </files>
+</package>
