@@ -197,13 +197,9 @@ $csDir = Join-Path $root 'samples\CleanCsLib'
 $csPkg = Join-Path $csDir 'packages'
 New-Item -ItemType Directory -Force -Path $csPkg | Out-Null
 Ensure-PackagesConfigRef $csDir 'Contoso.Observability' '1.0.0'
-& $nuget install Contoso.Observability -Version 1.0.0 -OutputDirectory $csPkg -Source $ArtifactsDir -NonInteractive
+$feed = "$ArtifactsDir;https://api.nuget.org/v3/index.json"
+& $nuget install Contoso.Observability -Version 1.0.0 -OutputDirectory $csPkg -Source $feed -NonInteractive
 if ($LASTEXITCODE -ne 0) { throw 'nuget install Contoso.Observability (CleanCsLib) failed' }
-# Also pull transitive packages nuget may not expand into packages.config install for deps
-& $nuget install MethodBoundaryAspect.Fody -Version 3.6.0 -OutputDirectory $csPkg -NonInteractive
-& $nuget install Fody -Version 6.8.2 -OutputDirectory $csPkg -NonInteractive
-& $nuget install Elastic.Apm -Version 1.34.7 -OutputDirectory $csPkg -NonInteractive
-& $nuget install System.Diagnostics.DiagnosticSource -Version 8.0.1 -OutputDirectory $csPkg -NonInteractive
 Ensure-OldStyleImports (Join-Path $csDir 'CleanCsLib.csproj') 'packages'
 & $msbuild (Join-Path $csDir 'CleanCsLib.csproj') /p:Configuration=$Configuration /v:m
 if ($LASTEXITCODE -ne 0) { throw 'CleanCsLib build failed' }
@@ -214,11 +210,8 @@ $vbDir = Join-Path $root 'samples\CleanVbLib'
 $vbPkg = Join-Path $vbDir 'packages'
 New-Item -ItemType Directory -Force -Path $vbPkg | Out-Null
 Ensure-PackagesConfigRef $vbDir 'Contoso.Observability' '1.0.0'
-& $nuget install Contoso.Observability -Version 1.0.0 -OutputDirectory $vbPkg -Source $ArtifactsDir -NonInteractive
-& $nuget install MethodBoundaryAspect.Fody -Version 3.6.0 -OutputDirectory $vbPkg -NonInteractive
-& $nuget install Fody -Version 6.8.2 -OutputDirectory $vbPkg -NonInteractive
-& $nuget install Elastic.Apm -Version 1.34.7 -OutputDirectory $vbPkg -NonInteractive
-& $nuget install System.Diagnostics.DiagnosticSource -Version 8.0.1 -OutputDirectory $vbPkg -NonInteractive
+& $nuget install Contoso.Observability -Version 1.0.0 -OutputDirectory $vbPkg -Source $feed -NonInteractive
+if ($LASTEXITCODE -ne 0) { throw 'nuget install Contoso.Observability (CleanVbLib) failed' }
 Ensure-OldStyleImports (Join-Path $vbDir 'CleanVbLib.vbproj') 'packages'
 & $msbuild (Join-Path $vbDir 'CleanVbLib.vbproj') /p:Configuration=$Configuration /v:m
 if ($LASTEXITCODE -ne 0) { throw 'CleanVbLib build failed' }
