@@ -1,26 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2013/05/01/nuspec.xsd">
+<?xml version="1.0"?>
+<package>
   <metadata>
     <id>Contoso.Observability.Web</id>
     <version>1.0.0</version>
-    <title>Contoso Observability Web</title>
     <authors>Contoso Lab</authors>
-    <owners>Contoso Lab</owners>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
-    <projectUrl>https://github.com/ziftech/dotnetapm</projectUrl>
-    <description>ASP.NET HTTP module for Contoso Observability labels/context. Community sample — not an Elastic-supported product.</description>
-    <tags>apm aspnet observability</tags>
+    <description>ASP.NET HTTP module for Contoso Observability.</description>
     <dependencies>
-      <group targetFramework=".NETFramework4.6.2">
-        <dependency id="Contoso.Observability" version="[1.0.0]" />
-      </group>
+      <dependency id="Contoso.Observability" version="1.0.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="..\..\src\Contoso.Observability.Web\bin\Release\Contoso.Observability.Web.dll" target="lib\net462\" />
-    <file src="content\web.config.install.xdt" target="content\" />
-    <file src="content\web.config.uninstall.xdt" target="content\" />
+    <file src="../../src/Contoso.Observability.Web/bin/Release/Contoso.Observability.Web.dll" target="lib/net462" />
+    <file src="content/web.config.install.xdt" target="content" />
+    <file src="content/web.config.uninstall.xdt" target="content" />
     <file src="README.md" target="" />
   </files>
 </package>

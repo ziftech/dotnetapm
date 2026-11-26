@@ -58,7 +58,12 @@ $nuspecs = @(
 )
 foreach ($spec in $nuspecs) {
   Write-Output "Pack $spec"
-  & $nuget pack $spec -OutputDirectory $ArtifactsDir -BasePath (Split-Path $spec) -NonInteractive
+  Push-Location (Split-Path $spec)
+  try {
+    & $nuget pack (Split-Path $spec -Leaf) -OutputDirectory $ArtifactsDir -NonInteractive
+  } finally {
+    Pop-Location
+  }
   if ($LASTEXITCODE -ne 0) { throw "nuget pack failed for $spec" }
 }
 

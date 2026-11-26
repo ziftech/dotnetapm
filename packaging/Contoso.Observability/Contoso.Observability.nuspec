@@ -1,31 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2013/05/01/nuspec.xsd">
+<?xml version="1.0"?>
+<package>
   <metadata>
     <id>Contoso.Observability</id>
     <version>1.0.0</version>
-    <title>Contoso Observability</title>
     <authors>Contoso Lab</authors>
-    <owners>Contoso Lab</owners>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
-    <projectUrl>https://github.com/ziftech/dotnetapm</projectUrl>
-    <description>Build-time business-method spans for .NET Framework (MethodBoundaryAspect.Fody + Elastic APM / ActivitySource). Community sample — not an Elastic-supported product.</description>
-    <tags>apm observability fody elastic edot</tags>
+    <description>Build-time business-method spans for .NET Framework.</description>
     <dependencies>
-      <group targetFramework=".NETFramework4.6.2">
-        <dependency id="Elastic.Apm" version="[1.34.7]" />
-        <dependency id="MethodBoundaryAspect.Fody" version="3.6.0" />
-        <dependency id="Fody" version="6.8.2" />
-        <dependency id="System.Diagnostics.DiagnosticSource" version="8.0.1" />
-      </group>
+      <dependency id="Elastic.Apm" version="1.34.7" />
+      <dependency id="MethodBoundaryAspect.Fody" version="3.6.0" />
+      <dependency id="Fody" version="6.8.2" />
+      <dependency id="System.Diagnostics.DiagnosticSource" version="8.0.1" />
     </dependencies>
   </metadata>
   <files>
-    <file src="..\..\src\Contoso.Observability\bin\Release\Contoso.Observability.dll" target="lib\net462\" />
-    <file src="build\Contoso.Observability.props" target="build\" />
-    <file src="build\Contoso.Observability.targets" target="build\" />
-    <file src="build\Contoso.Observability.props" target="buildTransitive\" />
-    <file src="build\Contoso.Observability.targets" target="buildTransitive\" />
+    <file src="../../src/Contoso.Observability/bin/Release/Contoso.Observability.dll" target="lib/net462" />
+    <file src="build/Contoso.Observability.props" target="build" />
+    <file src="build/Contoso.Observability.targets" target="build" />
+    <file src="build/Contoso.Observability.props" target="buildTransitive" />
+    <file src="build/Contoso.Observability.targets" target="buildTransitive" />
     <file src="README.md" target="" />
   </files>
 </package>
