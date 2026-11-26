@@ -7,6 +7,7 @@ namespace Contoso.Observability
     {
         IDisposable StartSpanOrTransaction(string name, string type, string subtype);
         void CaptureException(Exception exception);
+        void SetLabel(string key, string value);
     }
 
     public static class TraceBackends

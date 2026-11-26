@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -14,6 +15,9 @@ namespace Contoso.Observability
         AllowMultiple = true, Inherited = true)]
     public sealed class TraceAttribute : OnMethodBoundaryAspect
     {
+        private static readonly ConcurrentDictionary<MethodBase, string> SpanNames =
+            new ConcurrentDictionary<MethodBase, string>();
+
         /// <summary>
         /// When true, ElasticApmTraceBackend may start a root transaction if none exists
         /// (Windows services / workers). Default false — IIS profiler owns the root.
@@ -26,11 +30,17 @@ namespace Contoso.Observability
             if (!TraceSettings.Enabled) return;
             if (ShouldSkip(args.Method)) return;
 
-            var typeName = args.Method.DeclaringType != null ? args.Method.DeclaringType.Name : "Unknown";
-            var name = typeName + "." + args.Method.Name;
+            if (StartTransactions)
+                TraceSettings.ObserveStartTransactions(true);
+
+            var name = SpanNames.GetOrAdd(args.Method, BuildSpanName);
             if (TraceSettings.IsExcluded(name)) return;
 
             var scope = TraceBackends.Current.StartSpanOrTransaction(name, "app", "business");
+            var declaring = args.Method.DeclaringType;
+            if (declaring != null)
+                TraceBackends.Current.SetLabel("code.namespace", declaring.FullName ?? declaring.Name);
+            TraceBackends.Current.SetLabel("code.function", args.Method.Name);
             args.MethodExecutionTag = scope;
         }
 
@@ -52,11 +62,17 @@ namespace Contoso.Observability
         public override void OnException(MethodExecutionArgs args)
         {
             var scope = args.MethodExecutionTag as IDisposable;
-            if (args.Exception != null)
+            if (args.Exception != null && ExceptionCapture.TryMark(args.Exception))
             {
                 TraceBackends.Current.CaptureException(args.Exception);
             }
             scope?.Dispose();
+        }
+
+        private static string BuildSpanName(MethodBase method)
+        {
+            var typeName = method.DeclaringType != null ? method.DeclaringType.Name : "Unknown";
+            return typeName + "." + method.Name;
         }
 
         private static bool ShouldSkip(MethodBase method)

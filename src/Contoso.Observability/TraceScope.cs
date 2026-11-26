@@ -10,7 +10,8 @@ namespace Contoso.Observability
         {
             if (syncException != null)
             {
-                TraceBackends.Current.CaptureException(syncException);
+                if (ExceptionCapture.TryMark(syncException))
+                    TraceBackends.Current.CaptureException(syncException);
                 scope?.Dispose();
                 return;
             }
@@ -27,7 +28,9 @@ namespace Contoso.Observability
                 {
                     if (t.IsFaulted && t.Exception != null)
                     {
-                        TraceBackends.Current.CaptureException(t.Exception.GetBaseException());
+                        var ex = t.Exception.GetBaseException();
+                        if (ExceptionCapture.TryMark(ex))
+                            TraceBackends.Current.CaptureException(ex);
                     }
                 }
                 finally
