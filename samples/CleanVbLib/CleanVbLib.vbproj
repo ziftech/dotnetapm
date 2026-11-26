@@ -27,6 +27,8 @@
     <OutputPath>bin\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <!-- Explicit mscorlib helps Fody resolve System.Object on VB .NET Framework projects -->
+    <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
