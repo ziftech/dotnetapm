@@ -51,13 +51,23 @@ def main() -> int:
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
-        context = browser.new_context(
-            viewport={"width": 1680, "height": 1100},
-            extra_http_headers={
-                "Authorization": f"ApiKey {api_key}",
-                "kbn-xsrf": "true",
-            },
-        )
+        # Scope ApiKey to Kibana host only — extra_http_headers leaks onto CDN
+        # (kibana.estccdn.com) and breaks CORS / "Elastic did not load properly".
+        from urllib.parse import urlparse
+
+        kibana_host = urlparse(kibana).hostname or ""
+        context = browser.new_context(viewport={"width": 1680, "height": 1100})
+
+        def attach_auth(route):
+            route.continue_(
+                headers={
+                    **route.request.headers,
+                    "authorization": f"ApiKey {api_key}",
+                    "kbn-xsrf": "true",
+                }
+            )
+
+        context.route(f"https://{kibana_host}/**", attach_auth)
         page = context.new_page()
 
         def shot(path: Path) -> None:

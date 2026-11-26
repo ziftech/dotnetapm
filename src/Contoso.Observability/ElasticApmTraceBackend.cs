@@ -26,8 +26,10 @@ namespace Contoso.Observability
                 return new SpanScope(span);
             }
 
-            var tx = tracer.StartTransaction(name, type);
-            return new TransactionScope(tx);
+            // Host agent / profiler owns the root transaction. Do not StartTransaction from
+            // the aspect — under dual-load (profiler + NuGet Elastic.Apm) that path can hit
+            // DiagnosticSource mismatches (ActivitySpanId.CopyTo) and take down the request.
+            return Noop.Instance;
         }
 
         public void CaptureException(Exception exception)
