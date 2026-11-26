@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="Elastic.Apm">
       <HintPath>..\..\packages\Elastic.Apm.1.34.7\lib\net462\Elastic.Apm.dll</HintPath>
@@ -48,15 +49,6 @@
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NLog.5.3.4\lib\net46\NLog.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\..\packages\log4net.2.0.17\lib\net45\log4net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -65,9 +57,8 @@
     <Compile Include="ActivitySourceTraceBackend.cs" />
     <Compile Include="TraceAspect.cs" />
     <Compile Include="TraceScope.cs" />
-    <Compile Include="ApmNLogLayoutRenderers.cs" />
-    <Compile Include="ApmLog4NetPatternConverters.cs" />
-    <Compile Include="CheckoutLabelsHttpModule.cs" />
+    <Compile Include="TraceSettings.cs" />
+    <Compile Include="ApmEntryPoint.cs" />
     <Compile Include="ApmBusiness.cs" />
   </ItemGroup>
   <ItemGroup>

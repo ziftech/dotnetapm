@@ -109,6 +109,10 @@
       <Project>{A5555555-5555-5555-5555-555555555555}</Project>
       <Name>Contoso.Observability</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Contoso.Observability.NLog\Contoso.Observability.NLog.csproj">
+      <Project>{A9999999-9999-9999-9999-999999999999}</Project>
+      <Name>Contoso.Observability.NLog</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Contoso.Shipments.Business\Contoso.Shipments.Business.csproj">
       <Project>{A1111111-1111-1111-1111-111111111111}</Project>
       <Name>Contoso.Shipments.Business</Name>
