@@ -4,8 +4,8 @@
   "setup": {
     "ShipmentsWeb": "SharedPool + Elastic APM profiler 1.34.7 + Fody ElasticApmTraceBackend \u2192 APM intake",
     "TrackingApi-EDOT": "TrackingEdotPool (COR profiling disabled) + Elastic.OpenTelemetry 1.7.0 + AspNet TelemetryHttpModule + ActivitySourceTraceBackend \u2192 Managed OTLP ingest",
-    "otlp_endpoint": "https://apm-yk-f7bd37.ingest.europe-west4.gcp.elastic.cloud",
-    "apm_endpoint": "https://apm-yk-f7bd37.apm.europe-west4.gcp.elastic.cloud:443"
+    "otlp_endpoint": "<redacted-project-url>",
+    "apm_endpoint": "<redacted-project-url>"
   },
   "sides": {
     "ShipmentsWeb": {
