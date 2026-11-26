@@ -18,3 +18,6 @@ artifacts/
 samples/**/packages/
 samples/**/bin/
 samples/**/obj/
+
+# Local nuget bootstrap
+nuget.exe
