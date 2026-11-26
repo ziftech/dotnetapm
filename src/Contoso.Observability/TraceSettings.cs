@@ -16,6 +16,14 @@ namespace Contoso.Observability
 
         public static bool Enabled => Cached.Value.Enabled;
 
+        /// <summary>True when any woven TraceAttribute has StartTransactions=true (workers).</summary>
+        public static bool StartTransactions { get; private set; }
+
+        internal static void ObserveStartTransactions(bool enabled)
+        {
+            if (enabled) StartTransactions = true;
+        }
+
         public static bool IsExcluded(string typeDotMethod)
         {
             var exclude = Cached.Value.Exclude;

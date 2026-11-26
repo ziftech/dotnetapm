@@ -58,6 +58,7 @@
     <Compile Include="TraceAspect.cs" />
     <Compile Include="TraceScope.cs" />
     <Compile Include="TraceSettings.cs" />
+    <Compile Include="ExceptionCapture.cs" />
     <Compile Include="ApmEntryPoint.cs" />
     <Compile Include="ApmBusiness.cs" />
   </ItemGroup>

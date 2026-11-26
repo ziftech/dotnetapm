@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 using Elastic.Apm;
 using Elastic.Apm.Api;
 
@@ -26,9 +25,16 @@ namespace Contoso.Observability
                 return new SpanScope(span);
             }
 
+            // Opt-in root transaction for workers/services (ContosoTraceStartTransactions=true).
+            if (TraceSettings.StartTransactions)
+            {
+                var tx = tracer.StartTransaction(name, type);
+                return new TransactionScope(tx);
+            }
+
             // Host agent / profiler owns the root transaction. Do not StartTransaction from
-            // the aspect — under dual-load (profiler + NuGet Elastic.Apm) that path can hit
-            // DiagnosticSource mismatches (ActivitySpanId.CopyTo) and take down the request.
+            // the aspect by default — under dual-load that path can hit DiagnosticSource
+            // mismatches (ActivitySpanId.CopyTo) and take down the request.
             return Noop.Instance;
         }
 
@@ -47,6 +53,21 @@ namespace Contoso.Observability
                 return;
             }
             tracer?.CaptureException(exception);
+        }
+
+        public void SetLabel(string key, string value)
+        {
+            if (string.IsNullOrEmpty(key) || value == null) return;
+            var tracer = Agent.Tracer;
+            if (tracer?.CurrentSpan != null)
+            {
+                tracer.CurrentSpan.SetLabel(key, value);
+                return;
+            }
+            if (tracer?.CurrentTransaction != null)
+            {
+                tracer.CurrentTransaction.SetLabel(key, value);
+            }
         }
 
         private sealed class SpanScope : IDisposable

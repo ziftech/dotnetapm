@@ -22,9 +22,22 @@ namespace Contoso.Observability
         public void CaptureException(Exception exception)
         {
             if (Activity.Current == null || exception == null) return;
-            Activity.Current.SetTag("error", "true");
-            Activity.Current.SetTag("exception.type", exception.GetType().FullName);
-            Activity.Current.SetTag("exception.message", exception.Message);
+            var activity = Activity.Current;
+            activity.SetStatus(ActivityStatusCode.Error, exception.Message);
+            activity.AddEvent(new ActivityEvent(
+                "exception",
+                tags: new ActivityTagsCollection
+                {
+                    { "exception.type", exception.GetType().FullName },
+                    { "exception.message", exception.Message },
+                    { "exception.stacktrace", exception.StackTrace ?? string.Empty }
+                }));
+        }
+
+        public void SetLabel(string key, string value)
+        {
+            if (Activity.Current == null || string.IsNullOrEmpty(key) || value == null) return;
+            Activity.Current.SetTag(key, value);
         }
 
         private sealed class Noop : IDisposable
