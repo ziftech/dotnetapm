@@ -10,9 +10,15 @@ if (-not (Test-Path "$root\Contoso.Shipments.sln")) { throw "Run from repo with 
 if (-not $ArtifactsDir) { $ArtifactsDir = Join-Path $root 'artifacts' }
 
 $nuget = Join-Path $root 'nuget.exe'
-# Lab image ships an old nuget.exe that rejects modern nuspec schema — always use latest beside the repo.
-$bootstrap = 'C:\lab\nuget-latest.exe'
-if (-not (Test-Path $bootstrap)) {
+# Lab image ships an old nuget.exe that rejects modern nuspec schema — prefer a cached modern binary.
+$bootstrapCandidates = @(
+  'C:\lab\nuget-latest.exe',
+  (Join-Path $env:TEMP 'nuget-latest-6.11.1.exe')
+)
+$bootstrap = $bootstrapCandidates | Where-Object { $_ -and (Test-Path $_) } | Select-Object -First 1
+if (-not $bootstrap) {
+  $bootstrap = Join-Path $env:TEMP 'nuget-latest-6.11.1.exe'
+  New-Item -ItemType Directory -Force -Path (Split-Path $bootstrap) | Out-Null
   Invoke-WebRequest 'https://dist.nuget.org/win-x86-commandline/v6.11.1/nuget.exe' -OutFile $bootstrap -UseBasicParsing
 }
 Copy-Item $bootstrap $nuget -Force

@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-pack-verify:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore solution
+        shell: pwsh
+        run: |
+          $nuget = Join-Path $env:RUNNER_TEMP 'nuget.exe'
+          Invoke-WebRequest 'https://dist.nuget.org/win-x86-commandline/v6.11.1/nuget.exe' -OutFile $nuget -UseBasicParsing
+          & $nuget restore Contoso.Shipments.sln -NonInteractive
+          if ($LASTEXITCODE -ne 0) { throw 'nuget restore failed' }
+
+      - name: Build solution
+        shell: pwsh
+        run: |
+          msbuild Contoso.Shipments.sln /p:Configuration=Release /p:Platform="Any CPU" /m /v:m
+          if ($LASTEXITCODE -ne 0) { throw 'msbuild failed' }
+
+      - name: Tests
+        shell: pwsh
+        run: |
+          $testProjects = Get-ChildItem -Recurse -Filter '*Tests*.csproj' -ErrorAction SilentlyContinue
+          if (-not $testProjects) {
+            Write-Host 'No test projects found; skipping.'
+            exit 0
+          }
+          foreach ($proj in $testProjects) {
+            & dotnet test $proj.FullName -c Release --no-restore
+            if ($LASTEXITCODE -ne 0) { throw "tests failed for $($proj.Name)" }
+          }
+
+      - name: Pack and verify samples
+        shell: pwsh
+        run: |
+          ./scripts/Pack-And-Verify.ps1 -Configuration Release
+          if ($LASTEXITCODE -ne 0) { throw 'Pack-And-Verify failed' }
+
+      - name: Upload nupkgs
+        uses: actions/upload-artifact@v4
+        with:
+          name: contoso-observability-nupkgs
+          path: artifacts/*.nupkg
+          if-no-files-found: error
