@@ -28,7 +28,6 @@
       <_ContosoGenLines Include="// &lt;auto-generated /&gt;" />
       <_ContosoGenLines Include="using Contoso.Observability;" />
       <_ContosoGenLines Include="using MethodBoundaryAspect.Fody.Attributes;" />
-      <_ContosoGenLines Include="" />
       <_ContosoGenLines Include="[assembly: Trace(NamespaceFilter = @&quot;$(_ContosoNs)&quot;, TypeNameFilter = @&quot;$(_ContosoTy)&quot;, MethodNameFilter = @&quot;$(_ContosoMe)&quot;, StartTransactions = $(_ContosoStart), AttributeTargetMemberAttributes = MulticastAttributes.$(_ContosoVis))]" />
     </ItemGroup>
 
@@ -37,7 +36,6 @@
       <_ContosoGenLines Include="' &lt;auto-generated /&gt;" />
       <_ContosoGenLines Include="Imports Contoso.Observability" />
       <_ContosoGenLines Include="Imports MethodBoundaryAspect.Fody.Attributes" />
-      <_ContosoGenLines Include="" />
       <_ContosoGenLines Include="&lt;Assembly: Trace(NamespaceFilter:=&quot;$(_ContosoNs)&quot;, TypeNameFilter:=&quot;$(_ContosoTy)&quot;, MethodNameFilter:=&quot;$(_ContosoMe)&quot;, StartTransactions:=$(_ContosoStart), AttributeTargetMemberAttributes:=MulticastAttributes.$(_ContosoVis))&gt;" />
     </ItemGroup>
 
