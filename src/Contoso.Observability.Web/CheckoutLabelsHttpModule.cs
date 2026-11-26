@@ -8,6 +8,7 @@ namespace Contoso.Observability
     /// Sets Contoso checkout business labels from the HTTP request (and optional
     /// HttpContext.Items["quote_price"]) without touching Global.asax or controllers.
     /// Register only in Web.config under system.webServer/modules.
+    /// Phase 3 replaces this with the generic ApmContextHttpModule.
     /// </summary>
     public sealed class CheckoutLabelsHttpModule : IHttpModule
     {

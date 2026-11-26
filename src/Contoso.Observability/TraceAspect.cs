@@ -17,10 +17,13 @@ namespace Contoso.Observability
         public override void OnEntry(MethodExecutionArgs args)
         {
             if (args.Method == null) return;
+            if (!TraceSettings.Enabled) return;
             if (ShouldSkip(args.Method)) return;
 
             var typeName = args.Method.DeclaringType != null ? args.Method.DeclaringType.Name : "Unknown";
             var name = typeName + "." + args.Method.Name;
+            if (TraceSettings.IsExcluded(name)) return;
+
             var scope = TraceBackends.Current.StartSpanOrTransaction(name, "app", "business");
             args.MethodExecutionTag = scope;
         }

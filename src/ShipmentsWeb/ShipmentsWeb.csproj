@@ -117,6 +117,14 @@
       <Project>{A5555555-5555-5555-5555-555555555555}</Project>
       <Name>Contoso.Observability</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Contoso.Observability.Web\Contoso.Observability.Web.csproj">
+      <Project>{A7777777-7777-7777-7777-777777777777}</Project>
+      <Name>Contoso.Observability.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Contoso.Observability.Log4Net\Contoso.Observability.Log4Net.csproj">
+      <Project>{A8888888-8888-8888-8888-888888888888}</Project>
+      <Name>Contoso.Observability.Log4Net</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Contoso.Shipments.Business\Contoso.Shipments.Business.csproj">
       <Project>{A1111111-1111-1111-1111-111111111111}</Project>
       <Name>Contoso.Shipments.Business</Name>
