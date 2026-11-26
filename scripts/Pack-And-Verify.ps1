@@ -102,7 +102,7 @@ function Assert-Woven([string]$Dll, [string]$TypeName, [string[]]$MustHaveMethod
     $type = $asm.GetType($TypeName)
     if (-not $type) { throw "type $TypeName not found in $Dll" }
 
-    function script:Get-IlLen([Reflection.MethodInfo]$mi) {
+    function script:Get-IlLen([Reflection.MethodBase]$mi) {
       if (-not $mi) { return -1 }
       $body = $mi.GetMethodBody()
       if (-not $body) { return -1 }
